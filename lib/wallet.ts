@@ -30,7 +30,7 @@ export function paiseToRupees(value: number) {
 
 export function assertTopUpAmount(amountPaise: number) {
   if (!Number.isInteger(amountPaise) || amountPaise < WALLET_LIMITS.minTopUpPaise || amountPaise > WALLET_LIMITS.maxTopUpPaise) {
-    throw new Error("Wallet top-ups must be between ₹10 and ₹2,000.");
+    throw new Error("Wallet top-ups must be between ৳10 and ৳2,000.");
   }
 }
 
@@ -137,7 +137,7 @@ export async function assertDailyFundingCapacity(userId: string, amountPaise: nu
 
 export async function debitWalletForGeneration(userId: string, referenceId: string) {
   await reserveWalletFunds({ userId, amountPaise: WALLET_LIMITS.tryOnCostPaise, referenceType: "try_on_generation", referenceId });
-  return db.transaction((tx) => consumeWalletReservation(tx, { referenceType: "try_on_generation", referenceId, ledgerType: "generation", note: "XILAR virtual try-on" }));
+  return db.transaction((tx) => consumeWalletReservation(tx, { referenceType: "try_on_generation", referenceId, ledgerType: "generation", note: "BD Beauty virtual try-on" }));
 }
 
 export async function reverseGenerationCharge(userId: string, referenceId: string) {

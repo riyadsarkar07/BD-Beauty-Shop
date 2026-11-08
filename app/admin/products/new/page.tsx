@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { createProduct, type ProductInput } from "@/lib/actions/admin";
-import { PRODUCT_CATEGORIES, PRODUCT_CATEGORY_LABELS, isWaistSizedCategory } from "@/lib/product-categories";
+import { PRODUCT_CATEGORIES, PRODUCT_CATEGORY_LABELS } from "@/lib/product-categories";
 import { Loader2, Plus, X, Upload } from "lucide-react";
 import Image from "next/image";
 
@@ -21,8 +21,7 @@ const genders = [
   { value: "unisex", label: "Unisex" },
 ];
 
-const defaultSizes = ["S", "M", "L", "XL", "XXL"];
-const numberSizes = ["26", "28", "30", "32", "34"];
+const defaultSizes = ["One Size"];
 
 export default function NewProductPage() {
   const router = useRouter();
@@ -40,11 +39,11 @@ export default function NewProductPage() {
     mrp: "",
     sellingPrice: "",
     maxBargainDiscount: "",
-    category: "tshirt" as ProductInput["category"],
+    category: "skincare" as ProductInput["category"],
     gender: "unisex" as ProductInput["gender"],
     stock: 0,
-    fabric: "",
-    gsm: 0,
+    ingredients: "",
+    volume: 0,
     isNew: true,
     isFeatured: false,
     isPremium: false,
@@ -153,8 +152,8 @@ export default function NewProductPage() {
         colors: effectiveColors,
         tags,
         variants,
-        fabric: isAccessory ? null : (formData.fabric || null),
-        gsm: isAccessory ? null : (formData.gsm || null),
+        ingredients: isAccessory ? null : (formData.ingredients || null),
+        volume: isAccessory ? null : (formData.volume || null),
       };
 
       await createProduct(productData);
@@ -245,9 +244,7 @@ export default function NewProductPage() {
                   value={formData.category}
                   onChange={(e) => {
                     const category = e.target.value as ProductInput["category"];
-                    if (isWaistSizedCategory(category) !== isWaistSizedCategory(formData.category)) {
-                      setSizes(isWaistSizedCategory(category) ? [...numberSizes] : ["S", "M", "L", "XL"]);
-                    }
+                    setSizes([...defaultSizes]);
                     setFormData((prev) => ({
                       ...prev,
                       category,
@@ -301,7 +298,7 @@ export default function NewProductPage() {
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium">MRP (₹) *</label>
+                <label className="text-sm font-medium">MRP (৳) *</label>
                 <input
                   type="number"
                   required
@@ -314,7 +311,7 @@ export default function NewProductPage() {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium">Selling Price (₹) *</label>
+                <label className="text-sm font-medium">Selling Price (৳) *</label>
                 <input
                   type="number"
                   required
@@ -327,7 +324,7 @@ export default function NewProductPage() {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium">Max Bargain Discount (₹)</label>
+                <label className="text-sm font-medium">Max Bargain Discount (৳)</label>
                 <input
                   type="number"
                   min="0"
@@ -455,24 +452,24 @@ export default function NewProductPage() {
             <>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium">Fabric</label>
+                <label className="text-sm font-medium">Ingredients</label>
                 <input
                   type="text"
-                  value={formData.fabric}
-                  onChange={(e) => setFormData({ ...formData, fabric: e.target.value })}
+                  value={formData.ingredients}
+                  onChange={(e) => setFormData({ ...formData, ingredients: e.target.value })}
                   className="w-full px-3 py-2 border rounded-lg bg-background"
-                  placeholder="100% Premium Cotton"
+                  placeholder="Aqua, Glycerin, Niacinamide..."
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium">GSM</label>
+                <label className="text-sm font-medium">Volume (ml)</label>
                 <input
                   type="number"
                   min="0"
-                  value={formData.gsm || ""}
-                  onChange={(e) => setFormData({ ...formData, gsm: parseInt(e.target.value) || 0 })}
+                  value={formData.volume || ""}
+                  onChange={(e) => setFormData({ ...formData, volume: parseInt(e.target.value) || 0 })}
                   className="w-full px-3 py-2 border rounded-lg bg-background"
-                  placeholder="240"
+                  placeholder="100"
                 />
               </div>
             </div>
@@ -481,7 +478,7 @@ export default function NewProductPage() {
             <div className="space-y-2">
               <label className="text-sm font-medium">Sizes</label>
               <div className="flex flex-wrap gap-2">
-                {(isWaistSizedCategory(formData.category) ? numberSizes : defaultSizes).map((size) => (
+                {defaultSizes.map((size) => (
                   <button
                     key={size}
                     type="button"
@@ -619,7 +616,7 @@ export default function NewProductPage() {
                   value={newFeature}
                   onChange={(e) => setNewFeature(e.target.value)}
                   className="flex-1 px-3 py-2 border rounded-lg bg-background"
-                  placeholder="Pre-shrunk fabric"
+                  placeholder="Dermatologist tested"
                 />
                 <Button
                   type="button"

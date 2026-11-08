@@ -33,7 +33,7 @@ export function AdminDashboardClient({ initialStats }: { initialStats: Dashboard
   const statsItems = [
     {
       label: "Revenue Delivered",
-      value: `₹${stats.totalRevenue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+      value: `৳${stats.totalRevenue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
       description: timeframe === "all" ? "Delivered orders all-time" : `Delivered in last ${timeframe === "7d" ? "7" : "30"} days`,
       icon: IndianRupee,
       code: "REV_DELIV"
@@ -91,7 +91,7 @@ export function AdminDashboardClient({ initialStats }: { initialStats: Dashboard
           <div>
             <div className="mb-2">
               <span className="text-[10px] uppercase font-mono tracking-[0.3em] text-muted-foreground">
-                XILAR LEDGER // CORE ADMIN DESK
+                BD BEAUTY LEDGER // CORE ADMIN DESK
               </span>
             </div>
             <h1 className="text-5xl font-black uppercase tracking-tighter leading-none font-sans md:text-6xl">
@@ -290,7 +290,7 @@ export function AdminDashboardClient({ initialStats }: { initialStats: Dashboard
                         </span>
                       </td>
                       <td className="py-4 text-right font-serif text-sm tabular-nums text-foreground">
-                        ₹{order.total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        ৳{order.total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
                     </tr>
                   ))}

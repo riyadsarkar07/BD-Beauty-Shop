@@ -7,14 +7,14 @@ import { normalizeSiteUrl } from "@/lib/seo"
 export const metadata: Metadata = {
     title: "Store Policies — Exchange, Returns, Refunds & Shipping",
     description:
-        "Read XILAR policies on exchanges, returns, wallet refunds, and shipping.",
+        "Read BD Beauty Shop policies on exchanges, returns, wallet refunds, and shipping.",
     alternates: {
         canonical: "/policies",
     },
     openGraph: {
-        title: "Store Policies | XILAR",
+        title: "Store Policies | BD Beauty Shop",
         description:
-            "Read XILAR policies on exchanges, returns, refunds, and shipping. Free shipping above ₹999.",
+            "Read BD Beauty Shop policies on exchanges, returns, refunds, and shipping. Free shipping above ৳2,000.",
         url: "/policies",
     },
 }
@@ -37,13 +37,13 @@ export default function PoliciesPage() {
         },
         {
             title: "Refund Policy",
-            description: "Approved refunds are credited to your XILAR wallet.",
+            description: "Approved refunds are credited to your BD Beauty Shop wallet.",
             href: "/policies/refunds",
             icon: CreditCard,
         },
         {
             title: "Shipping Policy",
-            description: "Free shipping on orders above ₹999.",
+            description: "Free shipping on orders above ৳2,000.",
             href: "/policies/shipping",
             icon: Truck,
         },
@@ -60,20 +60,20 @@ export default function PoliciesPage() {
             <JsonLd
                 data={faqJsonLd([
                     {
-                        question: "What is XILAR's exchange policy?",
+                        question: "What is BD Beauty Shop's exchange policy?",
                         answer: "Exchanges are accepted within 48 hours of delivery for size or color issues only. Product must be unused with tags intact.",
                     },
                     {
-                        question: "Does XILAR accept returns?",
+                        question: "Does BD Beauty Shop accept returns?",
                         answer: "Returns are accepted only for defective or damaged products. An unboxing video is required as proof.",
                     },
                     {
-                        question: "How does XILAR handle refunds?",
-                        answer: "Approved refunds are credited at their exact value to your account-bound XILAR wallet. Wallet credit does not expire and cannot be withdrawn or transferred.",
+                        question: "How does BD Beauty Shop handle refunds?",
+                        answer: "Approved refunds are credited at their exact value to your account-bound BD Beauty Shop wallet. Wallet credit does not expire and cannot be withdrawn or transferred.",
                     },
                     {
-                        question: "What are XILAR's shipping charges?",
-                        answer: "Free shipping on orders above ₹999. Standard delivery is ₹99. Cash on Delivery is available with an additional ₹50 fee.",
+                        question: "What are BD Beauty Shop's shipping charges?",
+                        answer: "Free shipping on orders above ৳2,000. Dhaka metro delivery is ৳60 and outside Dhaka is ৳120. Cash on Delivery is available with no extra fee.",
                     },
                 ])}
             />
@@ -124,11 +124,11 @@ export default function PoliciesPage() {
                         </li>
                         <li className="flex items-start gap-2">
                             <span className="text-red-accent mt-0.5">·</span>
-                            <span><strong className="text-foreground">Refunds:</strong> <span className="text-muted-foreground">Issued to your XILAR wallet at the approved amount.</span></span>
+                            <span><strong className="text-foreground">Refunds:</strong> <span className="text-muted-foreground">Issued to your BD Beauty Shop wallet at the approved amount.</span></span>
                         </li>
                         <li className="flex items-start gap-2">
                             <span className="text-red-accent mt-0.5">·</span>
-                            <span><strong className="text-foreground">Shipping:</strong> <span className="text-muted-foreground">Free above ₹999, otherwise ₹99. COD available (+₹50 fee).</span></span>
+                            <span><strong className="text-foreground">Shipping:</strong> <span className="text-muted-foreground">Free above ৳2,000. Dhaka metro ৳60, outside Dhaka ৳120. COD available with no extra fee.</span></span>
                         </li>
                     </ul>
                 </div>

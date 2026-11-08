@@ -29,11 +29,11 @@ function escapeXml(value: string | number) {
 
 function price(value: string | number) {
   const numericValue = Number(value);
-  return `${Number.isFinite(numericValue) ? numericValue.toFixed(2) : "0.00"} INR`;
+  return `${Number.isFinite(numericValue) ? numericValue.toFixed(2) : "0.00"} BDT`;
 }
 
 function descriptionFor(product: MerchantFeedProduct) {
-  return product.description?.trim() || `Shop ${product.name} from XILAR.`;
+  return product.description?.trim() || `Shop ${product.name} from BD Beauty Shop.`;
 }
 
 export function buildGoogleMerchantFeed({ baseUrl, products }: MerchantFeedInput) {
@@ -59,7 +59,7 @@ export function buildGoogleMerchantFeed({ baseUrl, products }: MerchantFeedInput
       <g:brand>${SITE_NAME}</g:brand>
       <g:mpn>${escapeXml(product.slug)}</g:mpn>
       <g:product_type>${escapeXml(productTypeLabel(product.category))}</g:product_type>
-      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing</g:google_product_category>
+      <g:google_product_category>Health &amp; Beauty</g:google_product_category>
       <g:gender>${product.gender === "women" ? "female" : product.gender === "men" ? "male" : "unisex"}</g:gender>
       <g:shipping>
         <g:country>${SEO_SHIPPING.country}</g:country>
@@ -74,7 +74,7 @@ export function buildGoogleMerchantFeed({ baseUrl, products }: MerchantFeedInput
   <channel>
     <title>${SITE_NAME} product feed</title>
     <link>${escapeXml(siteUrl)}</link>
-    <description>Active XILAR product catalog for Google Merchant Center.</description>
+    <description>Active BD Beauty Shop product catalog for Google Merchant Center.</description>
     <lastBuildDate>${updated}</lastBuildDate>
 ${items.join("\n")}
   </channel>

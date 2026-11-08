@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import nextDynamic from "next/dynamic";
 import { Suspense } from "react";
 import { Hero } from "@/components/features/hero";
 import { ComboSection } from "@/components/features/combo-section";
@@ -17,35 +16,17 @@ import {
 } from "@/components/seo/structured-data";
 import { normalizeSiteUrl } from "@/lib/seo";
 
-const ShopTheReels = nextDynamic(() =>
-  import("@/components/features/shop-the-reels").then((mod) => mod.ShopTheReels),
-  {
-    loading: () => (
-      <section className="min-h-[560px] border-t border-border/60 bg-background px-6 py-16 md:min-h-[650px] md:px-12 md:py-24">
-        <div className="mx-auto max-w-7xl">
-          <div className="mx-auto h-8 w-64 animate-pulse bg-muted" />
-          <div className="mt-10 flex gap-4 overflow-hidden">
-            {[0, 1, 2].map((item) => (
-              <div key={item} className="aspect-[9/16] w-[245px] flex-none animate-pulse bg-muted md:w-[260px]" />
-            ))}
-          </div>
-        </div>
-      </section>
-    ),
-  }
-);
-
 export const metadata: Metadata = {
-  title: "Home | Premium Streetwear for Gen-Z",
+  title: "Home | Beauty, delivered across Bangladesh",
   description:
-    "Shop next-gen streetwear essentials, premium basics, oversized tees, cargos, and bold drops from XILAR. Free shipping above ₹999.",
+    "Shop skincare, makeup, haircare, fragrance, and wellness at BD Beauty Shop. Cash on Delivery nationwide. Free shipping above ৳2,000.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "XILAR | The Future Wear — Premium Streetwear India",
+    title: "BD Beauty Shop | Beauty, delivered across Bangladesh",
     description:
-      "Shop next-gen streetwear essentials, premium basics, oversized tees, cargos, and bold drops from XILAR. Free shipping above ₹999.",
+      "Shop skincare, makeup, haircare, fragrance, and wellness at BD Beauty Shop. Cash on Delivery nationwide. Free shipping above ৳2,000.",
     url: "/",
   },
 };
@@ -112,10 +93,10 @@ async function HomeMerchandisingSections() {
   return (
     <>
       <ProductGrid
-        title="Winter Collection"
+        title="Seasonal Care"
         categories={WINTER_CATEGORIES}
-        viewAllHref="/collections/winter"
-        viewAllLabel="Shop the winter collection"
+        viewAllHref="/shop/skincare"
+        viewAllLabel="Shop skincare"
         initialProducts={products}
         hideWhenEmpty
       />
@@ -131,7 +112,6 @@ async function HomeMerchandisingSections() {
         hideWhenEmpty
       />
       <DirectionalMarquee />
-      <ShopTheReels />
       <ProductGrid title="Accessories" fixedCategory="accessory" viewAllHref="/shop/accessories" initialProducts={products} />
       <Dec2024GalleryBand items={galleryBandItems} />
       <RealReviews />

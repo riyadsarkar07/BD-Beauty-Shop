@@ -105,11 +105,13 @@ export async function createProduct(data: ProductInput) {
         maxBargainDiscount: input.maxBargainDiscount || "0",
         category: input.category,
         gender: input.gender,
+        brand: input.brand ?? null,
+        sku: input.sku ?? null,
         tags: input.tags || [],
         stock: 0, // Will be computed from variants
         images: input.images || [],
-        fabric: input.fabric,
-        gsm: input.gsm,
+        ingredients: input.ingredients,
+        volume: input.volume,
         careInstructions: input.careInstructions || [],
         features: input.features || [],
         sizes: effectiveSizes,
@@ -186,8 +188,8 @@ export async function updateProduct(id: string, data: Partial<ProductInput>) {
 
   if (isAccessory) {
     productData.gender = "unisex";
-    productData.fabric = null;
-    productData.gsm = null;
+    productData.ingredients = null;
+    productData.volume = null;
     productData.sizes = [ACCESSORY_SIZE];
     productData.colors = [];
     productData.careInstructions = [];

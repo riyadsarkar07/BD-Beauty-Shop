@@ -1,6 +1,7 @@
-import { COD_FEE, FREE_SHIPPING_THRESHOLD, SHIPPING_FEE } from "../constants.ts";
+import { COD_FEE } from "../constants.ts";
+import { getDeliveryCharge } from "../bangladesh.ts";
 
-export type CheckoutPaymentMethod = "cod" | "upi" | "card" | "netbanking";
+export type CheckoutPaymentMethod = "cod" | "bkash" | "nagad" | "card";
 
 export type VerifiedCheckoutItem = {
   productId: string;
@@ -25,6 +26,7 @@ export type CheckoutQuote = {
   codFee: number;
   total: number;
   couponCode?: string;
+  district?: string;
 };
 
 export type BuildCheckoutQuoteInput = {
@@ -33,6 +35,7 @@ export type BuildCheckoutQuoteInput = {
   comboDiscount?: number;
   couponDiscount?: number;
   couponCode?: string | null;
+  district?: string | null;
 };
 
 const MONEY_PRECISION = 100;
@@ -80,7 +83,7 @@ export function buildCheckoutQuoteFromVerifiedItems(input: BuildCheckoutQuoteInp
 
   const maxDiscount = Math.max(0, subtotal - MIN_PAYABLE_TOTAL);
   const discount = Math.min(roundMoney(comboDiscount + couponDiscount), maxDiscount);
-  const shippingCost = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+  const shippingCost = getDeliveryCharge(input.district, subtotal);
   const codFee = input.paymentMethod === "cod" ? COD_FEE : 0;
   const total = roundMoney(subtotal + shippingCost + codFee - discount);
 
@@ -98,5 +101,6 @@ export function buildCheckoutQuoteFromVerifiedItems(input: BuildCheckoutQuoteInp
     codFee,
     total,
     couponCode: input.couponCode ? input.couponCode.toUpperCase() : undefined,
+    district: input.district ?? undefined,
   };
 }

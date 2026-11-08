@@ -7,12 +7,12 @@ import { normalizeSiteUrl } from "@/lib/seo"
 export const metadata: Metadata = {
     title: "Exchange Policy — Size & Color Exchanges Within 48 Hours",
     description:
-        "XILAR exchange policy: exchanges accepted within 48 hours of delivery for size or color issues only. Product must be unused with tags intact.",
+        "BD Beauty exchange policy: exchanges accepted within 48 hours of delivery for size or color issues only. Product must be unused with tags intact.",
     alternates: {
         canonical: "/policies/exchange",
     },
     openGraph: {
-        title: "Exchange Policy | XILAR",
+        title: "Exchange Policy | BD Beauty",
         description:
             "Exchanges accepted within 48 hours of delivery for size or color issues only. Product must be unused with tags intact.",
         url: "/policies/exchange",
@@ -105,7 +105,7 @@ export default function ExchangePolicyPage() {
                             Only <strong>one</strong> exchange attempt per order.
                         </p>
                         <p className="text-xs text-muted-foreground mt-2">
-                            If the size/color you want is unavailable, we&apos;ll issue XILAR wallet credit instead.
+                            If the size/color you want is unavailable, we&apos;ll issue BD Beauty wallet credit instead.
                         </p>
                     </div>
                 </section>
@@ -118,7 +118,7 @@ export default function ExchangePolicyPage() {
                             <span className="w-7 h-7 bg-red-accent text-white flex items-center justify-center text-xs font-semibold flex-shrink-0">1</span>
                             <div>
                                 <p className="font-medium text-sm">Contact support</p>
-                                <p className="text-xs text-muted-foreground">Email us at support@xilar.in within 48 hours of delivery</p>
+                                <p className="text-xs text-muted-foreground">Email us at hello@bdbeautyshop.com within 48 hours of delivery</p>
                             </div>
                         </div>
                         <div className="flex gap-4 p-4 border border-border/60">

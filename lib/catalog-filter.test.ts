@@ -12,7 +12,7 @@ function product(overrides: Partial<CatalogProduct>): CatalogProduct {
     sellingPrice: "999.00",
     mrp: "1299.00",
     maxBargainDiscount: "0",
-    category: "tshirt",
+    category: "skincare",
     gender: "unisex",
     isNew: false,
     isFeatured: false,
@@ -52,17 +52,15 @@ test("filterCatalogProducts narrows products by search query", () => {
 
 test("filterCatalogProducts keeps only winter categories for the winter collection", () => {
   const products = [
-    product({ id: "tee", category: "tshirt" }),
-    product({ id: "jacket", category: "jacket" }),
-    product({ id: "hoodie", category: "hoodie" }),
-    product({ id: "shacket", category: "shacket" }),
-    product({ id: "sweatshirt", category: "sweatshirt" }),
-    product({ id: "trousers", category: "trousers" }),
-    product({ id: "shorts", category: "shorts" }),
+    product({ id: "makeup", category: "makeup" }),
+    product({ id: "skincare", category: "skincare" }),
+    product({ id: "bodycare", category: "bodycare" }),
+    product({ id: "haircare", category: "haircare" }),
+    product({ id: "fragrance", category: "fragrance" }),
   ];
 
   assert.deepEqual(
     filterCatalogProducts(products, { categories: WINTER_CATEGORIES }).map((item) => item.id),
-    ["jacket", "hoodie", "shacket", "sweatshirt", "trousers"],
+    ["skincare", "bodycare", "haircare"],
   );
 });

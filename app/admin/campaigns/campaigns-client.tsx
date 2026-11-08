@@ -62,7 +62,7 @@ function audienceLabel(audience: Campaign["audience"]) {
     case "recentBuyers":
       return `Recent ${audience.days ?? RECENT_BUYER_DAYS}d`;
     case "highSpenders":
-      return `High spend ₹${audience.minimumSpend ?? DEFAULT_HIGH_SPENDER_MINIMUM}`;
+      return `High spend ৳${audience.minimumSpend ?? DEFAULT_HIGH_SPENDER_MINIMUM}`;
     case "buyers":
       return "Buyers";
     case "all":
@@ -279,7 +279,7 @@ export function AdminCampaignsClient({
     <div className="mx-auto max-w-7xl space-y-10 px-2 py-10 sm:px-4 md:py-14">
       <div className="border-b border-border/40 pb-7">
         <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-muted-foreground">
-          XILAR LEDGER // CAMPAIGN DESK
+          BD BEAUTY LEDGER // CAMPAIGN DESK
         </span>
         <div className="mt-3 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div>
@@ -404,7 +404,7 @@ export function AdminCampaignsClient({
                       <div className="min-w-0">
                         <p className="truncate text-sm font-semibold">{product.name}</p>
                         <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs opacity-70">
-                          <span>₹{product.sellingPrice}</span>
+                          <span>৳{product.sellingPrice}</span>
                           {product.isPremium && <span>Premium</span>}
                           {product.isFeatured && <span>Best seller</span>}
                           {product.isNew && <span>New</span>}

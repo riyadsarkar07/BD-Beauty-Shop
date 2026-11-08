@@ -1,18 +1,18 @@
 import Link from "next/link";
 import { ArrowRight, Instagram, Mail, Phone } from "lucide-react";
 import { PixelatedText } from "@/components/effects/pixelated-text";
-import { CONTACT_EMAIL, CONTACT_PHONE } from "@/lib/constants";
+import { CONTACT_EMAIL, CONTACT_FACEBOOK, CONTACT_PHONE, STORE_LOCALITY } from "@/lib/constants";
 
 const COPYRIGHT_YEAR = 2026;
 
 const shopLinks = [
   { href: "/shop", label: "Shop" },
-  { href: "/shop/men", label: "Men" },
-  { href: "/shop/women", label: "Women" },
+  { href: "/shop/skincare", label: "Skincare" },
+  { href: "/shop/makeup", label: "Makeup" },
+  { href: "/shop/haircare", label: "Haircare" },
+  { href: "/shop/fragrance", label: "Fragrance" },
+  { href: "/new", label: "New" },
   { href: "/shop/accessories", label: "Accessories" },
-  { href: "/new", label: "New Drop" },
-  { href: "/collections/premium", label: "Premium" },
-  { href: "/gallery", label: "Gallery" },
 ];
 
 const accountLinks = [
@@ -50,10 +50,10 @@ export function Footer() {
           <div className="flex min-w-0 flex-col justify-between gap-12">
             <div>
               <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.4em] text-muted-foreground">
-                The Future Wear
+                Beauty, delivered across Bangladesh
               </p>
               <PixelatedText
-                text="XILAR"
+                text="BD BEAUTY"
                 className="h-[clamp(8rem,24vw,22rem)] max-w-5xl"
                 align="left"
                 textClassName="text-left"
@@ -77,10 +77,10 @@ export function Footer() {
               </a>
               <a
                 className="group inline-flex h-16 w-16 items-center justify-center rounded-full border border-border transition-colors duration-300 hover:border-foreground/35 hover:text-foreground"
-                href="https://www.instagram.com/xilar.in"
+                href={CONTACT_FACEBOOK}
                 rel="noreferrer"
                 target="_blank"
-                aria-label="Instagram"
+                aria-label="Facebook"
               >
                 <Instagram className="h-7 w-7" />
               </a>
@@ -117,9 +117,9 @@ export function Footer() {
 
         <div className="mt-16 border-t border-border/70 pt-8">
           <div className="grid gap-3 text-[10px] uppercase tracking-[0.2em] text-muted-foreground sm:flex sm:items-center sm:justify-between">
-            <p>&copy; {COPYRIGHT_YEAR} XILAR. All rights reserved.</p>
+            <p>&copy; {COPYRIGHT_YEAR} BD Beauty Shop. All rights reserved.</p>
             <div className="flex items-center justify-between gap-5 sm:contents">
-              <p>Lucknow, India</p>
+              <p>{STORE_LOCALITY}, Bangladesh</p>
               <Link href="/gallery" className="transition-colors duration-300 hover:text-foreground">
                 Open Gallery
               </Link>

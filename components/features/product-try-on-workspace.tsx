@@ -48,15 +48,15 @@ type ProductTryOnWorkspaceProps = {
 /* ─── Constants ─── */
 
 const BODY_MODE_LABELS: Record<TryOnBodyMode, string> = {
-  upper: "Upper",
-  lower: "Lower",
+  upper: "Face",
+  lower: "Hands",
   full: "Full",
 };
 
 /* ─── Helpers ─── */
 
 function formatRunDate(value: string) {
-  return new Intl.DateTimeFormat("en-IN", {
+  return new Intl.DateTimeFormat("en-BD", {
     day: "2-digit",
     month: "short",
     hour: "2-digit",
@@ -171,7 +171,7 @@ export function ProductTryOnWorkspace({
 
   const selectedProductImage = product.images[productImageIndex] ?? product.images[0];
   const isUnsupported = requiredMode === "unsupported";
-  const downloadFileName = `xilar-${
+  const downloadFileName = `bdbeauty-${
     product.name
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
@@ -360,7 +360,7 @@ export function ProductTryOnWorkspace({
                         <>
                           <Image
                             src={filePreviewUrl}
-                            alt="Your body photo"
+                            alt="Your photo"
                             fill
                             sizes="(max-width: 1024px) 45vw, 28vw"
                             className="object-cover"
@@ -380,9 +380,9 @@ export function ProductTryOnWorkspace({
                           </p>
                           <p className="text-[10px] leading-snug text-muted-foreground/30">
                             {requiredMode === "upper"
-                              ? "Upper or full body"
+                              ? "Face or full photo"
                               : requiredMode === "lower"
-                                ? "Lower or full body"
+                                ? "Hands or full photo"
                                 : "Not available"}
                           </p>
                         </div>
@@ -548,8 +548,8 @@ export function ProductTryOnWorkspace({
           <div className="fixed inset-0 z-20 flex items-center justify-center bg-background/85 p-6 backdrop-blur-sm">
             <div className="w-full max-w-sm border border-red-accent/40 bg-background p-6 shadow-[10px_10px_0_rgba(0,0,0,0.18)]">
               <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-red-accent">Wallet required</p>
-              <h3 className="mt-3 font-display text-3xl leading-none">Add ₹7 to try it on.</h3>
-              <p className="mt-3 text-sm text-muted-foreground">Virtual try-ons are paid from your XILAR Wallet. Add funds securely, then return here to generate.</p>
+              <h3 className="mt-3 font-display text-3xl leading-none">Add ৳7 to try it on.</h3>
+              <p className="mt-3 text-sm text-muted-foreground">Virtual try-ons are paid from your store wallet. Add funds securely, then return here to generate.</p>
               <div className="mt-6 flex gap-3">
                 <Button variant="outline" className="rounded-none" onClick={() => setWalletRequired(false)}>Not now</Button>
                 <Button className="rounded-none" onClick={() => window.location.assign("/account/wallet")}>Open wallet</Button>

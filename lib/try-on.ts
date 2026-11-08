@@ -6,8 +6,8 @@ export const TRY_ON_BODY_MODES = ["upper", "lower", "full"] as const;
 export type TryOnBodyMode = (typeof TRY_ON_BODY_MODES)[number];
 export type RequiredTryOnMode = "upper" | "lower" | "unsupported";
 
-const TOP_CATEGORIES = new Set(["tshirt", "shirt", "hoodie", "jacket", "shacket", "sweatshirt"]);
-const BOTTOM_CATEGORIES = new Set(["jeans", "cargo", "jogger", "shorts", "trousers"]);
+const TOP_CATEGORIES = new Set(["makeup", "skincare", "fragrance"]);
+const BOTTOM_CATEGORIES = new Set(["nailcare", "bodycare"]);
 const SUPPORTED_TRY_ON_IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
 
 export function getRequiredTryOnMode(category: string): RequiredTryOnMode {
@@ -55,15 +55,15 @@ export function buildTryOnPrompt({
   category: string;
   requiredMode: RequiredTryOnMode;
 }) {
-  const garmentArea = requiredMode === "lower" ? "lower-body garment" : "upper-body garment";
+  const targetArea = requiredMode === "lower" ? "hands and nails" : "face and the indicated area";
 
   return [
-    `Create a realistic virtual try-on preview for the product "${productName}" (${category}).`,
-    "Use the first reference image as the person/body photo and the second reference image as the garment/product reference.",
-    "Preserve the person, face, pose, body proportions, camera angle, lighting direction, and background from the body photo.",
-    `Replace only the ${garmentArea} with the selected product, matching fabric texture, print placement, color, seams, drape, and fit as faithfully as possible.`,
-    "Keep skin, hair, hands, shoes, accessories, and all non-target clothing unchanged unless they are naturally occluded by the product.",
-    "Do not create an editorial campaign image, do not change the person identity, and do not invent extra logos or text.",
+    `Create a realistic beauty preview for the product "${productName}" (${category}).`,
+    "Use the first reference image as the person photo and the second reference image as the product reference.",
+    "Preserve the person, face, pose, camera angle, lighting direction, and background from the photo.",
+    `Apply only the selected beauty product to the ${targetArea}, matching color, finish, and texture as faithfully as possible.`,
+    "Keep skin tone, hair, clothing, and background unchanged unless naturally covered by the product.",
+    "Do not invent extra logos, ingredients, claims, or product details.",
   ].join(" ");
 }
 

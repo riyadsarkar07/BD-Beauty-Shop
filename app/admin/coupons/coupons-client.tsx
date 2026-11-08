@@ -92,11 +92,11 @@ export function AdminCouponsClient({ initialCoupons }: { initialCoupons: AdminCo
                       {coupon.discountType === "percentage" ? (
                         <>
                           {coupon.discountValue}%
-                          {coupon.maxDiscount && <span className="text-muted-foreground text-sm"> (max ₹{coupon.maxDiscount})</span>}
+                          {coupon.maxDiscount && <span className="text-muted-foreground text-sm"> (max ৳{coupon.maxDiscount})</span>}
                         </>
-                      ) : <>₹{coupon.discountValue}</>}
+                      ) : <>৳{coupon.discountValue}</>}
                     </td>
-                    <td className="p-4 hidden sm:table-cell">{coupon.minOrderValue ? `₹${coupon.minOrderValue}` : "-"}</td>
+                    <td className="p-4 hidden sm:table-cell">{coupon.minOrderValue ? `৳${coupon.minOrderValue}` : "-"}</td>
                     <td className="p-4 hidden sm:table-cell">{coupon.usedCount}{coupon.maxUses && ` / ${coupon.maxUses}`}</td>
                     <td className="p-4 hidden md:table-cell">{coupon.validUntil ? new Date(coupon.validUntil).toLocaleDateString() : "No expiry"}</td>
                     <td className="p-4 hidden sm:table-cell">

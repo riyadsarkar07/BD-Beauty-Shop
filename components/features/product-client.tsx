@@ -23,14 +23,12 @@ import { getRequiredTryOnMode } from "@/lib/try-on"
 import type { ProductDetails } from "@/lib/product-detail"
 import { ViewportPrefetchLink } from "@/components/ui/viewport-prefetch-link"
 import { ProductAssistant } from "@/components/features/bargain-ai"
+import { formatMoney } from "@/lib/money"
 
 type Product = ProductDetails
 
-const NUMBER_SIZE_CATEGORIES = ["jogger", "jeans", "cargo", "shorts"]
-
 function formatPrice(value: string | number) {
-    const amount = typeof value === "number" ? value : Number(value)
-    return `₹${amount.toLocaleString("en-IN")}`
+    return formatMoney(value)
 }
 
 function seededNumber(seed: string) {
@@ -206,7 +204,7 @@ export function ProductClient({ id, initialProduct }: { id: string; initialProdu
     // Helper: check if a color is available for any size
     const isColorAvailable = (colorName: string): boolean => {
         if (!product?.variants || product.variants.length === 0) return (product?.stock ?? 0) > 0
-        const resolvedSize = selectedSize || (product?.category === "accessory" ? "One Size" : null)
+        const resolvedSize = selectedSize || (product?.sizes?.includes("One Size") || product?.category === "accessory" ? "One Size" : null)
         if (resolvedSize) {
             return getVariantStock(resolvedSize, colorName) > 0
         }
@@ -216,7 +214,7 @@ export function ProductClient({ id, initialProduct }: { id: string; initialProdu
 
     // Currently selected variant stock
     const selectedVariantStock = (): number | null => {
-        const resolvedSize = selectedSize || (product?.category === "accessory" ? "One Size" : null)
+        const resolvedSize = selectedSize || (product?.sizes?.includes("One Size") || product?.category === "accessory" ? "One Size" : null)
         if (!resolvedSize) return null
         if ((product?.colors || []).length > 0 && !selectedColor) return null
         const color = selectedColor || null
@@ -270,21 +268,26 @@ export function ProductClient({ id, initialProduct }: { id: string; initialProdu
     }
 
     const isAccessory = product.category === "accessory"
-    const effectiveSelectedSize = selectedSize || (isAccessory ? "One Size" : null)
+    const productSizes = product.sizes || []
+    const singleSizedProduct =
+        isAccessory ||
+        productSizes.length === 0 ||
+        productSizes.every((size) => size === "One Size")
+    const effectiveSelectedSize = selectedSize || (singleSizedProduct ? (productSizes[0] || "One Size") : null)
+    const shadeLabel = product.category === "makeup" || product.category === "nailcare" ? "Select shade" : "Select color"
 
     const price = parseFloat(product.sellingPrice)
     const mrp = parseFloat(product.mrp)
     const hasDiscount = mrp > price
-    const displayPrice = `₹${price.toLocaleString("en-IN")}`
-    const displayMrp = `₹${mrp.toLocaleString("en-IN")}`
-    const productSizes = product.sizes || []
+    const displayPrice = formatPrice(price)
+    const displayMrp = formatPrice(mrp)
     const productAssistantContext = {
         id: product.id,
         name: product.name,
         mrp,
         sellingPrice: price,
         category: product.category,
-        fabric: product.fabric ?? undefined,
+        ingredients: product.ingredients ?? undefined,
         features: product.features ?? undefined,
         sizes: product.sizes ?? undefined,
         description: product.description ?? undefined,
@@ -300,8 +303,8 @@ export function ProductClient({ id, initialProduct }: { id: string; initialProdu
     const realRemainingStock = currentStock ?? product.stock
     const middleImageIndex = Math.floor(images.length / 2)
     const spotlightAttributes = [
-        product.fabric ? `Fabric: ${product.fabric}` : null,
-        product.gsm ? `${product.gsm} GSM` : null,
+        product.ingredients ? `Ingredients: ${product.ingredients}` : null,
+        product.volume ? `${product.volume} ml` : null,
         ...productFeatures.slice(0, 2),
     ].filter(Boolean) as string[]
     const shouldShowSpotlight = selectedImage === middleImageIndex && spotlightAttributes.length > 0
@@ -326,7 +329,7 @@ export function ProductClient({ id, initialProduct }: { id: string; initialProdu
 
     const handleAddToCart = () => {
         if (!effectiveSelectedSize) return
-        if (!isAccessory && productColors.length > 0 && !selectedColor) return
+        if (productColors.length > 0 && !selectedColor) return
         const stock = currentStock
         if (stock !== null && stock <= 0) return
         if (product.stock === 0) return
@@ -547,16 +550,16 @@ export function ProductClient({ id, initialProduct }: { id: string; initialProdu
                         {product.description && (
                             <p className="text-sm text-muted-foreground leading-relaxed max-w-md">{product.description}</p>
                         )}
-                        {(product.fabric || product.gsm) && (
+                        {(product.ingredients || product.volume) && (
                             <div className="space-y-1 text-xs text-muted-foreground">
-                                {product.fabric && (
+                                {product.ingredients && (
                                     <p>
-                                        <span className="font-medium text-foreground">Fabric:</span> {product.fabric}
+                                        <span className="font-medium text-foreground">Ingredients:</span> {product.ingredients}
                                     </p>
                                 )}
-                                {product.gsm && (
+                                {product.volume && (
                                     <p>
-                                        <span className="font-medium text-foreground">GSM:</span> {product.gsm}
+                                        <span className="font-medium text-foreground">Volume (ml):</span> {product.volume}
                                     </p>
                                 )}
                             </div>
@@ -589,18 +592,15 @@ export function ProductClient({ id, initialProduct }: { id: string; initialProdu
                     </div>
 
                     <div className="space-y-6">
-                        {/* Size Selection */}
-                        {!isAccessory && (
+                        {/* Size Selection (only when a product genuinely has multiple sizes) */}
+                        {!singleSizedProduct && (
                             <div className="space-y-3">
                                 <label className="text-[10px] font-semibold uppercase tracking-[0.2em] flex items-center justify-between">
                                     <span>Select size</span>
                                     {!selectedSize && <span className="text-destructive font-normal normal-case text-[10px]">Required</span>}
                                 </label>
                                 <div className="flex gap-2 flex-wrap">
-                                    {(NUMBER_SIZE_CATEGORIES.includes(product.category)
-                                        ? productSizes.filter((s) => /^\d+$/.test(s))
-                                        : productSizes
-                                    ).map((size) => {
+                                    {productSizes.map((size) => {
                                         const available = isSizeAvailable(size)
                                         return (
                                             <Button
@@ -634,7 +634,7 @@ export function ProductClient({ id, initialProduct }: { id: string; initialProdu
                         {productColors.length > 0 && (
                             <div className="space-y-3">
                                 <label className="text-[10px] font-semibold uppercase tracking-[0.2em] flex items-center justify-between">
-                                    <span>Select color</span>
+                                    <span>{shadeLabel}</span>
                                     {selectedColor && <span className="text-muted-foreground font-normal normal-case text-[10px]">{selectedColor}</span>}
                                 </label>
                                 <div className="flex gap-3 flex-wrap">
@@ -685,7 +685,7 @@ export function ProductClient({ id, initialProduct }: { id: string; initialProdu
                         {currentStock === null && product.stock === 0 && (
                             <p className="text-xs text-red-500 font-medium">Out of stock</p>
                         )}
-                        {currentStock === null && product.stock > 0 && !isAccessory && (
+                        {currentStock === null && product.stock > 0 && !singleSizedProduct && (
                             <p className="text-xs text-muted-foreground">Select a size to check availability</p>
                         )}
 
@@ -696,7 +696,7 @@ export function ProductClient({ id, initialProduct }: { id: string; initialProdu
                                     size="lg"
                                     className="flex-1 h-13 rounded-none text-xs uppercase tracking-[0.2em] font-semibold disabled:cursor-not-allowed disabled:opacity-40"
                                     onClick={handleAddToCart}
-                                    disabled={!effectiveSelectedSize || (!isAccessory && productColors.length > 0 && !selectedColor) || product.stock === 0 || (currentStock !== null && currentStock === 0)}
+                                    disabled={!effectiveSelectedSize || (productColors.length > 0 && !selectedColor) || product.stock === 0 || (currentStock !== null && currentStock === 0)}
                                 >
                                     {product.stock === 0 ? (
                                         "Out of stock"
@@ -724,7 +724,7 @@ export function ProductClient({ id, initialProduct }: { id: string; initialProdu
                             {wishlistError && (
                                 <p className="text-[11px] leading-relaxed text-destructive">{wishlistError}</p>
                             )}
-                            <p className="text-[10px] text-center text-muted-foreground uppercase tracking-[0.15em]">Free shipping on orders above ₹999</p>
+                            <p className="text-[10px] text-center text-muted-foreground uppercase tracking-[0.15em]">Free shipping on orders above ৳2,000</p>
                         </div>
 
                         {/* Features */}
@@ -803,9 +803,9 @@ export function ProductClient({ id, initialProduct }: { id: string; initialProdu
                                     <div className="space-y-1">
                                         <p className="text-xs font-medium line-clamp-1 uppercase">{related.name}</p>
                                         <div className="flex max-w-full flex-nowrap items-center gap-1.5 whitespace-nowrap">
-                                            <p className="text-xs font-semibold tabular-nums">₹{Number(related.sellingPrice).toLocaleString("en-IN")}</p>
+                                            <p className="text-xs font-semibold tabular-nums">{formatPrice(related.sellingPrice)}</p>
                                             {Number(related.mrp) > Number(related.sellingPrice) && (
-                                                <p className="truncate text-[10px] text-muted-foreground line-through tabular-nums">₹{Number(related.mrp).toLocaleString("en-IN")}</p>
+                                                <p className="truncate text-[10px] text-muted-foreground line-through tabular-nums">{formatPrice(related.mrp)}</p>
                                             )}
                                             {relatedDiscountPercent(related) !== null && (
                                                 <span className="flex-none bg-foreground px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.08em] text-background">

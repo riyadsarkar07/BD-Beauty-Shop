@@ -56,7 +56,7 @@ export function AdminOrdersClient({ initialOrders }: { initialOrders: AdminOrder
                     )}
                   </td>
                   <td className="p-4">
-                    <div className="font-medium">₹{order.total}</div>
+                    <div className="font-medium">৳{order.total}</div>
                     {order.couponCode && <div className="text-[10px] text-muted-foreground">Coupon: {order.couponCode}</div>}
                   </td>
                   <td className="p-4 hidden sm:table-cell">

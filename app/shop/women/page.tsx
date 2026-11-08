@@ -8,16 +8,16 @@ import { getCatalogProducts } from "@/lib/product-catalog"
 import { normalizeSiteUrl } from "@/lib/seo"
 
 export const metadata: Metadata = {
-    title: "Women's Streetwear",
+    title: "Beauty for Her",
     description:
-        "Shop women's streetwear essentials from XILAR. Clean lines, premium basics, and bold fits. Free shipping above ₹999.",
+        "Shop skincare, makeup, haircare, and fragrance at BD Beauty. Cash on Delivery across Bangladesh and free shipping above ৳2,000.",
     alternates: {
         canonical: "/shop/women",
     },
     openGraph: {
-        title: "Women's Streetwear | XILAR",
+        title: "Beauty for Her | BD Beauty",
         description:
-            "Shop women's streetwear essentials from XILAR. Clean lines, premium basics, and bold fits.",
+            "Shop skincare, makeup, haircare, and fragrance at BD Beauty.",
         url: "/shop/women",
     },
 }
@@ -68,15 +68,15 @@ export default function ShopWomenPage() {
             />
             <ShopClient
                 genderFilter="women"
-                title="Women"
-                subtitle="Clean lines, premium basics, and bold proportions for everyday streetwear."
+                title="Beauty for Her"
+                subtitle="Skincare, makeup, haircare, and fragrance for everyday routines."
                 initialCatalogPromise={catalogPromise}
             />
             <section className="border-t border-border/60 px-6 py-12 md:px-12 md:py-16">
                 <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-[0.8fr_1.2fr]">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground">Women&apos;s streetwear</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground">Beauty for her</p>
                     <p className="text-base leading-8 text-muted-foreground">
-                        XILAR women&apos;s streetwear keeps the silhouette clean and confident: premium basics, relaxed fits, and pieces that pair easily with cargos, jeans, shorts, and layered shirts.
+                        Beauty picks for her cover skincare, makeup, haircare, and fragrance. Each product page shows only the details supplied by the brand, along with live stock and Taka pricing.
                     </p>
                 </div>
             </section>

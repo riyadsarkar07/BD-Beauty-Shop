@@ -8,16 +8,16 @@ import { WINTER_CATEGORIES } from "@/lib/product-categories"
 import { normalizeSiteUrl } from "@/lib/seo"
 
 export const metadata: Metadata = {
-    title: "Winter Collection — Jackets, Hoodies, Shackets & Sweatshirts",
+    title: "Winter Care — Skincare, Bodycare & Haircare",
     description:
-        "Layer up with the XILAR Winter collection — jackets, hoodies, shackets, sweatshirts, and trousers built for Indian winters.",
+        "Cold-weather care from BD Beauty — richer moisturizers, bodycare, and haircare for drier days.",
     alternates: {
         canonical: "/collections/winter",
     },
     openGraph: {
-        title: "Winter Collection | XILAR",
+        title: "Winter Care | BD Beauty",
         description:
-            "Jackets, hoodies, shackets, sweatshirts, and trousers built for Indian winters.",
+            "Richer moisturizers, bodycare, and haircare selected for drier days.",
         url: "/collections/winter",
     },
 }
@@ -39,8 +39,8 @@ async function WinterGridAndSeo({
         <>
             <JsonLd
                 data={collectionJsonLd(baseUrl, {
-                    name: "Winter Collection — XILAR",
-                    description: "Jackets, hoodies, shackets, sweatshirts, and trousers for colder days.",
+                    name: "Winter Care — BD Beauty",
+                    description: "Skincare, bodycare, and haircare for colder days.",
                     url: "/collections/winter",
                     products: winterProducts.map((product) => ({
                         name: product.name,
@@ -77,8 +77,8 @@ export default function WinterPage() {
             />
             <div className="px-6 md:px-12 py-14 md:py-20 border-b border-border/60">
                 <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground font-medium mb-3">Collection</p>
-                <h1 className="font-display text-4xl md:text-6xl lg:text-7xl">Winter</h1>
-                <p className="text-sm text-muted-foreground mt-2">Jackets, hoodies, shackets, sweatshirts, and trousers. Layer up.</p>
+                <h1 className="font-display text-4xl md:text-6xl lg:text-7xl">Winter Care</h1>
+                <p className="text-sm text-muted-foreground mt-2">Richer moisturizers, bodycare, and haircare for drier days.</p>
             </div>
             <Suspense fallback={<ProductGridSkeleton />}>
                 <WinterGridAndSeo productsPromise={productsPromise} baseUrl={baseUrl} />

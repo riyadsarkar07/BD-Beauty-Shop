@@ -27,6 +27,7 @@ export type CreateCheckoutQuoteInput = {
   couponCode?: string | null;
   paymentMethod: CheckoutPaymentMethod;
   userId?: string;
+  district?: string | null;
 };
 
 export class CheckoutQuoteError extends Error {
@@ -37,7 +38,7 @@ export class CheckoutQuoteError extends Error {
 }
 
 export function isCheckoutPaymentMethod(value: unknown): value is CheckoutPaymentMethod {
-  return value === "cod" || value === "upi" || value === "card" || value === "netbanking";
+  return value === "cod" || value === "bkash" || value === "nagad" || value === "card";
 }
 
 export async function createCheckoutQuote(input: CreateCheckoutQuoteInput): Promise<CheckoutQuote> {
@@ -97,6 +98,7 @@ export async function createCheckoutQuote(input: CreateCheckoutQuoteInput): Prom
     items: verifiedItems,
     paymentMethod: input.paymentMethod,
     comboDiscount,
+    district: input.district,
   });
 
   let couponDiscount = 0;
@@ -117,5 +119,6 @@ export async function createCheckoutQuote(input: CreateCheckoutQuoteInput): Prom
     comboDiscount,
     couponDiscount,
     couponCode,
+    district: input.district,
   });
 }

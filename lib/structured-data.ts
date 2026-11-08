@@ -21,36 +21,22 @@ export function organizationJsonLd(baseUrl: string) {
     "@context": "https://schema.org",
     "@type": "OnlineStore",
     name: SITE_NAME,
-    alternateName: "XILAR The Future Wear",
+    alternateName: "Beauty Room By Afrin",
     url: baseUrl,
     logo: buildAbsoluteUrl("/logo.jpeg", baseUrl),
     image: buildAbsoluteUrl("/logo.jpeg", baseUrl),
     description: SITE_DESCRIPTION,
-    foundingDate: "2025",
-    founder: [
-      {
-        "@type": "Person",
-        name: "Aman Somvanshi",
-        jobTitle: "Founder",
-      },
-      {
-        "@type": "Person",
-        "@id": "https://fateless.dev/#person",
-        name: "Aditya Singh",
-        jobTitle: "CTO",
-        alternateName: ["fatelessdev", "fate1ess"],
-        url: "https://fateless.dev",
-      },
-    ],
+    foundingDate: "2024",
     address: {
       "@type": "PostalAddress",
+      streetAddress: "Hemendra Saha Mor, beside British Bangla Hospital, Arham Tower (2nd floor)",
       addressLocality: SEO_CONTACT.locality,
       addressRegion: SEO_CONTACT.region,
       addressCountry: SEO_CONTACT.country,
     },
     areaServed: {
       "@type": "Country",
-      name: "India",
+      name: "Bangladesh",
     },
     contactPoint: {
       "@type": "ContactPoint",
@@ -58,9 +44,9 @@ export function organizationJsonLd(baseUrl: string) {
       contactType: "customer service",
       email: SEO_CONTACT.email,
       availableLanguage: SEO_CONTACT.availableLanguage,
-      areaServed: "IN",
+      areaServed: "BD",
     },
-    sameAs: [],
+    sameAs: ["https://www.facebook.com/BeautyRoomByAfrin"],
   };
 }
 
@@ -70,7 +56,7 @@ export function webSiteJsonLd(baseUrl: string) {
     "@type": "WebSite",
     name: SITE_NAME,
     url: baseUrl,
-    description: "Premium Indian streetwear for oversized tees, cargos, joggers, hoodies, and everyday drops.",
+    description: SITE_DESCRIPTION,
     publisher: {
       "@type": "Organization",
       name: SITE_NAME,
@@ -175,7 +161,7 @@ export function productJsonLd(
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
-    description: product.description || `Shop ${product.name} from XILAR.`,
+    description: product.description || `Shop ${product.name} from BD Beauty Shop.`,
     image: product.images?.length
       ? product.images.map((image) => buildAbsoluteUrl(image, baseUrl))
       : [buildAbsoluteUrl("/logo.jpeg", baseUrl)],

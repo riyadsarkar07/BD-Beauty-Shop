@@ -64,7 +64,7 @@ function renderProduct(product: CampaignProduct, appUrl: string) {
         </td>
       </tr>
       <tr>
-        <td style="padding-top:4px;color:#b8aea6;font-size:13px;">Rs. ${escapeHtml(product.sellingPrice)}</td>
+        <td style="padding-top:4px;color:#b8aea6;font-size:13px;">৳${escapeHtml(product.sellingPrice)}</td>
       </tr>
     </table>
   `;
@@ -114,10 +114,10 @@ export function buildCampaignEmailHtml({ draft, recipient, products, appUrl }: C
                     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                       <tr>
                         <td valign="middle">
-                          <img src="${escapeHtml(logoUrl)}" width="38" alt="XILAR" style="width:38px;height:auto;display:block;border:0;" />
+                          <img src="${escapeHtml(logoUrl)}" width="38" alt="BD Beauty" style="width:38px;height:auto;display:block;border:0;" />
                         </td>
                         <td align="right" valign="middle" style="color:#8e837c;font-size:11px;text-transform:uppercase;letter-spacing:0.28em;">
-                          XILAR // DROP DESK
+                          BD BEAUTY // CARE DESK
                         </td>
                       </tr>
                     </table>
@@ -151,8 +151,8 @@ export function buildCampaignEmailHtml({ draft, recipient, products, appUrl }: C
                 }
                 <tr>
                   <td style="padding:24px 34px 34px;border-top:1px solid #2b2725;color:#837a73;font-size:12px;line-height:1.6;">
-                    <p style="margin:0 0 8px;">You are receiving this because you have a XILAR account or order history.</p>
-                    <a href="${escapeHtml(unsubscribeUrl.toString())}" style="color:#b8aea6;">Unsubscribe from XILAR marketing emails</a>
+                    <p style="margin:0 0 8px;">You are receiving this because you have a BD Beauty account or order history.</p>
+                    <a href="${escapeHtml(unsubscribeUrl.toString())}" style="color:#b8aea6;">Unsubscribe from BD Beauty marketing emails</a>
                   </td>
                 </tr>
               </table>

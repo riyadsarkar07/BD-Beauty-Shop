@@ -1,7 +1,7 @@
 import { Resend, type CreateBatchOptions } from "resend";
 
 let _resend: Resend | null = null;
-const DEV_RESEND_FROM = "XILAR <onboarding@resend.dev>";
+const DEV_RESEND_FROM = "BD Beauty Shop <onboarding@resend.dev>";
 
 function getResend(): Resend {
   if (!_resend) {
@@ -44,7 +44,7 @@ export async function sendResetPasswordEmail(user: { email: string; name: string
       <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
         <h2>Reset your password</h2>
         <p>Hi ${safeName},</p>
-        <p>We received a request to reset your XILAR account password. Click the button below to set a new password:</p>
+        <p>We received a request to reset your BD Beauty Shop account password. Click the button below to set a new password:</p>
         <a href="${escapeHtml(url)}" style="display:inline-block;padding:12px 24px;background:#C62828;color:#fff;text-decoration:none;font-weight:600;">Reset Password</a>
         <p style="margin-top:20px;font-size:13px;color:#666;">If you didn't request this, you can safely ignore this email. The link expires in 1 hour.</p>
       </div>

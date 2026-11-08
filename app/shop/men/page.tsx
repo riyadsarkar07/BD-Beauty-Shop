@@ -8,16 +8,16 @@ import { getCatalogProducts } from "@/lib/product-catalog"
 import { normalizeSiteUrl } from "@/lib/seo"
 
 export const metadata: Metadata = {
-    title: "Men's Streetwear",
+    title: "Grooming for Him",
     description:
-        "Shop men's streetwear essentials from XILAR. Oversized tees, cargo pants, joggers, hoodies — elevated fits and bold silhouettes. Free shipping above ₹999.",
+        "Shop grooming and skincare essentials for men at BD Beauty. Cleansers, moisturizers, fragrance, and tools with Cash on Delivery across Bangladesh.",
     alternates: {
         canonical: "/shop/men",
     },
     openGraph: {
-        title: "Men's Streetwear | XILAR",
+        title: "Grooming for Him | BD Beauty",
         description:
-            "Shop men's streetwear essentials from XILAR. Oversized tees, cargo pants, joggers, hoodies — elevated fits and bold silhouettes.",
+            "Shop grooming and skincare essentials for men at BD Beauty. Cleansers, moisturizers, fragrance, and tools.",
         url: "/shop/men",
     },
 }
@@ -68,15 +68,15 @@ export default function ShopMenPage() {
             />
             <ShopClient
                 genderFilter="men"
-                title="Men"
-                subtitle="Oversized tees, cargos, joggers, and layers built for Indian streetwear."
+                title="Grooming for Him"
+                subtitle="Cleansers, moisturizers, fragrance, and tools for a simple daily routine."
                 initialCatalogPromise={catalogPromise}
             />
             <section className="border-t border-border/60 px-6 py-12 md:px-12 md:py-16">
                 <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-[0.8fr_1.2fr]">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground">Men&apos;s streetwear</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground">Grooming for him</p>
                     <p className="text-base leading-8 text-muted-foreground">
-                        XILAR men&apos;s streetwear focuses on oversized tees, cargos, joggers, hoodies, and sharp layers that work in Indian weather and daily city movement. Product pages show live size and stock details before checkout.
+                        Grooming picks for men are curated around simple routines: cleansers, moisturizers, fragrance, and practical tools. Product pages show the details supplied by the brand, live stock, and prices in Taka before checkout.
                     </p>
                 </div>
             </section>

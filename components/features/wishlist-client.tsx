@@ -12,9 +12,10 @@ import { removeWishlistItem } from "@/lib/actions/wishlist";
 import { normalizeProductImage } from "@/lib/image";
 import { buildProductPath } from "@/lib/seo";
 import type { WishlistProductItem } from "@/lib/wishlist";
+import { formatMoney } from "@/lib/money";
 
 function formatPrice(value: number) {
-  return `₹${value.toLocaleString("en-IN")}`;
+  return formatMoney(value);
 }
 
 function EmptyWishlist() {

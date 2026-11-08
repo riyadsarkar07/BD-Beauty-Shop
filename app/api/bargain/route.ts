@@ -92,33 +92,33 @@ export async function POST(req: Request) {
     
     // Build cart context
     const cartItemsList = (cartItems as BargainCartItem[]).map((item) => 
-      `- ${item.name} x${item.quantity} @ ₹${item.price}${item.comboId ? " (combo item)" : ""}`
+      `- ${item.name} x${item.quantity} @ ৳${item.price}${item.comboId ? " (combo item)" : ""}`
     ).join("\n");
 
     const contextMessage = shouldGiveFinalCoupon
       ? `
 CURRENT CART:
 ${cartItemsList}
-Cart Total: ₹${cartTotal}
+Cart Total: ৳${cartTotal}
 
 NEGOTIATION STATE:
 - Round: ${safeRound}/${MAX_NEGOTIATION_ROUNDS}
 - GIVE_FINAL_COUPON: true
 - COUPON_CODE: ${finalCoupon?.code}
-- DISCOUNT_AMOUNT: ₹${finalDiscountAmount}
+- DISCOUNT_AMOUNT: ৳${finalDiscountAmount}
 - ZERO_DISCOUNT_MODE: false
 - CHILL_TONE_ALLOWED: ${chillTone ? "true" : "false"}
 
-IMPORTANT: This is the FINAL round. Present the coupon code ${finalCoupon?.code} for ₹${finalDiscountAmount} off enthusiastically. The code button will appear in the UI below your message. Mention the 5-minute expiry.
+IMPORTANT: This is the FINAL round. Present the coupon code ${finalCoupon?.code} for ৳${finalDiscountAmount} off enthusiastically. The code button will appear in the UI below your message. Mention the 5-minute expiry.
 `
       : `
 CURRENT CART:
 ${cartItemsList}
-Cart Total: ₹${cartTotal}
+Cart Total: ৳${cartTotal}
 
 NEGOTIATION STATE:
 - Round: ${safeRound}/${MAX_NEGOTIATION_ROUNDS}
-- CURRENT_OFFER: ₹${currentOffer}
+- CURRENT_OFFER: ৳${currentOffer}
 - GIVE_FINAL_COUPON: false
 - ZERO_DISCOUNT_MODE: false
 - USER_REQUESTED_DISCOUNT: ${requestedDiscount ?? "unknown"}
@@ -126,7 +126,7 @@ NEGOTIATION STATE:
 - CHILL_TONE_ALLOWED: ${chillTone ? "true" : "false"}
 - FINALIZE_EARLY_ALLOWED: ${finalizeNow ? "true" : "false"}
 
-IMPORTANT: You are still negotiating. Offer ₹${currentOffer} off. NO coupon code has been generated yet. DO NOT mention any coupon code, DO NOT invent any code. If user pushes for a code, tell them to keep negotiating. If they are not logged in, ask them to sign in to unlock final coupon generation.
+IMPORTANT: You are still negotiating. Offer ৳${currentOffer} off. NO coupon code has been generated yet. DO NOT mention any coupon code, DO NOT invent any code. If user pushes for a code, tell them to keep negotiating. If they are not logged in, ask them to sign in to unlock final coupon generation.
 `;
 
     const result = streamText({

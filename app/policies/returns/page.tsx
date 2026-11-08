@@ -7,12 +7,12 @@ import { normalizeSiteUrl } from "@/lib/seo"
 export const metadata: Metadata = {
     title: "Return Policy — Defective Items Only",
     description:
-        "XILAR return policy: returns accepted only for defective or damaged items. Unboxing video required as proof of damage.",
+        "BD Beauty return policy: returns accepted only for defective or damaged items. Unboxing video required as proof of damage.",
     alternates: {
         canonical: "/policies/returns",
     },
     openGraph: {
-        title: "Return Policy | XILAR",
+        title: "Return Policy | BD Beauty",
         description:
             "Returns accepted only for defective or damaged items. Unboxing video required as proof of damage.",
         url: "/policies/returns",
@@ -127,7 +127,7 @@ export default function ReturnPolicyPage() {
                         <div>
                             <p className="font-medium text-sm">Why we&apos;re strict</p>
                             <p className="text-xs text-muted-foreground mt-1">
-                                As a premium streetwear brand, we ensure every product goes through quality checks before shipping. 
+                                Every beauty product is checked before dispatch so it reaches you sealed and undamaged. 
                                 The unboxing video requirement protects both you and us from fraudulent claims. 
                                 We value genuine customers and want to maintain affordable prices by minimizing abuse.
                             </p>
@@ -150,7 +150,7 @@ export default function ReturnPolicyPage() {
                             <span className="w-7 h-7 bg-red-accent text-white flex items-center justify-center text-xs font-semibold flex-shrink-0">2</span>
                             <div>
                                 <p className="font-medium text-sm">Contact support</p>
-                                <p className="text-xs text-muted-foreground">Email support@xilar.in with your order ID, video, and description of the defect.</p>
+                                <p className="text-xs text-muted-foreground">Email hello@bdbeautyshop.com with your order ID, video, and description of the defect.</p>
                             </div>
                         </div>
                         <div className="flex gap-4 p-4 border border-border/60">
@@ -164,7 +164,7 @@ export default function ReturnPolicyPage() {
                             <span className="w-7 h-7 bg-red-accent text-white flex items-center justify-center text-xs font-semibold flex-shrink-0">4</span>
                             <div>
                                 <p className="font-medium text-sm">Refund processed</p>
-                                <p className="text-xs text-muted-foreground">If approved, you&apos;ll receive the approved amount in your XILAR wallet. See our Refund Policy.</p>
+                                <p className="text-xs text-muted-foreground">If approved, you&apos;ll receive the approved amount in your BD Beauty wallet. See our Refund Policy.</p>
                             </div>
                         </div>
                     </div>

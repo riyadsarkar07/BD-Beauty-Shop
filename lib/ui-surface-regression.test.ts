@@ -194,7 +194,7 @@ test("theme first paint stays static and is repaired before hydration", () => {
   assert.match(layout, /localStorage\.getItem\('xilar-theme'\)/);
   assert.match(layout, /document\.cookie/);
   assert.match(themeContext, /document\.cookie = `xilar-theme=\$\{theme\}/);
-  assert.match(layout, /<html lang="en" className="dark" suppressHydrationWarning>/);
+  assert.match(layout, /<html lang="en-BD" className="dark" suppressHydrationWarning>/);
 });
 
 test("google analytics tag is installed once at the root layout", () => {

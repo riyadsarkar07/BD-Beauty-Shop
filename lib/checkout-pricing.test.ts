@@ -26,7 +26,7 @@ const verifiedItems = [
 ];
 
 describe("checkout pricing", () => {
-  it("builds a server-priced COD quote with combo, coupon, shipping, and COD fee", () => {
+  it("builds a server-priced COD quote with combo, coupon, shipping, and no COD fee", () => {
     const quote = buildCheckoutQuoteFromVerifiedItems({
       items: verifiedItems,
       paymentMethod: "cod",
@@ -40,8 +40,8 @@ describe("checkout pricing", () => {
     assert.equal(quote.couponDiscount, 50);
     assert.equal(quote.discount, 150);
     assert.equal(quote.shippingCost, 0);
-    assert.equal(quote.codFee, 50);
-    assert.equal(quote.total, 2900);
+    assert.equal(quote.codFee, 0);
+    assert.equal(quote.total, 2850);
     assert.equal(quote.couponCode, "SAVE50");
   });
 
@@ -57,16 +57,16 @@ describe("checkout pricing", () => {
           totalPrice: 499,
         },
       ],
-      paymentMethod: "upi",
+      paymentMethod: "bkash",
       comboDiscount: 200,
       couponDiscount: 500,
     });
 
     assert.equal(quote.subtotal, 499);
-    assert.equal(quote.shippingCost, 99);
+    assert.equal(quote.shippingCost, 120);
     assert.equal(quote.codFee, 0);
     assert.equal(quote.discount, 498);
-    assert.equal(quote.total, 100);
+    assert.equal(quote.total, 121);
   });
 
   it("rejects mismatched item totals before quote creation", () => {

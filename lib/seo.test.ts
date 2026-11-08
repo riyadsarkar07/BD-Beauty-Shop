@@ -20,10 +20,10 @@ import {
 } from "./structured-data.ts";
 
 test("SEO URL helpers normalize base URLs and product slugs", () => {
-  assert.equal(normalizeSiteUrl("https://xilar.in/"), "https://xilar.in");
-  assert.equal(buildAbsoluteUrl("/shop/men", "https://xilar.in/"), "https://xilar.in/shop/men");
+  assert.equal(normalizeSiteUrl("https://bdbeautyshop.com/"), "https://bdbeautyshop.com");
+  assert.equal(buildAbsoluteUrl("/shop/men", "https://bdbeautyshop.com/"), "https://bdbeautyshop.com/shop/men");
   assert.equal(buildProductPath("seoul-black-tee"), "/product/seoul-black-tee");
-  assert.equal(buildProductUrl("seoul-black-tee", "https://xilar.in/"), "https://xilar.in/product/seoul-black-tee");
+  assert.equal(buildProductUrl("seoul-black-tee", "https://bdbeautyshop.com/"), "https://bdbeautyshop.com/product/seoul-black-tee");
 });
 
 test("SEO URL helpers identify UUID product URLs separately from slugs", () => {
@@ -35,20 +35,19 @@ test("category SEO config covers every public category slug", () => {
   const slugs = CATEGORY_SEO.map((item) => item.slug);
 
   assert.deepEqual(slugs, [
-    "tshirts",
-    "shirts",
-    "cargos",
-    "joggers",
-    "jeans",
-    "hoodies",
-    "jackets",
-    "shackets",
-    "sweatshirts",
-    "trousers",
-    "shorts",
+    "skincare",
+    "makeup",
+    "haircare",
+    "fragrance",
+    "bodycare",
+    "nailcare",
+    "tools",
+    "kits",
+    "wellness",
     "accessories",
   ]);
-  assert.equal(getCategorySeoBySlug("cargos")?.category, "cargo");
+  assert.equal(getCategorySeoBySlug("skincare")?.category, "skincare");
+  assert.equal(getCategorySeoBySlug("accessories")?.category, "accessory");
   assert.equal(getCategorySeoBySlug("unknown"), null);
 });
 
@@ -60,7 +59,7 @@ test("catalog query duplicate policy noindexes search and filter variants only",
 });
 
 test("structured data uses real organization, search, product, and collection URLs", () => {
-  const baseUrl = "https://xilar.in";
+  const baseUrl = "https://bdbeautyshop.com";
   const organization = organizationJsonLd(baseUrl);
   const website = webSiteJsonLd(baseUrl);
   const product = productJsonLd(baseUrl, {
@@ -72,15 +71,15 @@ test("structured data uses real organization, search, product, and collection UR
     sellingPrice: "899",
     mrp: "1299",
     stock: 4,
-    category: "tshirt",
+    category: "skincare",
     sizes: ["M", "L"],
     colors: [{ name: "Black", hex: "#111111" }],
     updatedAt: new Date("2026-06-01T00:00:00.000Z"),
   });
   const collection = collectionJsonLd(baseUrl, {
-    name: "T-Shirts - XILAR",
-    description: "Oversized tees and premium basics.",
-    url: "/shop/tshirts",
+    name: "Skincare - BD Beauty Shop",
+    description: "Cleansers, serums, and daily skin rituals.",
+    url: "/shop/skincare",
     products: [
       {
         name: "Seoul Black Tee",
@@ -92,18 +91,18 @@ test("structured data uses real organization, search, product, and collection UR
   });
 
   assert.equal(organization["@type"], "OnlineStore");
-  assert.equal(organization.address.addressLocality, "Lucknow");
-  assert.equal(website.potentialAction.target.urlTemplate, "https://xilar.in/shop?search={search_term_string}");
-  assert.equal(product.offers.url, "https://xilar.in/product/seoul-black-tee");
+  assert.equal(organization.address.addressLocality, "Narsingdi");
+  assert.equal(website.potentialAction.target.urlTemplate, "https://bdbeautyshop.com/shop?search={search_term_string}");
+  assert.equal(product.offers.url, "https://bdbeautyshop.com/product/seoul-black-tee");
   assert.equal(product.sku, "3f0f2a6a-1c8a-4b38-a6da-2450a03f23bb");
   assert.equal(product.offers.hasMerchantReturnPolicy["@type"], "MerchantReturnPolicy");
   assert.equal(collection.mainEntity["@type"], "ItemList");
-  assert.equal(collection.mainEntity.itemListElement[0].url, "https://xilar.in/product/seoul-black-tee");
+  assert.equal(collection.mainEntity.itemListElement[0].url, "https://bdbeautyshop.com/product/seoul-black-tee");
 });
 
 test("merchant feed serializes active products with slug links and no invented review data", () => {
   const feed = buildGoogleMerchantFeed({
-    baseUrl: "https://xilar.in",
+    baseUrl: "https://bdbeautyshop.com",
     products: [
       {
         id: "3f0f2a6a-1c8a-4b38-a6da-2450a03f23bb",
@@ -114,14 +113,15 @@ test("merchant feed serializes active products with slug links and no invented r
         sellingPrice: "899",
         mrp: "1299",
         stock: 4,
-        category: "tshirt",
+        category: "skincare",
         gender: "unisex",
       },
     ],
   });
 
   assert.match(feed, /<g:id>3f0f2a6a-1c8a-4b38-a6da-2450a03f23bb<\/g:id>/);
-  assert.match(feed, /<link>https:\/\/xilar.in\/product\/seoul-black-tee<\/link>/);
+  assert.match(feed, /<link>https:\/\/bdbeautyshop.com\/product\/seoul-black-tee<\/link>/);
   assert.match(feed, /<g:availability>in_stock<\/g:availability>/);
+  assert.match(feed, /<g:google_product_category>Health &amp; Beauty<\/g:google_product_category>/);
   assert.doesNotMatch(feed, /review|rating/i);
 });

@@ -1,28 +1,38 @@
 import type { ProductCategory } from "./product-categories.ts";
-import { CONTACT_EMAIL, CONTACT_PHONE, FREE_SHIPPING_THRESHOLD, SHIPPING_FEE } from "./constants.ts";
+import {
+  CONTACT_EMAIL,
+  CONTACT_PHONE,
+  FREE_SHIPPING_THRESHOLD,
+  OUTSIDE_DHAKA_SHIPPING_FEE,
+  STORE_COUNTRY,
+  STORE_COUNTRY_CODE,
+  STORE_LOCALITY,
+  STORE_REGION,
+} from "./constants.ts";
 
-export const SITE_NAME = "XILAR";
-export const SITE_BRAND_LINE = "The Future Wear";
-export const DEFAULT_SITE_URL = "https://xilar.in";
+export const SITE_NAME = "BD Beauty Shop";
+export const SITE_BRAND_LINE = "Beauty, delivered across Bangladesh";
+export const DEFAULT_SITE_URL = "https://bdbeautyshop.com";
 export const DEFAULT_OG_IMAGE = "/logo.jpeg";
 
 export const SITE_DESCRIPTION =
-  "XILAR is an online Indian streetwear brand from Lucknow, built for premium oversized fits, bold basics, and Gen-Z everyday wear.";
+  "BD Beauty Shop is a premium Bangladesh beauty store for skincare, makeup, haircare, fragrance, and wellness, with Cash on Delivery and nationwide delivery.";
 
 export const SEO_CONTACT = {
   email: CONTACT_EMAIL,
   phone: CONTACT_PHONE,
-  locality: "Lucknow",
-  region: "Uttar Pradesh",
-  country: "IN",
-  availableLanguage: ["English", "Hindi"],
+  locality: STORE_LOCALITY,
+  region: STORE_REGION,
+  country: STORE_COUNTRY_CODE,
+  countryName: STORE_COUNTRY,
+  availableLanguage: ["English", "Bengali"],
 };
 
 export const SEO_SHIPPING = {
   freeShippingThreshold: FREE_SHIPPING_THRESHOLD,
-  standardShippingFee: SHIPPING_FEE,
-  currency: "INR",
-  country: "IN",
+  standardShippingFee: OUTSIDE_DHAKA_SHIPPING_FEE,
+  currency: "BDT",
+  country: STORE_COUNTRY_CODE,
 };
 
 export function normalizeSiteUrl(baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? DEFAULT_SITE_URL) {
@@ -80,216 +90,168 @@ export type CategorySeo = {
 
 export const CATEGORY_SEO: CategorySeo[] = [
   {
-    slug: "tshirts",
-    category: "tshirt",
-    label: "T-Shirts",
-    title: "Oversized T-Shirts",
-    h1: "Oversized T-Shirts",
-    subtitle: "Heavyweight tees, clean drops, and Indian streetwear proportions.",
+    slug: "skincare",
+    category: "skincare",
+    label: "Skincare",
+    title: "Skincare",
+    h1: "Skincare",
+    subtitle: "Cleansers, serums, moisturizers, and daily skin rituals.",
     description:
-      "Shop XILAR oversized t-shirts for men, women, and unisex streetwear. Premium cotton-led basics, bold graphics, and relaxed Indian fits.",
+      "Shop skincare at BD Beauty Shop. Browse cleansers, serums, moisturizers, and everyday skin care with Cash on Delivery across Bangladesh.",
     intro:
-      "XILAR t-shirts focus on relaxed shoulders, clean everyday styling, and drops that work across cargos, jeans, and shorts.",
+      "Skincare at BD Beauty Shop is merchandised for daily routines. Product pages show live stock and any details provided by the catalog.",
     faq: [
       {
-        question: "Are XILAR t-shirts oversized?",
+        question: "Does BD Beauty Shop ship skincare across Bangladesh?",
         answer:
-          "Most XILAR tees are designed with a relaxed streetwear fit. Check each product page for the available sizes and fit notes before ordering.",
-      },
-      {
-        question: "Does XILAR ship t-shirts across India?",
-        answer:
-          "Yes. XILAR ships across India, with free shipping available above the sitewide order threshold.",
+          "Yes. Orders ship nationwide, with Cash on Delivery available and free shipping above the sitewide order threshold.",
       },
     ],
   },
   {
-    slug: "shirts",
-    category: "shirt",
-    label: "Shirts",
-    title: "Streetwear Shirts",
-    h1: "Streetwear Shirts",
-    subtitle: "Structured layers for clean streetwear looks.",
+    slug: "makeup",
+    category: "makeup",
+    label: "Makeup",
+    title: "Makeup",
+    h1: "Makeup",
+    subtitle: "Face, eyes, lips, and finishing color.",
     description:
-      "Shop XILAR shirts made for layered Indian streetwear outfits, clean silhouettes, and daily styling.",
+      "Shop makeup at BD Beauty Shop, including face, eye, and lip products with nationwide delivery in Bangladesh.",
     intro:
-      "XILAR shirts are built as sharp layers: easy over tees, strong with cargos, and simple enough for repeat wear.",
+      "Makeup listings keep shade and stock details on the product page. Only information supplied in the catalog is shown.",
     faq: [
       {
-        question: "How should I style XILAR shirts?",
-        answer:
-          "Wear them open over an oversized tee or buttoned with cargos and jeans for a cleaner streetwear profile.",
+        question: "Can I order makeup with Cash on Delivery?",
+        answer: "Yes. Cash on Delivery is available across Bangladesh at checkout.",
       },
     ],
   },
   {
-    slug: "cargos",
-    category: "cargo",
-    label: "Cargos",
-    title: "Cargo Pants",
-    h1: "Cargo Pants",
-    subtitle: "Utility pockets, relaxed structure, and street-ready movement.",
+    slug: "haircare",
+    category: "haircare",
+    label: "Haircare",
+    title: "Haircare",
+    h1: "Haircare",
+    subtitle: "Shampoo, treatments, oils, and styling care.",
     description:
-      "Shop XILAR cargo pants for Indian streetwear outfits. Relaxed fits, utility details, and bold everyday styling.",
+      "Shop haircare at BD Beauty Shop. Browse shampoos, treatments, and oils with delivery across Bangladesh.",
     intro:
-      "XILAR cargos anchor oversized tees and hoodies with practical pockets, wider proportions, and a strong streetwear base.",
+      "Haircare products are listed with the details available from the catalog. Stock and price are always server-verified.",
     faq: [
       {
-        question: "Are XILAR cargos good for daily wear?",
+        question: "Are haircare products delivered outside Dhaka?",
         answer:
-          "Yes. XILAR cargos are selected for streetwear styling and everyday movement, with product pages showing available waist sizes and stock.",
+          "Yes. Delivery is available nationwide, with a higher delivery charge outside Dhaka metro unless the order reaches the free-shipping threshold.",
       },
     ],
   },
   {
-    slug: "joggers",
-    category: "jogger",
-    label: "Joggers",
-    title: "Streetwear Joggers",
-    h1: "Streetwear Joggers",
-    subtitle: "Easy movement with a cleaner streetwear finish.",
+    slug: "fragrance",
+    category: "fragrance",
+    label: "Fragrance",
+    title: "Fragrance",
+    h1: "Fragrance",
+    subtitle: "Perfumes and body mists.",
     description:
-      "Shop XILAR joggers for relaxed streetwear fits, daily comfort, and clean Indian casual styling.",
+      "Shop fragrance at BD Beauty Shop. Browse perfumes and body mists with Cash on Delivery in Bangladesh.",
     intro:
-      "XILAR joggers keep the outfit mobile without drifting into gymwear: relaxed, direct, and made to pair with oversized tops.",
+      "Fragrance pages only show names, images, prices, and descriptions that exist in the catalog.",
     faq: [
       {
-        question: "What can I wear with XILAR joggers?",
+        question: "Do fragrance products include invented notes or claims?",
         answer:
-          "Pair XILAR joggers with oversized t-shirts, hoodies, or structured shirts for a balanced streetwear outfit.",
+          "No. BD Beauty Shop does not invent ingredients, notes, or product claims. Missing details stay blank until an admin adds them.",
       },
     ],
   },
   {
-    slug: "jeans",
-    category: "jeans",
-    label: "Jeans",
-    title: "Streetwear Jeans",
-    h1: "Streetwear Jeans",
-    subtitle: "Denim silhouettes for oversized fits and everyday drops.",
+    slug: "bodycare",
+    category: "bodycare",
+    label: "Bodycare",
+    title: "Bodycare",
+    h1: "Bodycare",
+    subtitle: "Lotions, washes, and body treatments.",
     description:
-      "Shop XILAR jeans for streetwear outfits, relaxed proportions, and versatile Indian everyday styling.",
+      "Shop bodycare at BD Beauty Shop, including lotions, washes, and body treatments delivered across Bangladesh.",
     intro:
-      "XILAR jeans are chosen to support oversized tees and layered tops with denim that feels grounded, not overworked.",
+      "Bodycare is merchandised as everyday self-care. Catalog details are preserved exactly as imported or entered by admin.",
     faq: [
       {
-        question: "Are XILAR jeans for men or women?",
-        answer:
-          "XILAR jeans may be listed for men, women, or unisex styling depending on the product. Use the product page sizing before checkout.",
+        question: "How are bodycare prices shown?",
+        answer: "All prices are in Bangladeshi Taka (৳) and recalculated by the server at checkout.",
       },
     ],
   },
   {
-    slug: "hoodies",
-    category: "hoodie",
-    label: "Hoodies",
-    title: "Streetwear Hoodies",
-    h1: "Streetwear Hoodies",
-    subtitle: "Layered comfort for colder drops and late-night fits.",
+    slug: "nailcare",
+    category: "nailcare",
+    label: "Nailcare",
+    title: "Nailcare",
+    h1: "Nailcare",
+    subtitle: "Polishes, treatments, and nail kits.",
     description:
-      "Shop XILAR hoodies for premium streetwear layering, relaxed silhouettes, and bold everyday comfort.",
+      "Shop nailcare at BD Beauty Shop, including polishes and nail kits with delivery across Bangladesh.",
     intro:
-      "XILAR hoodies lean into strong proportions, clean branding, and easy layering over tees or under jackets.",
+      "Nailcare listings keep shade names when provided. Empty fields mean the source did not include that information.",
     faq: [
       {
-        question: "Are XILAR hoodies limited drops?",
-        answer:
-          "Some XILAR hoodies may be limited-run products. Current stock and available sizes are shown on each product page.",
+        question: "Can I filter nailcare by shade?",
+        answer: "Where shade variants exist, they appear on the product page. Filters use live catalog data.",
       },
     ],
   },
   {
-    slug: "jackets",
-    category: "jacket",
-    label: "Jackets",
-    title: "Streetwear Jackets",
-    h1: "Streetwear Jackets",
-    subtitle: "Outer layers with street presence and clean utility.",
+    slug: "tools",
+    category: "tools",
+    label: "Beauty Tools",
+    title: "Beauty Tools",
+    h1: "Beauty Tools",
+    subtitle: "Brushes, applicators, and grooming tools.",
     description:
-      "Shop XILAR jackets for Indian streetwear layering, bold silhouettes, and premium casual outfits.",
+      "Shop beauty tools at BD Beauty Shop, including brushes and applicators with nationwide Bangladesh delivery.",
     intro:
-      "XILAR jackets are the outer layer for colder edits, travel days, and heavier streetwear looks.",
+      "Tools are single-SKU unless the catalog supplies variants. Stock is shown on each product page.",
     faq: [
       {
-        question: "How do XILAR jackets fit?",
-        answer:
-          "Fit depends on the individual jacket. Product pages show available sizes and images so you can choose the right proportion.",
+        question: "Are beauty tools one size?",
+        answer: "Most tools are listed as one size unless a variant is provided in the catalog.",
       },
     ],
   },
   {
-    slug: "shackets",
-    category: "shacket",
-    label: "Shackets",
-    title: "Streetwear Shackets",
-    h1: "Streetwear Shackets",
-    subtitle: "Shirt-weight outer layers for cooler days.",
+    slug: "kits",
+    category: "kits",
+    label: "Kits & Sets",
+    title: "Kits & Sets",
+    h1: "Kits & Sets",
+    subtitle: "Gift sets and bundled beauty routines.",
     description:
-      "Shop XILAR shackets: shirt-jacket layers for Indian streetwear, relaxed fits, and easy winter styling.",
+      "Shop beauty kits and sets at BD Beauty Shop. Bundled routines and gift sets with Cash on Delivery in Bangladesh.",
     intro:
-      "XILAR shackets sit between a shirt and a jacket: heavy enough to layer over tees, light enough for Indian winters.",
+      "Kits are merchandised as complete routines. Combo discounts, when configured, are applied server-side at checkout.",
     faq: [
       {
-        question: "What is a shacket?",
+        question: "Do kits include combo discounts?",
         answer:
-          "A shacket is a shirt-jacket: cut like an overshirt with jacket-weight fabric. Wear it open over a tee or buttoned as a top layer.",
+          "Some kits may also appear as combos. Checkout always recalculates discounts from the database.",
       },
     ],
   },
   {
-    slug: "sweatshirts",
-    category: "sweatshirt",
-    label: "Sweatshirts",
-    title: "Streetwear Sweatshirts",
-    h1: "Streetwear Sweatshirts",
-    subtitle: "Crewneck warmth with relaxed streetwear proportions.",
+    slug: "wellness",
+    category: "wellness",
+    label: "Wellness",
+    title: "Wellness",
+    h1: "Wellness",
+    subtitle: "Self-care extras beyond the makeup bag.",
     description:
-      "Shop XILAR sweatshirts for relaxed winter layering, premium fleece comfort, and everyday Indian streetwear.",
+      "Shop wellness products at BD Beauty Shop with nationwide delivery and Cash on Delivery in Bangladesh.",
     intro:
-      "XILAR sweatshirts are hood-free winter staples: dropped shoulders, clean branding, and easy pairing with cargos or trousers.",
+      "Wellness listings only include information supplied in the catalog. No health claims are invented.",
     faq: [
       {
-        question: "How do XILAR sweatshirts fit?",
-        answer:
-          "Most XILAR sweatshirts follow a relaxed streetwear fit. Check each product page for available sizes before ordering.",
-      },
-    ],
-  },
-  {
-    slug: "trousers",
-    category: "trousers",
-    label: "Trousers",
-    title: "Streetwear Trousers",
-    h1: "Streetwear Trousers",
-    subtitle: "Tailored-relaxed bottoms for layered winter fits.",
-    description:
-      "Shop XILAR trousers for clean streetwear silhouettes, relaxed tailoring, and versatile Indian everyday outfits.",
-    intro:
-      "XILAR trousers bring a sharper line than cargos or joggers, built to anchor hoodies, sweatshirts, and jackets.",
-    faq: [
-      {
-        question: "Are XILAR trousers sized by waist?",
-        answer:
-          "Yes. XILAR trousers use waist sizes. Product pages show available sizes and live stock before checkout.",
-      },
-    ],
-  },
-  {
-    slug: "shorts",
-    category: "shorts",
-    label: "Shorts",
-    title: "Streetwear Shorts",
-    h1: "Streetwear Shorts",
-    subtitle: "Warm-weather fits with relaxed movement.",
-    description:
-      "Shop XILAR shorts for summer streetwear, relaxed Indian fits, and easy everyday styling.",
-    intro:
-      "XILAR shorts are built for heat, movement, and simple pairing with oversized t-shirts or open shirts.",
-    faq: [
-      {
-        question: "Are XILAR shorts part of summer drops?",
-        answer:
-          "Shorts often appear in warm-weather edits and seasonal drops. The live catalog shows current availability.",
+        question: "Does BD Beauty Shop invent wellness claims?",
+        answer: "No. Missing specifications stay blank or marked for admin review.",
       },
     ],
   },
@@ -297,18 +259,18 @@ export const CATEGORY_SEO: CategorySeo[] = [
     slug: "accessories",
     category: "accessory",
     label: "Accessories",
-    title: "Streetwear Accessories",
-    h1: "Streetwear Accessories",
-    subtitle: "Perfume and finishing pieces for the XILAR wardrobe.",
+    title: "Beauty Accessories",
+    h1: "Beauty Accessories",
+    subtitle: "Pouches, mirrors, and finishing extras.",
     description:
-      "Shop XILAR accessories, including perfume and selected essentials for Indian streetwear outfits.",
+      "Shop beauty accessories at BD Beauty Shop, including pouches and finishing extras with delivery across Bangladesh.",
     intro:
-      "XILAR accessories are kept focused: finishing pieces, perfume, and small essentials that support the outfit instead of cluttering it.",
+      "Accessories are kept focused: finishing extras that support a beauty routine rather than cluttering it.",
     faq: [
       {
-        question: "What accessories does XILAR sell?",
+        question: "What accessories does BD Beauty Shop sell?",
         answer:
-          "XILAR accessories include perfume and selected essentials. The category page reflects the currently active catalog.",
+          "Accessories include pouches, mirrors, and selected extras currently active in the catalog.",
       },
     ],
   },

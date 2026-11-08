@@ -1,20 +1,20 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowLeft, Truck, Clock, MapPin, IndianRupee, Package } from "lucide-react"
+import { ArrowLeft, Truck, Clock, MapPin, Package } from "lucide-react"
 import { JsonLd, breadcrumbJsonLd } from "@/components/seo/structured-data"
 import { normalizeSiteUrl } from "@/lib/seo"
 
 export const metadata: Metadata = {
-    title: "Shipping Policy — Free Delivery Above ₹999",
+    title: "Shipping Policy — Free Delivery Above ৳2,000",
     description:
-        "XILAR shipping policy: free shipping above ₹999, standard delivery ₹99, COD available with ₹50 fee. 5–7 business day delivery across India.",
+        "BD Beauty Shop shipping policy: free shipping above ৳2,000, Dhaka metro ৳60, outside Dhaka ৳120, COD available with no extra fee. Delivery across Bangladesh.",
     alternates: {
         canonical: "/policies/shipping",
     },
     openGraph: {
-        title: "Shipping Policy | XILAR",
+        title: "Shipping Policy | BD Beauty Shop",
         description:
-            "Free shipping above ₹999, standard delivery ₹99, COD available with ₹50 fee. 5–7 business day delivery.",
+            "Free shipping above ৳2,000, Dhaka metro ৳60, outside Dhaka ৳120, COD available with no extra fee.",
         url: "/policies/shipping",
     },
 }
@@ -47,13 +47,13 @@ export default function ShippingPolicyPage() {
                 {/* Free Shipping */}
                 <section className="space-y-3">
                     <h2 className="text-sm font-semibold uppercase tracking-[0.1em] flex items-center gap-2">
-                        <IndianRupee className="h-4 w-4 text-red-accent" /> Free shipping
+                        Free shipping
                     </h2>
                     <div className="p-6 bg-red-accent/5 border border-red-accent/20 text-center">
                         <p className="text-2xl font-black tracking-tight uppercase">Free shipping</p>
-                        <p className="text-sm mt-2 tabular-nums">on orders above ₹999</p>
+                        <p className="text-sm mt-2 tabular-nums">on orders above ৳2,000</p>
                         <p className="text-xs text-muted-foreground mt-3">
-                            No minimum items. Just hit ₹999 and shipping is on us.
+                            No minimum items. Just hit ৳2,000 and shipping is on us.
                         </p>
                     </div>
                 </section>
@@ -64,10 +64,10 @@ export default function ShippingPolicyPage() {
                     <div className="p-4 bg-secondary/10 border border-border/60">
                         <div className="flex justify-between items-center">
                             <div>
-                                <p className="font-medium text-sm">Orders below ₹999</p>
-                                <p className="text-xs text-muted-foreground">Standard delivery fee applies</p>
+                                <p className="font-medium text-sm">Orders below ৳2,000</p>
+                                <p className="text-xs text-muted-foreground">Dhaka metro ৳60 · outside Dhaka ৳120</p>
                             </div>
-                            <div className="text-xl font-semibold tabular-nums">₹99</div>
+                            <div className="text-xl font-semibold tabular-nums">৳60–৳120</div>
                         </div>
                     </div>
                 </section>
@@ -83,11 +83,10 @@ export default function ShippingPolicyPage() {
                                 <p className="font-medium text-sm text-orange-600 dark:text-orange-400">COD available</p>
                                 <p className="text-xs text-muted-foreground">Pay when you receive your order</p>
                             </div>
-                            <div className="text-xl font-semibold text-orange-600 dark:text-orange-400 tabular-nums">+₹50</div>
+                            <div className="text-xl font-semibold text-orange-600 dark:text-orange-400 tabular-nums">৳0</div>
                         </div>
                         <p className="text-xs text-muted-foreground">
-                            A flat COD handling fee of ₹50 is added to all Cash on Delivery orders. 
-                            This covers the additional logistics and risk involved in COD shipments.
+                            Cash on Delivery is available nationwide with no extra fee. Pay the courier in BDT when your order arrives.
                         </p>
                     </div>
                 </section>
@@ -99,14 +98,14 @@ export default function ShippingPolicyPage() {
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <div className="p-4 bg-secondary/10 border border-border/60">
-                            <p className="font-medium text-sm">Metro cities</p>
-                            <p className="text-xl font-semibold mt-2">3–5 days</p>
-                            <p className="text-[10px] text-muted-foreground mt-1">Delhi, Mumbai, Bangalore, Chennai, Kolkata, Hyderabad</p>
+                            <p className="font-medium text-sm">Dhaka metro</p>
+                            <p className="text-xl font-semibold mt-2">2–4 days</p>
+                            <p className="text-[10px] text-muted-foreground mt-1">Dhaka, Gazipur, Narayanganj</p>
                         </div>
                         <div className="p-4 bg-secondary/10 border border-border/60">
-                            <p className="font-medium text-sm">Rest of India</p>
-                            <p className="text-xl font-semibold mt-2">5–7 days</p>
-                            <p className="text-[10px] text-muted-foreground mt-1">Tier 2/3 cities and other locations</p>
+                            <p className="font-medium text-sm">Rest of Bangladesh</p>
+                            <p className="text-xl font-semibold mt-2">3–7 days</p>
+                            <p className="text-[10px] text-muted-foreground mt-1">All other districts including Narsingdi</p>
                         </div>
                     </div>
                     <p className="text-[10px] text-muted-foreground">
@@ -120,12 +119,12 @@ export default function ShippingPolicyPage() {
                         <MapPin className="h-4 w-4 text-red-accent" /> Serviceable areas
                     </h2>
                     <div className="p-4 bg-secondary/10 border border-border/60">
-                        <p className="font-medium text-sm">We deliver across India</p>
+                        <p className="font-medium text-sm">We deliver across Bangladesh</p>
                         <p className="text-xs text-muted-foreground mt-2">
-                            We ship to most PIN codes in India. Some remote areas may have limited service or longer delivery times.
+                            We ship nationwide. Select your district at checkout for the correct delivery charge.
                         </p>
                         <p className="text-xs text-muted-foreground mt-2">
-                            To check if we deliver to your location, enter your PIN code at checkout.
+                            Enter a 4-digit postal code and a Bangladesh mobile number at checkout.
                         </p>
                     </div>
                 </section>
@@ -164,16 +163,16 @@ export default function ShippingPolicyPage() {
                             </thead>
                             <tbody>
                                 <tr className="border-t border-border">
-                                    <td className="p-3">Above ₹999</td>
+                                    <td className="p-3">Above ৳2,000</td>
                                     <td className="p-3 text-right text-green-600 dark:text-green-400 font-bold">FREE</td>
                                 </tr>
                                 <tr className="border-t border-border">
-                                    <td className="p-3">Below ₹999</td>
-                                    <td className="p-3 text-right">₹99</td>
+                                    <td className="p-3">Dhaka metro below ৳2,000</td>
+                                    <td className="p-3 text-right">৳60</td>
                                 </tr>
                                 <tr className="border-t border-border bg-orange-500/5">
-                                    <td className="p-3">COD Extra Fee</td>
-                                    <td className="p-3 text-right text-orange-600 dark:text-orange-400">+₹50</td>
+                                    <td className="p-3">Outside Dhaka below ৳2,000</td>
+                                    <td className="p-3 text-right text-orange-600 dark:text-orange-400">৳120</td>
                                 </tr>
                             </tbody>
                         </table>

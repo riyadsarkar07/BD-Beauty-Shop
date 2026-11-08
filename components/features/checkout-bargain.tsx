@@ -350,7 +350,7 @@ export function CheckoutBargain({ cartItems, totalPrice, onApplyCoupon, appliedC
                                 className="w-full h-11 rounded-none text-[10px] uppercase tracking-[0.2em] font-bold bg-red-accent text-white hover:bg-red-accent/90"
                                 onClick={handleApplyCoupon}
                             >
-                                Apply ₹{couponGenerated.discount} discount
+                                Apply ৳{couponGenerated.discount} discount
                             </Button>
                         ) : (
                             <div className="text-center text-[10px] uppercase tracking-[0.2em] text-green-600 dark:text-green-400 font-bold py-2">
@@ -409,7 +409,7 @@ export function CheckoutBargain({ cartItems, totalPrice, onApplyCoupon, appliedC
                 <div className="flex items-center gap-2.5 text-xs uppercase tracking-[0.15em] font-bold">
                     <Check className="h-4 w-4 text-green-500" />
                     <span className="text-green-600 dark:text-green-400">
-                        Coupon {appliedCoupon.code} applied! Saving ₹{appliedCoupon.discount}
+                        Coupon {appliedCoupon.code} applied! Saving ৳{appliedCoupon.discount}
                     </span>
                 </div>
             </div>

@@ -21,12 +21,12 @@ export type XilarGalleryItem = {
 
 
 const FALLBACK_ITEMS: XilarGalleryItem[] = [
-  { id: "fallback-shirt", title: "XILAR Shirt", src: "/clothes/shirt1.jpeg", href: "/shop" },
-  { id: "fallback-topwear", title: "XILAR Topwear", src: "/clothes/topwear-men1.jpeg", href: "/shop" },
-  { id: "fallback-denim", title: "XILAR Denim", src: "/clothes/denim1.jpeg", href: "/shop" },
-  { id: "fallback-printed", title: "XILAR Printed Shirt", src: "/clothes/shirts8.jpeg", href: "/shop" },
-  { id: "fallback-jacket", title: "XILAR Jacket", src: "/clothes/jackets-men1.jpeg", href: "/shop" },
-  { id: "fallback-women", title: "XILAR Womenswear", src: "/clothes/topwear-women.jpeg", href: "/shop" },
+  { id: "fallback-skincare", title: "Skincare Edit", src: "/hero/image(2).webp", href: "/shop/skincare" },
+  { id: "fallback-makeup", title: "Makeup Edit", src: "/hero/image(3).webp", href: "/shop/makeup" },
+  { id: "fallback-haircare", title: "Haircare Edit", src: "/hero/image(4).webp", href: "/shop/haircare" },
+  { id: "fallback-fragrance", title: "Fragrance Edit", src: "/hero/image(5).webp", href: "/shop/fragrance" },
+  { id: "fallback-bodycare", title: "Bodycare Edit", src: "/hero/image(6).webp", href: "/shop/bodycare" },
+  { id: "fallback-kits", title: "Kits & Sets", src: "/hero/image(7).webp", href: "/shop/kits" },
 ];
 
 const ITEM_WIDTH = 126;
@@ -40,7 +40,7 @@ function formatPrice(price?: string) {
   if (!price) return null;
   const parsed = Number(price);
   if (!Number.isFinite(parsed)) return null;
-  return `Rs. ${parsed.toLocaleString("en-IN")}`;
+  return `৳${parsed.toLocaleString("en-BD")}`;
 }
 
 export function GalleryClient({ items }: { items: XilarGalleryItem[] }) {
@@ -616,7 +616,7 @@ export function GalleryClient({ items }: { items: XilarGalleryItem[] }) {
         onClick={(event) => event.stopPropagation()}
       >
         <p data-gallery-detail className="text-[10px] font-semibold uppercase tracking-[0.32em] text-white/65">
-          {activePrice || "XILAR"}
+          {activePrice || "BD Beauty"}
         </p>
         <h2 className="font-display mt-2 text-4xl leading-none md:text-5xl" style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" }}>
           {active.item.title.split(" ").map((word, index) => (

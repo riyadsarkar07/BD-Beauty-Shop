@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createOrderFromQuote } from "@/lib/checkout/order-intake";
 import { getServerSession } from "@/lib/auth-server";
-import { COD_ALLOWED_PINCODES } from "@/lib/constants";
 import { CheckoutQuoteError, createCheckoutQuote } from "@/lib/checkout/quote";
+import { findBangladeshDistrict, isValidBangladeshPhone, isValidBangladeshPostalCode } from "@/lib/bangladesh";
 
 export async function POST(_req: NextRequest) {
   try {
@@ -15,10 +15,24 @@ export async function POST(_req: NextRequest) {
       );
     }
 
-    // Only allow COD for specific pincodes
-    if (!COD_ALLOWED_PINCODES.includes(body.shippingAddress?.pincode)) {
+    const district = body.shippingAddress?.district;
+    if (!findBangladeshDistrict(district)) {
       return NextResponse.json(
-        { success: false, error: "Cash on Delivery is not available for this pincode" },
+        { success: false, error: "Select a valid Bangladesh district" },
+        { status: 400 }
+      );
+    }
+
+    if (!isValidBangladeshPhone(body.shippingAddress?.phone || "")) {
+      return NextResponse.json(
+        { success: false, error: "Enter a valid Bangladesh mobile number" },
+        { status: 400 }
+      );
+    }
+
+    if (!isValidBangladeshPostalCode(body.shippingAddress?.pincode || "")) {
+      return NextResponse.json(
+        { success: false, error: "Enter a valid 4-digit postal code" },
         { status: 400 }
       );
     }
@@ -36,6 +50,7 @@ export async function POST(_req: NextRequest) {
       couponCode: body.couponCode,
       paymentMethod: "cod",
       userId: session?.user?.id,
+      district,
     });
 
     const result = await createOrderFromQuote({

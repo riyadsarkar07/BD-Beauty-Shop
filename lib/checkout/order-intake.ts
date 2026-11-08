@@ -32,6 +32,8 @@ export interface ShippingAddress {
   phone: string;
   address: string;
   city: string;
+  district: string;
+  area?: string;
   state?: string;
   pincode: string;
 }
@@ -261,7 +263,7 @@ async function consumeCouponForOrder(
   }
 
   if (coupon.minOrderValue && orderTotal < parseFloat(coupon.minOrderValue)) {
-    throw new Error(`Minimum order value is ₹${coupon.minOrderValue}`);
+    throw new Error(`Minimum order value is ৳${coupon.minOrderValue}`);
   }
 
   if (coupon.userId && coupon.userId !== userId) {
@@ -364,7 +366,9 @@ async function createOrder(input: CreateOrderInput) {
             phone: input.shippingAddress.phone,
             address: input.shippingAddress.address,
             city: input.shippingAddress.city,
-            state: input.shippingAddress.state || "",
+            district: input.shippingAddress.district,
+            area: input.shippingAddress.area,
+            state: input.shippingAddress.state || input.shippingAddress.district,
             pincode: input.shippingAddress.pincode,
           },
           paymentMethod: input.paymentMethod,
@@ -408,7 +412,9 @@ async function createOrder(input: CreateOrderInput) {
             phone: input.shippingAddress.phone,
             address: input.shippingAddress.address,
             city: input.shippingAddress.city,
-            state: input.shippingAddress.state || "",
+            district: input.shippingAddress.district,
+            area: input.shippingAddress.area,
+            state: input.shippingAddress.state || input.shippingAddress.district,
             pincode: input.shippingAddress.pincode,
           },
           updatedAt: new Date(),

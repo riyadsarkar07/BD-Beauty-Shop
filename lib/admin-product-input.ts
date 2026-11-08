@@ -28,11 +28,13 @@ export type ProductInput = {
   maxBargainDiscount?: string
   category: ProductCategory
   gender: ProductGender
+  brand?: string | null
+  sku?: string | null
   tags?: string[]
   stock: number
   images?: string[]
-  fabric?: string | null
-  gsm?: number | null
+  ingredients?: string | null
+  volume?: number | null
   careInstructions?: string[]
   features?: string[]
   sizes?: string[]
@@ -49,7 +51,7 @@ export type RawProductInput = Omit<Partial<ProductInput>, "colors" | "variants">
   category?: unknown
   gender?: unknown
   stock?: unknown
-  gsm?: unknown
+  volume?: unknown
   displayOrder?: unknown
   colors?: unknown
   variants?: unknown
@@ -191,11 +193,13 @@ function normalizeCommonProductInput(input: RawProductInput, partial: boolean) {
   }
   if (!partial || "category" in input) normalized.category = normalizeCategory(input.category)
   if (!partial || "gender" in input) normalized.gender = normalizeGender(input.gender)
+  if ("brand" in input) normalized.brand = textOrNull(input.brand)
+  if ("sku" in input) normalized.sku = textOrNull(input.sku)
   if ("tags" in input) normalized.tags = normalizeStringArray(input.tags, "Tags")
   if (!partial || "stock" in input) normalized.stock = normalizeNonNegativeInt(input.stock, "Stock")
   if ("images" in input) normalized.images = normalizeStringArray(input.images, "Images")
-  if ("fabric" in input) normalized.fabric = textOrNull(input.fabric)
-  if ("gsm" in input) normalized.gsm = normalizeOptionalInt(input.gsm, "GSM")
+  if ("ingredients" in input) normalized.ingredients = textOrNull(input.ingredients)
+  if ("volume" in input) normalized.volume = normalizeOptionalInt(input.volume, "Volume (ml)")
   if ("careInstructions" in input) {
     normalized.careInstructions = normalizeStringArray(input.careInstructions, "Care instructions")
   }
@@ -222,8 +226,8 @@ function applyAccessoryDefaults<T extends Partial<ProductInput>>(input: T): T {
   return {
     ...input,
     gender: "unisex",
-    fabric: null,
-    gsm: null,
+    ingredients: null,
+    volume: null,
     sizes: [ACCESSORY_SIZE],
     colors: [],
     careInstructions: [],
@@ -238,8 +242,8 @@ function applyAccessoryPatchDefaults<T extends Partial<ProductInput>>(input: T):
   return {
     ...input,
     gender: "unisex",
-    fabric: null,
-    gsm: null,
+    ingredients: null,
+    volume: null,
     sizes: [ACCESSORY_SIZE],
     colors: [],
     careInstructions: [],
@@ -254,11 +258,11 @@ export function normalizeProductInput(input: RawProductInput): ProductInput {
     ...normalized,
     tags: normalized.tags ?? [],
     images: normalized.images ?? [],
-    fabric: normalized.fabric ?? null,
-    gsm: normalized.gsm ?? null,
+    ingredients: normalized.ingredients ?? null,
+    volume: normalized.volume ?? null,
     careInstructions: normalized.careInstructions ?? [],
     features: normalized.features ?? [],
-    sizes: normalized.sizes?.length ? normalized.sizes : ["S", "M", "L", "XL"],
+    sizes: normalized.sizes?.length ? normalized.sizes : ["One Size"],
     colors: normalized.colors ?? [],
     variants: normalized.variants ?? [],
     isNew: normalized.isNew ?? false,

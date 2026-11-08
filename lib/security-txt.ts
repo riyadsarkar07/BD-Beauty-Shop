@@ -9,7 +9,7 @@ export function buildSecurityTxt(baseUrl = normalizeSiteUrl()) {
   return [
     `Contact: mailto:${CONTACT_EMAIL}`,
     `Canonical: ${normalizedBaseUrl}/.well-known/security.txt`,
-    "Preferred-Languages: en, hi",
+    "Preferred-Languages: en, bn",
     "",
   ].join("\n");
 }

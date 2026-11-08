@@ -11,7 +11,8 @@ interface ProductContext {
     mrp: number
     sellingPrice: number
     category?: string
-    fabric?: string
+    ingredients?: string
+    skinType?: string
     features?: string[]
     sizes?: string[]
     description?: string
@@ -32,8 +33,8 @@ function getWelcomeMessage(ctx?: ProductContext): Message {
         id: "welcome",
         role: "assistant",
         content: ctx
-            ? `Hey! 👋 Checking out the ${ctx.name}? Great choice! Ask me anything - sizing, fabric, styling tips, or care instructions!`
-            : "Hey! 👋 Got questions about this product? I'm here to help! Ask me about sizing, fabric, care, or anything else.",
+            ? `Hi! 👋 Looking at ${ctx.name}? Ask me about ingredients, skin type, how to use it, or delivery.`
+            : "Hi! 👋 Got questions about this product? Ask me about ingredients, skin type, how to use it, or delivery.",
     }
 }
 
@@ -73,28 +74,32 @@ export function ProductAssistant({ productContext }: ProductAssistantProps) {
             let response = ""
             const question = userMessage.content.toLowerCase()
 
-            if (question.includes("size") || question.includes("fit")) {
-                response = productContext?.sizes 
-                    ? `This comes in sizes: ${productContext.sizes.join(", ")}. For the best fit, we recommend going true to size. If you prefer a more relaxed fit, size up!`
-                    : "This fits true to size. Check the size chart for exact measurements!"
-            } else if (question.includes("fabric") || question.includes("material")) {
-                response = productContext?.fabric 
-                    ? `This is made from ${productContext.fabric}. Premium quality, feels great on skin! 👌`
-                    : "Made from premium quality fabric for lasting comfort and style."
-            } else if (question.includes("wash") || question.includes("care")) {
-                response = "Machine wash cold with similar colors. Tumble dry low. Easy care! 🧺"
+            if (question.includes("size") || question.includes("shade") || question.includes("variant")) {
+                response = productContext?.sizes
+                    ? `Available options: ${productContext.sizes.join(", ")}.`
+                    : "This listing has no variants entered yet. Check the product page for the current shade or size options."
+            } else if (question.includes("ingredient") || question.includes("material") || question.includes("ingredients")) {
+                response = productContext?.ingredients
+                    ? `Listed ingredients: ${productContext.ingredients}.`
+                    : "Ingredients are not listed for this product yet. Please check the packaging or ask us on WhatsApp before ordering."
+            } else if (question.includes("skin type") || question.includes("sensitive") || question.includes("oily") || question.includes("dry")) {
+                response = productContext?.skinType
+                    ? `This is listed as suitable for: ${productContext.skinType}.`
+                    : "Skin type suitability is not listed for this product. Please ask us before ordering."
+            } else if (question.includes("how to use") || question.includes("usage") || question.includes("apply")) {
+                response = "Usage instructions are not listed for this product. Check the packaging or ask us on WhatsApp for guidance."
             } else if (question.includes("return") || question.includes("exchange")) {
-                response = "Exchanges are allowed within 48 hours for size/color issues. Returns only for defects (unboxing video required). Check our policies page for details!"
+                response = "Exchanges are allowed within 48 hours for damaged or wrong items only, with an unboxing video. Sealed beauty products cannot be returned once opened. Check our policies page for details."
             } else if (question.includes("shipping") || question.includes("delivery")) {
-                response = "Free shipping on orders above ₹999! Standard delivery takes 5-7 business days. 🚚"
+                response = "Free shipping on orders above ৳2,000. Delivery takes 2-7 business days across Bangladesh, with Cash on Delivery available."
             } else if (question.includes("discount") || question.includes("bargain") || question.includes("offer")) {
-                response = "Want a discount? Add items to your cart and check out - you can negotiate with our Bargain AI at checkout! 💰"
+                response = "Want a discount? Add items to your cart and check out - you can negotiate with our Bargain AI at checkout."
             } else if (question.includes("price")) {
-                response = productContext 
-                    ? `This is priced at ₹${productContext.sellingPrice}. Great value for premium streetwear! Pro tip: negotiate at checkout 😉`
+                response = productContext
+                    ? `This is priced at ৳${productContext.sellingPrice}. You can also negotiate at checkout for a possible offer.`
                     : "Check out the price on the product page!"
             } else {
-                response = "Great question! For specific details, check the product description or reach out to our support. Anything else I can help with?"
+                response = "Great question! For specific details, check the product description or reach out to our support on WhatsApp. Anything else I can help with?"
             }
 
             setMessages((prev) => [
@@ -114,7 +119,7 @@ export function ProductAssistant({ productContext }: ProductAssistantProps) {
                     className="h-11 px-5 bg-background text-foreground border border-foreground hover:bg-foreground hover:text-background tracking-[0.25em] uppercase text-[9px] font-bold transition-all duration-200 rounded-none flex items-center justify-center gap-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.15)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.08)]"
                 >
                     <MessageCircle className="h-3.5 w-3.5" />
-                    <span>Ask Xilar Bot</span>
+                    <span>Ask Beauty Bot</span>
                 </button>
             )}
 
@@ -127,7 +132,7 @@ export function ProductAssistant({ productContext }: ProductAssistantProps) {
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-accent opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-red-accent"></span>
                             </span>
-                            <span className="font-bold tracking-[0.25em] uppercase text-[10px] text-foreground">Xilar Bot</span>
+                            <span className="font-bold tracking-[0.25em] uppercase text-[10px] text-foreground">Beauty Bot</span>
                             {productContext && (
                                 <span className="text-[9px] opacity-60 uppercase tracking-[0.15em] text-muted-foreground truncate max-w-[120px]">• {productContext.name}</span>
                             )}
@@ -179,7 +184,7 @@ export function ProductAssistant({ productContext }: ProductAssistantProps) {
 
                     {/* Quick Actions */}
                     <div className="px-3 py-2.5 border-t border-foreground/10 bg-background flex gap-2 overflow-x-auto scrollbar-hide">
-                        {["Size guide", "Fabric?", "Shipping", "Returns"].map((q) => (
+                        {["Shades?", "Ingredients?", "Shipping", "Returns"].map((q) => (
                             <button
                                 key={q}
                                 onClick={() => setInput(q)}

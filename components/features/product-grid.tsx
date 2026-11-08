@@ -11,7 +11,8 @@ import { buildProductPath } from "@/lib/seo"
 import { getDisplaySizes, useShopCatalog, type CatalogProduct } from "@/components/features/use-shop-catalog"
 import { filterCatalogProducts } from "@/lib/catalog-filter"
 import { ViewportPrefetchLink } from "@/components/ui/viewport-prefetch-link"
-import { cn } from "@/lib/utils"
+import { cn, isThenable } from "@/lib/utils"
+import { formatMoney } from "@/lib/money"
 
 function ColorSwatches({ colors }: { colors: { name: string; hex: string }[] }) {
     if (!colors || colors.length === 0) return null
@@ -101,9 +102,9 @@ export function ProductGrid({
     showGenderTabs?: boolean
     enableInfiniteScroll?: boolean
 }) {
-    const resolvedInitialProducts = initialProducts && typeof (initialProducts as any).then === "function"
-        ? use(initialProducts as Promise<CatalogProduct[]>)
-        : initialProducts as CatalogProduct[] | undefined;
+    const resolvedInitialProducts = isThenable(initialProducts)
+        ? use(initialProducts)
+        : initialProducts;
 
     const [activeTab, setActiveTab] = useState<"men" | "women">(gender === "women" ? "women" : "men")
     const { data: catalogProducts = [], isLoading: loading } = useShopCatalog(resolvedInitialProducts)
@@ -158,10 +159,7 @@ export function ProductGrid({
         enableInfiniteScroll ? "infinite" : "static",
     ].join(":")
 
-    const formatPrice = (price: string) => {
-        const num = parseFloat(price)
-        return `₹${num.toLocaleString("en-IN")}`
-    }
+    const formatPrice = (price: string) => formatMoney(price)
 
     const discountPercent = (product: CatalogProduct) => {
         const mrp = parseFloat(product.mrp)

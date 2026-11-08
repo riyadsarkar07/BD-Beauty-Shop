@@ -27,7 +27,7 @@ export default async function AdminLayout({
       <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-md">
         <div className="flex h-16 items-center px-4 md:px-8 gap-4">
           <Link href="/admin" className="text-2xl font-display tracking-tight flex items-baseline gap-1 select-none">
-            XILAR <span className="text-[10px] uppercase font-mono tracking-[0.2em] text-muted-foreground font-semibold">ADMIN</span>
+            BD Beauty <span className="text-[10px] uppercase font-mono tracking-[0.2em] text-muted-foreground font-semibold">ADMIN</span>
           </Link>
           
           <nav className="hidden md:flex items-center gap-8 ml-10">
@@ -42,6 +42,12 @@ export default async function AdminLayout({
               className="text-[10px] uppercase font-mono tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors font-medium"
             >
               Products
+            </Link>
+            <Link 
+              href="/admin/products/import" 
+              className="text-[10px] uppercase font-mono tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors font-medium"
+            >
+              Import
             </Link>
             <Link
               href="/admin/combos"
@@ -88,6 +94,7 @@ export default async function AdminLayout({
       <div className="flex md:hidden border-b border-border/40 bg-background overflow-x-auto scrollbar-hide py-3 px-4 gap-5 sticky top-16 z-40">
         <Link href="/admin" className="text-[10px] uppercase font-semibold tracking-[0.2em] text-muted-foreground hover:text-foreground shrink-0 transition-colors">Dashboard</Link>
         <Link href="/admin/products" className="text-[10px] uppercase font-semibold tracking-[0.2em] text-muted-foreground hover:text-foreground shrink-0 transition-colors">Products</Link>
+        <Link href="/admin/products/import" className="text-[10px] uppercase font-semibold tracking-[0.2em] text-muted-foreground hover:text-foreground shrink-0 transition-colors">Import</Link>
         <Link href="/admin/combos" className="text-[10px] uppercase font-semibold tracking-[0.2em] text-muted-foreground hover:text-foreground shrink-0 transition-colors">Combos</Link>
         <Link href="/admin/orders" className="text-[10px] uppercase font-semibold tracking-[0.2em] text-muted-foreground hover:text-foreground shrink-0 transition-colors">Orders</Link>
         <Link href="/admin/coupons" className="text-[10px] uppercase font-semibold tracking-[0.2em] text-muted-foreground hover:text-foreground shrink-0 transition-colors">Coupons</Link>

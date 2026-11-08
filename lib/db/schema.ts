@@ -67,7 +67,9 @@ export const user = pgTable("user", {
     phone: string;
     address: string;
     city: string;
-    state: string;
+    district: string;
+    area?: string;
+    state?: string;
     pincode: string;
   }>(),
 });
@@ -130,6 +132,8 @@ export const products = pgTable("products", {
   // Categorization
   category: productCategoryEnum("category").notNull(),
   gender: productGenderEnum("gender").notNull(),
+  brand: text("brand"),
+  sku: text("sku"),
   tags: json("tags").$type<string[]>().default([]),
   
   // Inventory
@@ -139,13 +143,13 @@ export const products = pgTable("products", {
   images: json("images").$type<string[]>().default([]),
   
   // Product details
-  fabric: text("fabric"),
-  gsm: integer("gsm"),
+  ingredients: text("ingredients"),
+  volume: integer("volume"),
   careInstructions: json("care_instructions").$type<string[]>().default([]),
   features: json("features").$type<string[]>().default([]),
   
   // Size & Color variants
-  sizes: json("sizes").$type<string[]>().default(["S", "M", "L", "XL"]),
+  sizes: json("sizes").$type<string[]>().default(["One Size"]),
   colors: json("colors").$type<{ name: string; hex: string; images?: string[] }[]>().default([]),
 
   // Search document for PostgreSQL lexical ranking. Dense vectors live in Pinecone.
@@ -303,7 +307,9 @@ export const orders = pgTable("orders", {
     phone: string;
     address: string;
     city: string;
-    state: string;
+    district: string;
+    area?: string;
+    state?: string;
     pincode: string;
   }>(),
   
@@ -600,6 +606,40 @@ export const wishlist = pgTable("wishlist", {
   uniqueIndex("wishlist_user_product_unique").on(table.userId, table.productId),
   index("wishlist_user_id_idx").on(table.userId),
 ]);
+
+export const productImportRuns = pgTable("product_import_runs", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  source: text("source").notNull(),
+  fileName: text("file_name"),
+  status: text("status").notNull().default("completed"),
+  importedCount: integer("imported_count").notNull().default(0),
+  failedCount: integer("failed_count").notNull().default(0),
+  duplicateCount: integer("duplicate_count").notNull().default(0),
+  skippedCount: integer("skipped_count").notNull().default(0),
+  report: json("report").$type<{
+    imported: string[];
+    failed: { name?: string; reason: string }[];
+    duplicates: string[];
+    missing: { name?: string; fields: string[] }[];
+  }>().notNull().default({ imported: [], failed: [], duplicates: [], missing: [] }),
+  createdBy: text("created_by").references(() => user.id, { onDelete: "set null" }),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("product_import_runs_created_at_idx").on(table.createdAt),
+]);
+
+export const homepageBanners = pgTable("homepage_banners", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  title: text("title").notNull(),
+  subtitle: text("subtitle"),
+  imageUrl: text("image_url").notNull(),
+  href: text("href").notNull().default("/shop"),
+  ctaLabel: text("cta_label").notNull().default("Shop now"),
+  isActive: boolean("is_active").notNull().default(true),
+  displayOrder: integer("display_order").notNull().default(0),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
 
 // ============================================
 // RELATIONS

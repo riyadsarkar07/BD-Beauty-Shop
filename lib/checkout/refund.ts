@@ -24,7 +24,7 @@ export async function refundUnfulfilledPayment(input: {
     return true;
   } catch (error) {
     console.error(
-      `[checkout] REFUND FAILED for captured payment ${input.razorpayPaymentId} (checkout ${input.checkoutPaymentId}, ₹${input.amountPaise / 100}). Refund manually in Razorpay.`,
+      `[checkout] REFUND FAILED for captured payment ${input.razorpayPaymentId} (checkout ${input.checkoutPaymentId}, ৳${input.amountPaise / 100}). Refund manually.`,
       error,
     );
     return false;

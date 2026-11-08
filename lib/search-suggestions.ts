@@ -6,7 +6,7 @@ export type SearchSuggestionProductSource = {
   category: string;
   gender: string;
   tags?: string[] | null;
-  fabric?: string | null;
+  ingredients?: string | null;
   features?: string[] | null;
   colors?: { name: string; hex?: string; images?: string[] }[] | null;
   isNew?: boolean | null;
@@ -33,38 +33,30 @@ type PhraseInput = {
 };
 
 const CATEGORY_LABELS: Record<ProductCategory, { singular: string; plural: string }> = {
-  tshirt: { singular: "tee", plural: "tees" },
-  cargo: { singular: "cargo", plural: "cargos" },
-  jogger: { singular: "jogger", plural: "joggers" },
-  shirt: { singular: "shirt", plural: "shirts" },
-  jeans: { singular: "jeans", plural: "jeans" },
-  hoodie: { singular: "hoodie", plural: "hoodies" },
-  jacket: { singular: "jacket", plural: "jackets" },
-  shacket: { singular: "shacket", plural: "shackets" },
-  sweatshirt: { singular: "sweatshirt", plural: "sweatshirts" },
-  trousers: { singular: "trousers", plural: "trousers" },
-  shorts: { singular: "shorts", plural: "shorts" },
+  skincare: { singular: "skincare", plural: "skincare" },
+  makeup: { singular: "makeup", plural: "makeup" },
+  haircare: { singular: "haircare", plural: "haircare" },
+  fragrance: { singular: "fragrance", plural: "fragrance" },
+  bodycare: { singular: "bodycare", plural: "bodycare" },
+  nailcare: { singular: "nailcare", plural: "nailcare" },
+  tools: { singular: "beauty tool", plural: "beauty tools" },
+  kits: { singular: "kit", plural: "kits" },
+  wellness: { singular: "wellness", plural: "wellness" },
   accessory: { singular: "accessory", plural: "accessories" },
 };
 
 const STOP_TOKENS = new Set([
-  "xilar",
-  "shirt",
-  "shirts",
-  "tshirt",
-  "tee",
-  "tees",
-  "polo",
-  "polos",
-  "jean",
-  "jeans",
-  "fit",
-  "edition",
+  "bd",
+  "beauty",
+  "shop",
   "premium",
   "classic",
+  "kit",
+  "set",
+  "care",
 ]);
 
-const DESCRIPTOR_STOP_TOKENS = new Set(["premium", "xilar"]);
+const DESCRIPTOR_STOP_TOKENS = new Set(["premium", "beauty"]);
 
 function hashString(value: string) {
   let hash = 2166136261;
@@ -76,7 +68,7 @@ function hashString(value: string) {
 }
 
 function createSeededRandom(seed: string) {
-  let state = hashString(seed || "xilar-search-suggestions");
+  let state = hashString(seed || "bd-beauty-search-suggestions");
   return () => {
     state += 0x6d2b79f5;
     let next = state;
@@ -161,7 +153,7 @@ function productHaystack(product: SearchSuggestionProductSource) {
     product.name,
     product.category,
     product.gender,
-    product.fabric,
+    product.ingredients,
     product.searchText,
     ...(product.tags || []),
     ...(product.features || []),
@@ -217,9 +209,9 @@ export function buildGeneralSearchPhrases({
       if (colorName) addPhrase(candidates, `${colorName} ${category.plural}`);
     }
 
-    if (product.fabric) {
-      const fabric = cleanDescriptor(product.fabric);
-      if (fabric) addPhrase(candidates, `${fabric} ${category.plural}`);
+    if (product.ingredients) {
+      const ingredients = cleanDescriptor(product.ingredients);
+      if (ingredients) addPhrase(candidates, `${ingredients} ${category.plural}`);
     }
 
     for (const token of getStyleTokens(product.name)) {

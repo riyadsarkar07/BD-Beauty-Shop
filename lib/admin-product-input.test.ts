@@ -13,10 +13,10 @@ const baseInput: RawProductInput = {
   mrp: "999",
   sellingPrice: "799",
   maxBargainDiscount: "50",
-  category: "tshirt",
+  category: "skincare",
   gender: "men",
   stock: 1,
-  fabric: "100% premium cotton ",
+  ingredients: "100% premium cotton ",
   images: [
     "https://res.cloudinary.com/du44kbibc/image/upload/v1780066847/xilar/products/eodf5t0wzpckgqasfuya.webp",
   ],
@@ -39,12 +39,12 @@ const baseInput: RawProductInput = {
 test("normalizes server-action undefined sentinels before product insert", () => {
   const product = normalizeProductInput({
     ...baseInput,
-    gsm: "$undefined",
+    volume: "$undefined",
   })
 
   assert.equal(product.name, "Golden Skyline Oversized Tee")
   assert.equal(product.slug, "golden-skyline-oversized-tee")
-  assert.equal(product.gsm, null)
+  assert.equal(product.volume, null)
   assert.equal(product.stock, 1)
   assert.deepEqual(product.variants, [
     { size: "M", color: null, stock: 1 },
@@ -58,8 +58,8 @@ test("normalizes accessory products to the single inventory bucket", () => {
     category: "accessory",
     gender: "men",
     stock: "3",
-    gsm: 260,
-    fabric: "Leather",
+    volume: 260,
+    ingredients: "Leather",
     sizes: ["M"],
     colors: [{ name: "Black", hex: "#000000" }],
     careInstructions: ["wipe clean"],
@@ -68,8 +68,8 @@ test("normalizes accessory products to the single inventory bucket", () => {
   })
 
   assert.equal(product.gender, "unisex")
-  assert.equal(product.gsm, null)
-  assert.equal(product.fabric, null)
+  assert.equal(product.volume, null)
+  assert.equal(product.ingredients, null)
   assert.deepEqual(product.sizes, ["One Size"])
   assert.deepEqual(product.colors, [])
   assert.deepEqual(product.careInstructions, [])
@@ -121,9 +121,9 @@ test("rejects duplicate inventory dimensions before variant rows are created", (
 })
 
 test("normalizes partial product updates without forcing missing fields", () => {
-  assert.deepEqual(normalizeProductPatch({ gsm: "$undefined", fabric: "" }), {
-    gsm: null,
-    fabric: null,
+  assert.deepEqual(normalizeProductPatch({ volume: "$undefined", ingredients: "" }), {
+    volume: null,
+    ingredients: null,
   })
 })
 
@@ -131,8 +131,8 @@ test("normalizes accessory patches without inventing zero-stock variants", () =>
   assert.deepEqual(normalizeProductPatch({ category: "accessory" }), {
     category: "accessory",
     gender: "unisex",
-    fabric: null,
-    gsm: null,
+    ingredients: null,
+    volume: null,
     sizes: ["One Size"],
     colors: [],
     careInstructions: [],

@@ -46,7 +46,7 @@ export default async function AdminOrderDetailPage({
               Order #{order.id.slice(0, 8).toUpperCase()}
             </h1>
             <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-              Placed on {new Date(order.createdAt).toLocaleDateString("en-IN", {
+              Placed on {new Date(order.createdAt).toLocaleDateString("en-BD", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
@@ -84,8 +84,8 @@ export default async function AdminOrderDetailPage({
                   </div>
                 </div>
                 <div className="text-right flex-shrink-0">
-                  <p className="font-medium">₹{parseFloat(item.totalPrice).toLocaleString("en-IN")}</p>
-                  <p className="text-sm text-muted-foreground">₹{parseFloat(item.unitPrice).toLocaleString("en-IN")} each</p>
+                  <p className="font-medium">৳{parseFloat(item.totalPrice).toLocaleString("en-BD")}</p>
+                  <p className="text-sm text-muted-foreground">৳{parseFloat(item.unitPrice).toLocaleString("en-BD")} each</p>
                 </div>
               </div>
             ))}
@@ -95,27 +95,27 @@ export default async function AdminOrderDetailPage({
           <div className="p-4 border-t bg-muted/20 space-y-2">
             <div className="flex justify-between text-sm">
               <span>Subtotal</span>
-              <span>₹{parseFloat(order.subtotal).toLocaleString("en-IN")}</span>
+              <span>৳{parseFloat(order.subtotal).toLocaleString("en-BD")}</span>
             </div>
             <div className="flex justify-between text-sm">
               <span>Shipping</span>
-              <span>{parseFloat(order.shipping) === 0 ? "FREE" : `₹${parseFloat(order.shipping).toLocaleString("en-IN")}`}</span>
+              <span>{parseFloat(order.shipping) === 0 ? "FREE" : `৳${parseFloat(order.shipping).toLocaleString("en-BD")}`}</span>
             </div>
             {order.couponCode && (
               <div className="flex justify-between text-sm text-green-600 dark:text-green-400">
                 <span>Discount ({order.couponCode})</span>
-                <span>-₹{parseFloat(order.discount).toLocaleString("en-IN")}</span>
+                <span>-৳{parseFloat(order.discount).toLocaleString("en-BD")}</span>
               </div>
             )}
             {order.codFee && parseFloat(order.codFee) > 0 && (
               <div className="flex justify-between text-sm text-orange-600 dark:text-orange-400">
                 <span>COD Fee</span>
-                <span>+₹{parseFloat(order.codFee).toLocaleString("en-IN")}</span>
+                <span>+৳{parseFloat(order.codFee).toLocaleString("en-BD")}</span>
               </div>
             )}
             <div className="flex justify-between font-bold text-lg pt-2 border-t">
               <span>Total</span>
-              <span>₹{parseFloat(order.total).toLocaleString("en-IN")}</span>
+              <span>৳{parseFloat(order.total).toLocaleString("en-BD")}</span>
             </div>
           </div>
         </div>
@@ -191,10 +191,10 @@ export default async function AdminOrderDetailPage({
                 <div className="mt-2 p-3 bg-orange-500/10 border border-orange-500/30 rounded">
                   <p className="font-medium text-orange-600 dark:text-orange-400">Cash on Delivery</p>
                   {order.codFee && parseFloat(order.codFee) > 0 && (
-                    <p className="text-muted-foreground mt-1">COD Fee: ₹{parseFloat(order.codFee)}</p>
+                    <p className="text-muted-foreground mt-1">COD Fee: ৳{parseFloat(order.codFee)}</p>
                   )}
                   {order.codRemainingAmount && (
-                    <p className="text-muted-foreground">Amount to collect: ₹{parseFloat(order.codRemainingAmount).toLocaleString("en-IN")}</p>
+                    <p className="text-muted-foreground">Amount to collect: ৳{parseFloat(order.codRemainingAmount).toLocaleString("en-BD")}</p>
                   )}
                 </div>
               )}
@@ -214,7 +214,7 @@ export default async function AdminOrderDetailPage({
                 {order.bargainDiscount && (
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Discount</span>
-                    <span className="text-green-600 dark:text-green-400">₹{parseFloat(order.bargainDiscount)}</span>
+                    <span className="text-green-600 dark:text-green-400">৳{parseFloat(order.bargainDiscount)}</span>
                   </div>
                 )}
                 {order.bargainScore !== null && (

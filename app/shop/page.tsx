@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import { ShopClient } from "@/components/features/shop-client"
-import { Suspense } from "react"
 import { getCatalogProducts } from "@/lib/product-catalog"
 import {
     JsonLd,
@@ -10,22 +9,22 @@ import {
 import { normalizeSiteUrl } from "@/lib/seo"
 
 export const metadata: Metadata = {
-    title: "Shop All Streetwear",
+    title: "Shop All Beauty",
     description:
-        "Explore the full XILAR streetwear collection. Premium basics, bold fits, oversized tees, cargos, joggers, and everyday essentials. Free shipping above ₹999.",
+        "Explore skincare, makeup, haircare, fragrance, and wellness at BD Beauty Shop. Cash on Delivery nationwide. Free shipping above ৳2,000.",
     alternates: {
         canonical: "/shop",
     },
     openGraph: {
-        title: "Shop All Streetwear | XILAR",
+        title: "Shop All Beauty | BD Beauty Shop",
         description:
-            "Explore the full XILAR streetwear collection. Premium basics, bold fits, oversized tees, cargos, joggers, and everyday essentials.",
+            "Explore skincare, makeup, haircare, fragrance, and wellness at BD Beauty Shop. Cash on Delivery nationwide.",
         url: "/shop",
     },
 }
 
-export default function ShopPage() {
-    const catalogPromise = getCatalogProducts({
+export default async function ShopPage() {
+    const catalog = await getCatalogProducts({
         limit: 24,
         offset: 0,
         includeTotal: true,
@@ -40,17 +39,31 @@ export default function ShopPage() {
                     { name: "Shop", url: "/shop" },
                 ])}
             />
+            <JsonLd
+                data={collectionJsonLd(baseUrl, {
+                    name: "Shop All Beauty",
+                    description:
+                        "Skincare, makeup, haircare, fragrance, bodycare, nailcare, tools, kits, and wellness from BD Beauty Shop.",
+                    url: "/shop",
+                    products: catalog.products.map((product) => ({
+                        name: product.name,
+                        slug: product.slug,
+                        image: product.images[0] ?? null,
+                        sellingPrice: product.sellingPrice,
+                    })),
+                })}
+            />
             <ShopClient
                 genderFilter="all"
                 title="All Products"
-                subtitle="Premium Indian streetwear across oversized tees, cargos, joggers, hoodies, and accessories."
-                initialCatalogPromise={catalogPromise}
+                subtitle="Skincare, makeup, haircare, fragrance, bodycare, and beauty tools delivered across Bangladesh."
+                initialCatalog={catalog}
             />
             <section className="border-t border-border/60 px-6 py-12 md:px-12 md:py-16">
                 <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-[0.8fr_1.2fr]">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground">Streetwear index</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground">Beauty index</p>
                     <p className="text-base leading-8 text-muted-foreground">
-                        XILAR brings together oversized t-shirts, cargos, joggers, hoodies, shirts, jeans, jackets, shorts, and accessories for Indian streetwear wardrobes. The catalog is built for relaxed proportions, bold everyday styling, and premium basics without marketplace clutter.
+                        BD Beauty brings together skincare, makeup, haircare, fragrance, bodycare, nailcare, tools, kits, and wellness in one focused catalog. Every listing shows the details supplied by the brand, with prices in Bangladeshi Taka and server-verified totals at checkout.
                     </p>
                 </div>
             </section>

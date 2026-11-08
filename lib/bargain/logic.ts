@@ -59,7 +59,7 @@ export function getLastUserMessage(messages: Array<{ role?: string; content?: st
 }
 
 export function parseRequestedDiscount(message: string): number | null {
-  const match = message.match(/(?:₹|rs\.?|rupees?)?\s*(\d{1,5})(?:\s*(?:off|discount))?/i);
+  const match = message.match(/(?:৳|rs\.?|rupees?)?\s*(\d{1,5})(?:\s*(?:off|discount))?/i);
   if (!match) return null;
   const value = Number(match[1]);
   return Number.isFinite(value) ? value : null;

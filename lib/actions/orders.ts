@@ -160,7 +160,9 @@ export async function getSavedShippingAddress() {
     phone: userData.shippingAddress?.phone || userData.phone || "",
     address: userData.shippingAddress?.address || "",
     city: userData.shippingAddress?.city || "",
-    state: userData.shippingAddress?.state || "",
+    district: userData.shippingAddress?.district || userData.shippingAddress?.state || "",
+    area: userData.shippingAddress?.area || "",
+    state: userData.shippingAddress?.state || userData.shippingAddress?.district || "",
     pincode: userData.shippingAddress?.pincode || "",
   };
 }

@@ -19,7 +19,7 @@ test("bargain bot prompt disallows vulgar abuse and slurs", () => {
 
   assert.ok(prompt.includes("slurs"))
   assert.ok(prompt.includes("profanity"))
-  assert.ok(prompt.includes("hindi"))
+  assert.ok(prompt.includes("bangla"))
   assert.ok(!prompt.includes("bakchodi"))
   assert.ok(!prompt.includes("extreme abuse"))
 })
@@ -27,9 +27,9 @@ test("bargain bot prompt disallows vulgar abuse and slurs", () => {
 test("bargain cap never exceeds configured product and combo limits", () => {
   const configuredCap = calculateConfiguredDiscountCap({
     cartItems: [
-      { id: "p1", name: "Tee", quantity: 2, price: 700, comboId: "c1", comboGroupId: "g1" },
-      { id: "p2", name: "Cargo", quantity: 2, price: 800, comboId: "c1", comboGroupId: "g1" },
-      { id: "p3", name: "Cap", quantity: 1, price: 499 },
+      { id: "p1", name: "Serum", quantity: 2, price: 700, comboId: "c1", comboGroupId: "g1" },
+      { id: "p2", name: "Cleanser", quantity: 2, price: 800, comboId: "c1", comboGroupId: "g1" },
+      { id: "p3", name: "Lipstick", quantity: 1, price: 499 },
     ],
     productCaps: new Map([["p1", 80], ["p2", 90], ["p3", 40]]),
     combos: [{ id: "c1", productAId: "p2", productBId: "p1", discountAmount: "100" }],

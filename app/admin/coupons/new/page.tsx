@@ -90,7 +90,7 @@ export default function NewCouponPage() {
                   setFormData({ ...formData, code: e.target.value.toUpperCase() })
                 }
                 className="w-full px-3 py-2 border rounded-lg bg-background uppercase"
-                placeholder="XILAR10"
+                placeholder="BEAUTY10"
               />
               <p className="text-xs text-muted-foreground">
                 Customers will enter this code at checkout
@@ -111,7 +111,7 @@ export default function NewCouponPage() {
                   }
                   className="w-full px-3 py-2 border rounded-lg bg-background"
                 >
-                  <option value="fixed">Fixed Amount (₹)</option>
+                  <option value="fixed">Fixed Amount (৳)</option>
                   <option value="percentage">Percentage (%)</option>
                 </select>
               </div>
@@ -137,7 +137,7 @@ export default function NewCouponPage() {
 
             {formData.discountType === "percentage" && (
               <div className="space-y-2">
-                <label className="text-sm font-medium">Max Discount (₹)</label>
+                <label className="text-sm font-medium">Max Discount (৳)</label>
                 <input
                   type="number"
                   min="0"
@@ -156,7 +156,7 @@ export default function NewCouponPage() {
             )}
 
             <div className="space-y-2">
-              <label className="text-sm font-medium">Minimum Order Value (₹)</label>
+              <label className="text-sm font-medium">Minimum Order Value (৳)</label>
               <input
                 type="number"
                 min="0"

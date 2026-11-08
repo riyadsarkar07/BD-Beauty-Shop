@@ -4,19 +4,19 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { JsonLd, breadcrumbJsonLd, organizationJsonLd, webSiteJsonLd } from "@/components/seo/structured-data"
-import { CONTACT_EMAIL, CONTACT_PHONE } from "@/lib/constants"
+import { CONTACT_EMAIL, CONTACT_FACEBOOK, CONTACT_PHONE, STORE_ADDRESS_LINE, STORE_LOCALITY } from "@/lib/constants"
 
 export const metadata: Metadata = {
-    title: "About XILAR — Our Story",
+    title: "About BD Beauty Shop",
     description:
-        "Learn about XILAR — Gen-Z streetwear built on streetwise minimalism, bold design, and affordable luxury. Led by Founder Aman Somvanshi and CTO Aditya Singh in Lucknow.",
+        "BD Beauty Shop is a premium Bangladesh beauty store based in Narsingdi, offering skincare, makeup, haircare, and wellness with Cash on Delivery nationwide.",
     alternates: {
         canonical: "/about",
     },
     openGraph: {
-        title: "About XILAR — Our Story",
+        title: "About BD Beauty Shop",
         description:
-            "Gen-Z streetwear built on streetwise minimalism, bold design, and affordable luxury. Led by Founder Aman Somvanshi and CTO Aditya Singh in Lucknow.",
+            "A premium Bangladesh beauty store based in Narsingdi, offering skincare, makeup, haircare, and wellness with Cash on Delivery nationwide.",
         url: "/about",
     },
 }
@@ -48,7 +48,7 @@ const teamMembers = [
         ),
         image: "/team/founder.jpeg",
         description:
-            "Aman is the founder of XILAR, with a vision to create a brand that resonates with Gen-Z consumers and delivers on the promise of affordable luxury."
+            "Aman is listed as a founder profile in this codebase. BD Beauty Shop merchandising is operated from Narsingdi, Bangladesh."
     },
     // {
     //     index: "03",
@@ -90,21 +90,21 @@ export default function AboutPage() {
                 <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[0.8fr_1.2fr] md:gap-14">
                     <div className="flex flex-col justify-between gap-8">
                         <p className="max-w-[24rem] text-[10px] font-semibold uppercase tracking-[0.36em] text-muted-foreground">
-                            Street ready. Built for movement.
+                            Beauty, delivered across Bangladesh.
                         </p>
                         <p className="max-w-[22rem] text-sm leading-7 text-muted-foreground">
-                            We are building an Indian streetwear house for visual shoppers who want premium confidence without luxury-store distance.
+                            We are building a Bangladesh beauty store for shoppers who want trusted products, clear prices in Taka, and Cash on Delivery.
                         </p>
                     </div>
 
                     <div className="grid gap-8">
                         <h1 className="font-display max-w-5xl text-6xl leading-[0.88] md:text-8xl lg:text-9xl">
-                            About XILAR
+                            About BD Beauty Shop
                         </h1>
                         <div className="relative h-[48svh] min-h-[24rem] overflow-hidden bg-muted md:h-[56svh]">
                             <Image
                                 src="/logo.jpeg"
-                                alt="XILAR streetwear editorial"
+                                alt="BD Beauty Shop"
                                 fill
                                 sizes="(max-width: 768px) 100vw, 68vw"
                                 priority
@@ -210,6 +210,17 @@ export default function AboutPage() {
                         <div className="text-sm leading-7 text-muted-foreground md:text-right">
                             <p className="font-medium text-foreground">{CONTACT_EMAIL}</p>
                             <p>{CONTACT_PHONE}</p>
+                            <p>
+                                {STORE_ADDRESS_LINE}, {STORE_LOCALITY}
+                            </p>
+                            <a
+                                href={CONTACT_FACEBOOK}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-foreground underline underline-offset-4"
+                            >
+                                Beauty Room By Afrin on Facebook
+                            </a>
                         </div>
                         <Button asChild variant="outline" className="h-13 rounded-full px-7 text-xs font-semibold uppercase tracking-[0.2em]">
                             <Link href="/shop">

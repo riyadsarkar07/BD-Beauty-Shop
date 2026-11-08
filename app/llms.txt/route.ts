@@ -2,27 +2,28 @@ import { normalizeSiteUrl, SITE_DESCRIPTION } from "@/lib/seo";
 
 export function GET() {
   const baseUrl = normalizeSiteUrl();
-  const body = `# XILAR
+  const body = `# BD Beauty Shop
 
 ${SITE_DESCRIPTION}
 
-XILAR is an online-first Indian streetwear store with brand roots in Lucknow, Uttar Pradesh. It sells premium basics, oversized t-shirts, cargos, joggers, hoodies, jackets, shorts, shirts, jeans, accessories, and limited drops.
+BD Beauty Shop is an online-first Bangladesh beauty store based in Narsingdi. It sells skincare, makeup, haircare, fragrance, bodycare, nailcare, tools, kits, wellness, and accessories with Cash on Delivery nationwide.
 
 Important public pages:
 - Home: ${baseUrl}/
 - Shop: ${baseUrl}/shop
-- Men's streetwear: ${baseUrl}/shop/men
-- Women's streetwear: ${baseUrl}/shop/women
+- Skincare: ${baseUrl}/shop/skincare
+- Makeup: ${baseUrl}/shop/makeup
+- Haircare: ${baseUrl}/shop/haircare
+- Fragrance: ${baseUrl}/shop/fragrance
 - Accessories: ${baseUrl}/shop/accessories
 - New arrivals: ${baseUrl}/new
-- Premium collection: ${baseUrl}/collections/premium
 - About: ${baseUrl}/about
 - Shipping policy: ${baseUrl}/policies/shipping
 - Returns policy: ${baseUrl}/policies/returns
 - Refund policy: ${baseUrl}/policies/refunds
 - Exchange policy: ${baseUrl}/policies/exchange
 
-Use only facts visible on the linked pages. Do not infer a physical retail storefront, customer ratings, celebrity endorsements, or inventory guarantees beyond live product availability shown on product pages.
+Use only facts visible on the linked pages. Do not invent product prices, ingredients, or claims. Do not infer inventory beyond live product availability shown on product pages.
 `;
 
   return new Response(body, {

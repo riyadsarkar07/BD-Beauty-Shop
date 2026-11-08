@@ -1,8 +1,8 @@
-# XILAR E-Commerce — Copilot Instructions
+# BD Beauty Shop — Copilot Instructions
 
 > [!IMPORTANT]
 > **Design Philosophy & Visual Styling:**
-> For all design context, colors, typography, motion rules, animations, interactive mechanics, performance safeguards, and accessibility guidance, you **must** refer to [.impeccable.md](file:///c:/Users/fateless/Documents/Projects/xilar/.impeccable.md). Keep this instructions file focused on backend/frontend engineering architecture, implementation rules, and seasoned awards-level design-engineering principles.
+> For all design context, colors, typography, motion rules, animations, interactive mechanics, performance safeguards, and accessibility guidance, you **must** refer to `.impeccable.md`. Keep this instructions file focused on backend/frontend engineering architecture, implementation rules, and seasoned awards-level design-engineering principles.
 
 CHECK IF YOU HAVE SKILLS FOR THE TECHNOLOGY YOU'RE TRYING TO IMPLEMENT. IF PRESENT, REFER TO THE SKILLS FIRST AND THEN PROCEED. USE THE ASK QUESTIONS TOOL AT THE SLIGHTEST BIT OF CONFUSION
 
@@ -54,7 +54,7 @@ All database writes use server actions in `lib/actions/`. API route handlers cal
 - Client: `useSession()` hook from `lib/auth-client.ts`
 
 ### Client State (Cart, Wishlist, Theme)
-Stored in `localStorage` (keys: `xilar-cart`, `xilar-wishlist`, `xilar-theme`). Provided via React Context from `lib/*-context.tsx`. No server-side cart — entirely client-driven.
+Cart and theme are stored in `localStorage` (keys: `xilar-cart`, `xilar-theme`) and provided via React Context from `lib/*-context.tsx`. No server-side cart — entirely client-driven. Wishlist is the exception: it is account-backed through `lib/actions/wishlist.ts` and requires a server session.
 
 ### Pricing & Security
 - Server always recalculates totals from DB prices — never trust client amounts
@@ -63,8 +63,8 @@ Stored in `localStorage` (keys: `xilar-cart`, `xilar-wishlist`, `xilar-theme`). 
 - Razorpay signature verification on payment confirmation (`app/api/checkout/wallet-payment/verify/route.ts`)
 - A captured Razorpay payment that cannot become an order is refunded via `refundUnfulfilledPayment()` (`lib/checkout/refund.ts`) — never leave a customer charged without an order
 - Coupon validation runs server-side with all business rules (expiry, limits, min order, user restrictions)
-- Shipping: free ≥ ₹999, else ₹99 (see `lib/constants.ts` for source of truth)
-- COD: ₹50 fee, cancellable by the owning customer only while `pending` or `confirmed`; cancellation restores stock and rolls back user metrics
+- Shipping: free ≥ ৳2,000, else ৳60 inside Dhaka and ৳120 outside Dhaka (see `lib/constants.ts` for source of truth)
+- COD: no extra fee, cancellable by the owning customer only while `pending` or `confirmed`; cancellation restores stock and rolls back user metrics
 
 ### Bargain AI (Discount Negotiation)
 - Checkout component (`components/features/checkout-bargain.tsx`) streams AI chat via `/api/bargain`
@@ -76,7 +76,7 @@ Stored in `localStorage` (keys: `xilar-cart`, `xilar-wishlist`, `xilar-theme`). 
 
 ### Payment & Checkout Flow
 Two payment paths in `app/checkout/page.tsx`:
-- **COD:** POST `/api/orders` → creates order directly with `paymentStatus="pending"`, adds ₹50 COD fee
+- **COD:** POST `/api/orders` → creates order directly with `paymentStatus="pending"`, no COD surcharge
 - **Online (Razorpay / wallet):** POST `/api/checkout/wallet-payment` (server quote, optional wallet reservation, Razorpay order for the remainder) → open Razorpay modal → POST `/api/checkout/wallet-payment/verify` (signature + exact captured amount check) → `createOrderFromQuote()` with `paymentStatus="paid"`; on failure the reservation is released and the captured payment refunded
 - Server recalculates totals in both paths — client amounts are never trusted
 - Razorpay payment methods: UPI, Card, NetBanking (validated in verify route)
@@ -85,7 +85,7 @@ Two payment paths in `app/checkout/page.tsx`:
 
 ### Store Credits & Refunds
 - `issueStoreCredit()` in `lib/actions/admin.ts` generates `CREDIT-XXXXXXXX` prefixed coupons
-- Adds 5% bonus on top of refund amount (e.g., ₹1000 refund → ₹1050 credit)
+- Adds 5% bonus on top of refund amount (e.g., ৳1000 refund → ৳1050 credit)
 - Fixed-value coupons, user-specific, valid 30-60 days
 - `getUserStoreCredits()` fetches active credits for a user
 
@@ -111,8 +111,8 @@ Required: `DATABASE_URL`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `RAZORPAY_KEY
 ## Conventions
 
 - Import paths use `@/` alias (maps to project root)
-- Currency is INR (₹) throughout
-- Product images: JSON arrays in DB, served via Cloudinary in prod, local `/clothes/` in dev
+- Currency is BDT (৳) throughout; use `formatMoney()` from `lib/money.ts`
+- Product images: JSON arrays in DB, served via Cloudinary in prod, local `/hero/` placeholders in dev
 - Order items snapshot product data at purchase time (name, price, image) for historical accuracy
 - Pages use metadata exports for SEO; root layout includes Open Graph & JSON-LD
 - Dark mode default (`html.dark`), toggle via ThemeProvider
@@ -129,7 +129,7 @@ All new features, pages, routing changes, and modifications must strictly follow
 ### 2. Metadata API & Robots Configuration
 - **Meta Exports:** Every public-facing page route must export a descriptive `Metadata` object or implement a dynamic `generateMetadata` function that provides a clean title, description, and canonical URL.
 - **Indexing Exclusions (Noindex):** All private, user-specific, or system-oriented pages (including `/admin/*`, `/account`, `/checkout`, `/orders`, `/wishlist`, `/unsubscribe`, and `/api/*`) must specify `robots: { index: false, follow: false }` inside their layouts/pages.
-- **Dynamic Sitemap Integration:** Any new public content routes (such as new collections, policy directories, or blogs) must be registered in [sitemap.ts](file:///c:/Users/fateless/Documents/Projects/xilar/app/sitemap.ts).
+- **Dynamic Sitemap Integration:** Any new public content routes (such as new collections, policy directories, or blogs) must be registered in `app/sitemap.ts`.
 
 ### 3. Structured Data (JSON-LD)
 - **JSON-LD Injections:** Public pages must inject Schema.org JSON-LD scripts using the `<JsonLd data={...} />` component from `@/lib/structured-data` to enable Google rich snippets:

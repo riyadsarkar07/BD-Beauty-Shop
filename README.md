@@ -1,6 +1,6 @@
-# XILAR E-Commerce
+# BD Beauty Shop
 
-XILAR is a Next.js storefront for apparel with a dark editorial frontend, SEO-focused public routing, admin catalog tools, Razorpay checkout, COD orders, account-backed wishlist support, coupon/store-credit support, and a checkout bargain AI that can issue short-lived coupons.
+BD Beauty Shop is a Next.js storefront for beauty and personal care with a premium editorial frontend, SEO-focused public routing, admin catalog and CSV import tools, Razorpay checkout, COD orders, account-backed wishlist support, coupon/store-credit support, and a checkout bargain AI that can issue short-lived coupons. Prices are in Bangladeshi Taka (৳) with nationwide Cash on Delivery.
 
 ## Stack
 

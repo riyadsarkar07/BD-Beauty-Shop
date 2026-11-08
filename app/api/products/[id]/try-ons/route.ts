@@ -8,7 +8,7 @@ import { getProductDetails } from "@/lib/product-detail";
 import { normalizeProductImage } from "@/lib/image";
 import { openrouter } from "@/lib/openrouter";
 import { requireTryOnAccess } from "@/lib/try-on-access";
-import { debitWalletForGeneration, reverseGenerationCharge, WALLET_LIMITS } from "@/lib/wallet";
+import { debitWalletForGeneration, reverseGenerationCharge } from "@/lib/wallet";
 import {
   TRY_ON_PROMPT_VERSION,
   buildTryOnPrompt,
@@ -86,7 +86,7 @@ export async function POST(
     const requestId = formData.get("requestId");
 
     if (!(file instanceof File)) {
-      return badRequest("Upload a body photo to generate a try-on preview.");
+      return badRequest("Upload a photo to generate the beauty preview.");
     }
     if (typeof requestId !== "string" || !/^[a-f0-9-]{36}$/i.test(requestId)) return badRequest("Invalid generation request.");
 
@@ -105,7 +105,7 @@ export async function POST(
     }
 
     if (typeof bodyModeValue !== "string" || !isTryOnBodyMode(bodyModeValue)) {
-      return badRequest("Choose whether the body photo is upper, lower, or full body.");
+      return badRequest("Choose whether the photo is a face, hands, or full shot.");
     }
 
     const product = await getProductDetails(productId);
@@ -115,14 +115,14 @@ export async function POST(
 
     const requiredMode = getRequiredTryOnMode(product.category);
     if (requiredMode === "unsupported") {
-      return badRequest("Try-on is not supported for this product category yet.");
+      return badRequest("Beauty preview is not supported for this product category yet.");
     }
 
     if (!isTryOnBodyModeAllowed(requiredMode, bodyModeValue)) {
       return badRequest(
         requiredMode === "upper"
-          ? "Use an upper-body or full-body photo for this product."
-          : "Use a lower-body or full-body photo for this product.",
+          ? "Use a face or full photo for this product."
+          : "Use a hands or full photo for this product.",
       );
     }
 
@@ -147,69 +147,68 @@ export async function POST(
       const message = walletError instanceof Error ? walletError.message : "Wallet payment is unavailable.";
       if (/insufficient|frozen|balance/i.test(message)) {
         return NextResponse.json({
-          error: "You need at least ₹7 in your XILAR Wallet to generate a try-on.",
+          error: "You need at least ৳7 in your BD Beauty Wallet to generate a try-on.",
           code: "WALLET_INSUFFICIENT",
           walletUrl: "/account/wallet",
         }, { status: 402 });
       }
       throw walletError;
     }
-    let charged = true;
     try {
-    const { image } = await generateImage({
-      model: openrouter.imageModel(modelId),
-      prompt: {
-        text: prompt,
-        images: [bodyBuffer, productImageReference],
-      },
-      n: 1,
-      maxRetries: 1,
-    });
+      const { image } = await generateImage({
+        model: openrouter.imageModel(modelId),
+        prompt: {
+          text: prompt,
+          images: [bodyBuffer, productImageReference],
+        },
+        n: 1,
+        maxRetries: 1,
+      });
 
-    const outputBuffer = Buffer.from(image.uint8Array);
-    const timestamp = Date.now();
-    const [bodyUpload, outputUpload] = await Promise.all([
-      uploadImage(bodyBuffer, {
-        folder: "xilar/try-ons/body",
-        publicId: buildTryOnAssetPublicId({
-          productId,
-          userId: session.user.id,
-          timestamp,
-          kind: "body",
+      const outputBuffer = Buffer.from(image.uint8Array);
+      const timestamp = Date.now();
+      const [bodyUpload, outputUpload] = await Promise.all([
+        uploadImage(bodyBuffer, {
+          folder: "xilar/try-ons/body",
+          publicId: buildTryOnAssetPublicId({
+            productId,
+            userId: session.user.id,
+            timestamp,
+            kind: "body",
+          }),
+          mediaType: file.type,
+          deliveryType: "authenticated",
         }),
-        mediaType: file.type,
-        deliveryType: "authenticated",
-      }),
-      uploadImage(outputBuffer, {
-        folder: "xilar/try-ons/output",
-        publicId: buildTryOnAssetPublicId({
-          productId,
-          userId: session.user.id,
-          timestamp,
-          kind: "output",
+        uploadImage(outputBuffer, {
+          folder: "xilar/try-ons/output",
+          publicId: buildTryOnAssetPublicId({
+            productId,
+            userId: session.user.id,
+            timestamp,
+            kind: "output",
+          }),
+          mediaType: image.mediaType || "image/png",
+          deliveryType: "authenticated",
         }),
-        mediaType: image.mediaType || "image/png",
-        deliveryType: "authenticated",
-      }),
-    ]);
+      ]);
 
-    const run = await createProductTryOnRun({
-      productId,
-      userId: session.user.id,
-      bodyImageUrl: bodyUpload.url,
-      bodyImagePublicId: bodyUpload.publicId,
-      outputImageUrl: outputUpload.url,
-      outputImagePublicId: outputUpload.publicId,
-      productImageUrl,
-      productImageIndex,
-      tryOnMode: bodyModeValue,
-      modelId,
-      promptVersion: TRY_ON_PROMPT_VERSION,
-    });
+      const run = await createProductTryOnRun({
+        productId,
+        userId: session.user.id,
+        bodyImageUrl: bodyUpload.url,
+        bodyImagePublicId: bodyUpload.publicId,
+        outputImageUrl: outputUpload.url,
+        outputImagePublicId: outputUpload.publicId,
+        productImageUrl,
+        productImageIndex,
+        tryOnMode: bodyModeValue,
+        modelId,
+        promptVersion: TRY_ON_PROMPT_VERSION,
+      });
 
-    return NextResponse.json({ run }, { status: 201 });
+      return NextResponse.json({ run }, { status: 201 });
     } catch (generationError) {
-      if (charged) await reverseGenerationCharge(session.user.id, requestId).catch(() => undefined);
+      await reverseGenerationCharge(session.user.id, requestId).catch(() => undefined);
       throw generationError;
     }
   } catch (error) {

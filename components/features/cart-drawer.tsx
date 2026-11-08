@@ -11,6 +11,7 @@ import { useSession } from "@/lib/auth-client"
 import { useEffect, useRef } from "react"
 import { normalizeProductImage } from "@/lib/image"
 import { FREE_SHIPPING_THRESHOLD } from "@/lib/constants"
+import { formatMoney } from "@/lib/money"
 
 export function CartDrawer() {
     const { items, isOpen, setIsOpen, removeItem, updateQuantity, totalItems, totalPrice, clearCart } = useCart()
@@ -88,7 +89,7 @@ export function CartDrawer() {
                                     </div>
                                     <div className="space-y-1.5">
                                         <p className="text-sm font-medium">Nothing here yet</p>
-                                        <p className="text-xs text-muted-foreground max-w-[220px]">Browse our latest drops and find something bold. Free shipping on orders above ₹999.</p>
+                                        <p className="text-xs text-muted-foreground max-w-[220px]">Browse skincare, makeup, and more. Free shipping on orders above ৳2,000.</p>
                                     </div>
                                     <Button variant="outline" className="rounded-none text-xs uppercase tracking-[0.1em]" onClick={() => { setIsOpen(false); router.push("/shop"); }}>
                                         Explore the shop
@@ -170,13 +171,13 @@ export function CartDrawer() {
                                         </span>
                                     ) : (
                                         <span className="block">
-                                            Add ₹{freeShippingRemaining.toLocaleString("en-IN")} more to unlock free shipping
+                                            Add {formatMoney(freeShippingRemaining)} more to unlock free shipping
                                         </span>
                                     )}
                                 </div>
                                 <div className="flex justify-between text-sm font-semibold uppercase tracking-[0.1em]">
                                     <span>Total</span>
-                                    <span className="tabular-nums">₹{totalPrice.toLocaleString("en-IN")}</span>
+                                    <span className="tabular-nums">{formatMoney(totalPrice)}</span>
                                 </div>
                                 {!session ? (
                                     <div className="space-y-2">

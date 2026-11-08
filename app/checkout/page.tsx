@@ -10,11 +10,13 @@ import { Check, CreditCard, Truck, MapPin, Loader2, AlertCircle, Sparkles } from
 import { CheckoutBargain } from "@/components/features/checkout-bargain"
 import { useSession } from "@/lib/auth-client"
 import { getSavedShippingAddress } from "@/lib/actions/orders"
-import { FREE_SHIPPING_THRESHOLD, FREE_SHIPPING_THRESHOLD_DISPLAY, SHIPPING_FEE, COD_FEE, COD_ALLOWED_PINCODES } from "@/lib/constants"
+import { FREE_SHIPPING_THRESHOLD, FREE_SHIPPING_THRESHOLD_DISPLAY, COD_FEE, PAYMENT_TEST_MODE } from "@/lib/constants"
+import { BANGLADESH_DISTRICTS, getDeliveryCharge, isValidBangladeshPhone, isValidBangladeshPostalCode } from "@/lib/bangladesh"
+import { formatMoney } from "@/lib/money"
 import { normalizeProductImage } from "@/lib/image"
 import Script from "next/script"
 
-const CHECKOUT_STORAGE_KEY = "xilar-checkout"
+const CHECKOUT_STORAGE_KEY = "bd-beauty-checkout"
 
 interface ShippingAddress {
     name: string
@@ -22,12 +24,13 @@ interface ShippingAddress {
     phone: string
     address: string
     city: string
+    district: string
+    area: string
     state: string
     pincode: string
 }
 
-// COD only available for select pincodes
-type PaymentMethod = "upi" | "card" | "netbanking" | "cod"
+type PaymentMethod = "cod" | "bkash" | "nagad" | "card"
 
 interface CheckoutState {
     step: number
@@ -54,7 +57,7 @@ export default function CheckoutPage() {
     const [orderPlaced, setOrderPlaced] = useState(false)
     const [orderId, setOrderId] = useState<string | null>(null)
     const [appliedCoupon, setAppliedCoupon] = useState<{ code: string; discount: number } | null>(null)
-    const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("upi")
+    const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("cod")
     const [isPlacingOrder, setIsPlacingOrder] = useState(false)
     const [couponInput, setCouponInput] = useState("")
     const [couponError, setCouponError] = useState<string | null>(null)
@@ -72,6 +75,8 @@ export default function CheckoutPage() {
         phone: "",
         address: "",
         city: "",
+        district: "",
+        area: "",
         state: "",
         pincode: ""
     })
@@ -86,13 +91,14 @@ export default function CheckoutPage() {
     }
     if (touched.phone) {
         if (!shippingAddress.phone.trim()) fieldErrors.phone = "Phone number is required"
-        else if (!/^\+?[\d\s-]{8,}$/.test(shippingAddress.phone)) fieldErrors.phone = "Enter a valid phone number"
+        else if (!isValidBangladeshPhone(shippingAddress.phone)) fieldErrors.phone = "Enter a valid Bangladesh mobile number"
     }
     if (touched.address && !shippingAddress.address.trim()) fieldErrors.address = "Address is required"
-    if (touched.city && !shippingAddress.city.trim()) fieldErrors.city = "City is required"
+    if (touched.city && !shippingAddress.city.trim()) fieldErrors.city = "City / area is required"
+    if (touched.district && !shippingAddress.district.trim()) fieldErrors.district = "District is required"
     if (touched.pincode) {
-        if (!shippingAddress.pincode.trim()) fieldErrors.pincode = "PIN code is required"
-        else if (!/^\d{6}$/.test(shippingAddress.pincode)) fieldErrors.pincode = "Enter a valid 6-digit PIN code"
+        if (!shippingAddress.pincode.trim()) fieldErrors.pincode = "Postal code is required"
+        else if (!isValidBangladeshPostalCode(shippingAddress.pincode)) fieldErrors.pincode = "Enter a valid 4-digit postal code"
     }
 
     const markTouched = (field: string) => setTouched(prev => ({ ...prev, [field]: true }))
@@ -117,7 +123,9 @@ export default function CheckoutPage() {
                     phone: prev.phone || dbAddr.phone || "",
                     address: prev.address || dbAddr.address || "",
                     city: prev.city || dbAddr.city || "",
-                    state: prev.state || dbAddr.state || "",
+                    district: prev.district || dbAddr.district || "",
+                    area: prev.area || dbAddr.area || "",
+                    state: prev.state || dbAddr.state || dbAddr.district || "",
                     pincode: prev.pincode || dbAddr.pincode || "",
                 }))
             })
@@ -134,13 +142,6 @@ export default function CheckoutPage() {
             router.replace("/account?redirect=/checkout")
         }
     }, [isAuthPending, session, router])
-
-    // Reset COD if pincode no longer eligible
-    useEffect(() => {
-        if (paymentMethod === "cod" && !COD_ALLOWED_PINCODES.includes(shippingAddress.pincode)) {
-            setPaymentMethod("upi")
-        }
-    }, [shippingAddress.pincode, paymentMethod])
 
     // Persist checkout state to sessionStorage on changes
     const persistCheckout = useCallback(() => {
@@ -307,7 +308,7 @@ export default function CheckoutPage() {
                     key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
                     amount: rzpOrderData.razorpay.amount,
                     currency: rzpOrderData.razorpay.currency,
-                    name: "XILAR",
+                    name: "BD Beauty Shop",
                     description: "Order Payment",
                     order_id: rzpOrderData.razorpay.id,
                     handler: async (response: {
@@ -359,12 +360,13 @@ export default function CheckoutPage() {
             shippingAddress.phone.trim() &&
             shippingAddress.address.trim() &&
             shippingAddress.city.trim() &&
-            shippingAddress.pincode.trim()
+            shippingAddress.district.trim() &&
+            isValidBangladeshPhone(shippingAddress.phone) &&
+            isValidBangladeshPostalCode(shippingAddress.pincode)
         )
     }
 
-    // Calculate pricing: free shipping above threshold, otherwise standard fee
-    const shippingCost = totalPrice >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE
+    const shippingCost = getDeliveryCharge(shippingAddress.district, totalPrice)
     const couponDiscount = appliedCoupon?.discount || 0
     const discount = couponDiscount
     const codFee = paymentMethod === "cod" ? COD_FEE : 0
@@ -407,17 +409,17 @@ export default function CheckoutPage() {
                         <h1 className="font-display text-4xl">Order confirmed</h1>
                     </div>
                     <p className="text-sm text-muted-foreground">
-                        Thank you for shopping with XILAR. Your order has been placed and will be delivered soon.
+                        Thank you for shopping with BD Beauty Shop. Your order has been placed and will be delivered soon.
                     </p>
                     {appliedCoupon && (
-                        <p className="text-xs text-red-accent tabular-nums">You saved ₹{appliedCoupon.discount} with coupon {appliedCoupon.code}</p>
+                        <p className="text-xs text-red-accent tabular-nums">You saved {formatMoney(appliedCoupon.discount)} with coupon {appliedCoupon.code}</p>
                     )}
                     {orderId && (
                         <p className="text-xs text-muted-foreground tabular-nums">Order ID: #{orderId.slice(0, 8).toUpperCase()}</p>
                     )}
                     {paymentMethod === "cod" && (
                         <p className="text-sm text-muted-foreground">
-                            Please keep ₹{finalTotal.toLocaleString("en-IN")} ready at the time of delivery.
+                            Please keep {formatMoney(finalTotal)} ready at the time of delivery.
                         </p>
                     )}
                     <Link href="/orders">
@@ -517,7 +519,7 @@ export default function CheckoutPage() {
                                 </div>
                                 <div className="grid grid-cols-3 gap-4">
                                     <div className="space-y-1.5">
-                                        <label htmlFor="checkout-city" className="text-[10px] font-medium uppercase tracking-[0.15em] text-muted-foreground">City *</label>
+                                        <label htmlFor="checkout-city" className="text-[10px] font-medium uppercase tracking-[0.15em] text-muted-foreground">City / area *</label>
                                         <input
                                             id="checkout-city"
                                             type="text"
@@ -529,17 +531,25 @@ export default function CheckoutPage() {
                                         {fieldErrors.city && <p className="text-[10px] text-destructive">{fieldErrors.city}</p>}
                                     </div>
                                     <div className="space-y-1.5">
-                                        <label htmlFor="checkout-state" className="text-[10px] font-medium uppercase tracking-[0.15em] text-muted-foreground">State</label>
-                                        <input
-                                            id="checkout-state"
-                                            type="text"
-                                            value={shippingAddress.state}
-                                            onChange={(e) => setShippingAddress(prev => ({ ...prev, state: e.target.value }))}
-                                            className="w-full h-11 px-4 bg-secondary/30 border border-input rounded-none text-sm focus:outline-none focus:ring-1 focus:ring-ring transition-all duration-300"
-                                        />
+                                        <label htmlFor="checkout-district" className="text-[10px] font-medium uppercase tracking-[0.15em] text-muted-foreground">District *</label>
+                                        <select
+                                            id="checkout-district"
+                                            value={shippingAddress.district}
+                                            onChange={(e) => setShippingAddress(prev => ({ ...prev, district: e.target.value, state: e.target.value }))}
+                                            onBlur={() => markTouched("district")}
+                                            className={`w-full h-11 px-4 bg-secondary/30 border rounded-none text-sm focus:outline-none focus:ring-1 transition-all duration-300 ${fieldErrors.district ? "border-destructive focus:ring-destructive" : touched.district && shippingAddress.district.trim() ? "border-green-600 focus:ring-green-600" : "border-input focus:ring-ring"}`}
+                                        >
+                                            <option value="">Select district</option>
+                                            {BANGLADESH_DISTRICTS.map((district) => (
+                                                <option key={district.name} value={district.name}>
+                                                    {district.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        {fieldErrors.district && <p className="text-[10px] text-destructive">{fieldErrors.district}</p>}
                                     </div>
                                     <div className="space-y-1.5">
-                                        <label htmlFor="checkout-pincode" className="text-[10px] font-medium uppercase tracking-[0.15em] text-muted-foreground">PIN code *</label>
+                                        <label htmlFor="checkout-pincode" className="text-[10px] font-medium uppercase tracking-[0.15em] text-muted-foreground">Postal code *</label>
                                         <input
                                             id="checkout-pincode"
                                             type="text"
@@ -614,10 +624,10 @@ export default function CheckoutPage() {
                             </div>
                             <div className="space-y-2">
                                 {[
-                                    { value: "upi", label: "UPI" },
-                                    { value: "card", label: "Credit/Debit Card" },
-                                    { value: "netbanking", label: "Net Banking" },
-                                    ...(COD_ALLOWED_PINCODES.includes(shippingAddress.pincode) ? [{ value: "cod" as const, label: `Cash on Delivery (+₹${COD_FEE} fee)` }] : []),
+                                    { value: "cod" as const, label: "Cash on Delivery" },
+                                    { value: "bkash" as const, label: PAYMENT_TEST_MODE ? "bKash (test mode)" : "bKash" },
+                                    { value: "nagad" as const, label: PAYMENT_TEST_MODE ? "Nagad (test mode)" : "Nagad" },
+                                    { value: "card" as const, label: PAYMENT_TEST_MODE ? "Card (test mode)" : "Card" },
                                 ].map((method) => (
                                     <label
                                         key={method.value}
@@ -642,15 +652,20 @@ export default function CheckoutPage() {
 
                             {paymentMethod === "cod" && (
                                 <p className="text-sm text-muted-foreground p-3 bg-secondary/30 border border-border">
-                                    A convenience fee of ₹{COD_FEE} will be added for Cash on Delivery orders.
+                                    Cash on Delivery is available nationwide. Pay the courier in BDT when your order arrives.
+                                </p>
+                            )}
+                            {paymentMethod !== "cod" && PAYMENT_TEST_MODE && (
+                                <p className="text-sm text-muted-foreground p-3 bg-secondary/30 border border-border">
+                                    Online payment is in test mode. No live bKash, Nagad, or card charge will be captured until gateway keys are configured.
                                 </p>
                             )}
 
                             {paymentMethod !== "cod" && (
                                 <div className="space-y-1.5 border border-border/60 p-4">
                                     <label htmlFor="checkout-wallet-amount" className="text-[10px] font-semibold uppercase tracking-[0.15em]">Use wallet balance (optional)</label>
-                                    <input id="checkout-wallet-amount" value={walletAmount} onChange={(event) => setWalletAmount(event.target.value)} inputMode="decimal" placeholder="₹0.00" className="h-10 w-full border bg-secondary/20 px-3 text-sm" />
-                                    <p className="text-xs text-muted-foreground">We reserve this amount securely and charge Razorpay only for the remaining balance.</p>
+                                    <input id="checkout-wallet-amount" value={walletAmount} onChange={(event) => setWalletAmount(event.target.value)} inputMode="decimal" placeholder="৳0.00" className="h-10 w-full border bg-secondary/20 px-3 text-sm" />
+                                    <p className="text-xs text-muted-foreground">We reserve this amount securely and charge only the remaining balance.</p>
                                 </div>
                             )}
 
@@ -685,7 +700,7 @@ export default function CheckoutPage() {
                                 {appliedCoupon && (
                                     <div className="flex items-center justify-between p-3 bg-green-500/10 border border-green-500/20">
                                         <span className="text-xs text-green-600 dark:text-green-400 tabular-nums">
-                                            ✓ Coupon {appliedCoupon.code} applied — you save ₹{appliedCoupon.discount}
+                                            ✓ Coupon {appliedCoupon.code} applied — you save {formatMoney(appliedCoupon.discount)}
                                         </span>
                                         <Button
                                             variant="ghost"
@@ -722,7 +737,7 @@ export default function CheckoutPage() {
                                 <p className="font-medium text-sm">{shippingAddress.name}</p>
                                 <p className="text-xs text-muted-foreground">{shippingAddress.address}</p>
                                 <p className="text-xs text-muted-foreground">
-                                    {shippingAddress.city}{shippingAddress.state ? `, ${shippingAddress.state}` : ""} - {shippingAddress.pincode}
+                                    {shippingAddress.city}{shippingAddress.district ? `, ${shippingAddress.district}` : ""} - {shippingAddress.pincode}
                                 </p>
                                 <p className="text-xs text-muted-foreground tabular-nums">{shippingAddress.phone}</p>
                             </div>
@@ -783,34 +798,34 @@ export default function CheckoutPage() {
                                         ? `${item.name} × ${item.quantity}`
                                         : `${item.name} (${item.size}${item.color ? ` · ${item.color}` : ""}) × ${item.quantity}`}
                                 </span>
-                                <span className="tabular-nums">₹{(item.price * item.quantity).toLocaleString("en-IN")}</span>
+                                <span className="tabular-nums">{formatMoney(item.price * item.quantity)}</span>
                             </div>
                         ))}
                         <hr className="border-border/60" />
                         <div className="flex justify-between text-xs">
                             <span className="text-muted-foreground">Subtotal</span>
-                            <span className="tabular-nums">₹{totalPrice.toLocaleString("en-IN")}</span>
+                            <span className="tabular-nums">{formatMoney(totalPrice)}</span>
                         </div>
                         <div className="flex justify-between text-xs">
                             <span className="text-muted-foreground">Shipping {totalPrice >= FREE_SHIPPING_THRESHOLD && <span className="text-green-600 dark:text-green-400">(Free above {FREE_SHIPPING_THRESHOLD_DISPLAY})</span>}</span>
-                            <span className="tabular-nums">{shippingCost === 0 ? "FREE" : `₹${shippingCost}`}</span>
+                            <span className="tabular-nums">{shippingCost === 0 ? "FREE" : formatMoney(shippingCost)}</span>
                         </div>
                         {appliedCoupon && (
                             <div className="flex justify-between text-xs text-green-600 dark:text-green-400">
                                 <span>Discount ({appliedCoupon.code})</span>
-                                <span className="tabular-nums">-₹{appliedCoupon.discount}</span>
+                                <span className="tabular-nums">-{formatMoney(appliedCoupon.discount)}</span>
                             </div>
                         )}
                         {paymentMethod === "cod" && (
                             <div className="flex justify-between text-xs">
                                 <span>COD Fee</span>
-                                <span className="tabular-nums">₹{COD_FEE}</span>
+                                <span className="tabular-nums">{formatMoney(COD_FEE)}</span>
                             </div>
                         )}
                         <hr className="border-border/60" />
                         <div className="flex justify-between text-sm font-semibold pt-1">
                             <span>Total</span>
-                            <span className="tabular-nums">₹{Math.max(0, finalTotal).toLocaleString("en-IN")}</span>
+                            <span className="tabular-nums">{formatMoney(Math.max(0, finalTotal))}</span>
                         </div>
                     </div>
 

@@ -7,14 +7,14 @@ import { normalizeSiteUrl } from "@/lib/seo"
 export const metadata: Metadata = {
     title: "Accessories",
     description:
-        "Shop XILAR accessories, including perfume and limited essentials.",
+        "Shop beauty accessories at BD Beauty, including pouches, mirrors, and finishing extras.",
     alternates: {
         canonical: "/shop/accessories",
     },
     openGraph: {
-        title: "Accessories | XILAR",
+        title: "Accessories | BD Beauty",
         description:
-            "Shop XILAR accessories, including perfume and limited essentials.",
+            "Shop beauty accessories at BD Beauty, including pouches, mirrors, and finishing extras.",
         url: "/shop/accessories",
     },
 }
@@ -41,14 +41,14 @@ export default function AccessoriesPage() {
                 genderFilter="all"
                 fixedCategory="accessory"
                 title="Accessories"
-                subtitle="Perfume and selected essentials for the XILAR wardrobe."
+                subtitle="Pouches, mirrors, and finishing extras for a tidy beauty routine."
                 initialCatalogPromise={catalogPromise}
             />
             <section className="border-t border-border/60 px-6 py-12 md:px-12 md:py-16">
                 <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-[0.8fr_1.2fr]">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground">Accessories</p>
                     <p className="text-base leading-8 text-muted-foreground">
-                        XILAR accessories are selected as finishing pieces rather than filler: perfume and compact essentials that support the outfit while keeping the brand&apos;s streetwear system focused.
+                        BD Beauty accessories are selected as finishing pieces rather than filler: pouches, mirrors, and compact essentials that support a beauty routine without cluttering it.
                     </p>
                 </div>
             </section>

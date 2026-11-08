@@ -7,12 +7,13 @@ import { Button } from "@/components/ui/button"
 import { normalizeProductImage } from "@/lib/image"
 import { buildProductPath } from "@/lib/seo"
 import { ViewportPrefetchLink } from "@/components/ui/viewport-prefetch-link"
+import { formatMoney } from "@/lib/money"
 
 function formatPrice(price: string) {
-    return `₹${Number(price).toLocaleString("en-IN")}`
+    return formatMoney(price)
 }
 
-interface ReelProduct {
+export interface ReelProduct {
     id: string;
     name: string;
     sellingPrice: string;
@@ -21,69 +22,17 @@ interface ReelProduct {
     images: string | string[];
 }
 
-interface ReelItem {
+export interface ReelItem {
     id: string;
     src: string;
+    captionsSrc?: string;
     products: ReelProduct[];
 }
 
-export function ShopTheReels() {
+export function ShopTheReels({ reels = [] }: { reels?: ReelItem[] }) {
     const [audibleReelId, setAudibleReelId] = useState<string | null>(null)
     const scrollerRef = useRef<HTMLDivElement>(null)
     const videoRefs = useRef(new Map<string, HTMLVideoElement>())
-
-    const reels: ReelItem[] = [
-        {
-            id: "reel-1",
-            src: "/hero/reels/reel1.mp4",
-            products: [
-                {
-                    id: "2439572f-d1b6-4aaa-aef3-547649dfa07f",
-                    slug: "xilar-rebel-print-tee",
-                    name: "Xilar Rebel Print Tee",
-                    sellingPrice: "749.00",
-                    mrp: "999.00",
-                    images: "https://res.cloudinary.com/du44kbibc/image/upload/v1778015911/xilar/products/pplhmwsksojnzjvmi4dk.webp"
-                },
-                {
-                    id: "b72305dc-5fc9-453b-b4dc-830d628c4fd8",
-                    slug: "xilar-dualform",
-                    name: "Xilar DualForm",
-                    sellingPrice: "799.00",
-                    mrp: "1499.00",
-                    images: "https://res.cloudinary.com/du44kbibc/image/upload/v1777205097/xilar/products/prp1pabevyxyjkzewzo3.webp"
-                }
-            ]
-        },
-        {
-            id: "reel-2",
-            src: "/hero/reels/reel2.mp4",
-            products: [
-                {
-                    id: "249fb306-8f60-4f67-8e48-3c6085c2b1fc",
-                    slug: "xilar-inkdistort",
-                    name: "Xilar InkDistort",
-                    sellingPrice: "799",
-                    mrp: "1,498.97",
-                    images: "https://res.cloudinary.com/du44kbibc/image/upload/v1773690782/xilar/products/nw9hmqyoc0ul5jcqblw5.webp"
-                }
-            ]
-        },
-        {
-            id: "reel-3",
-            src: "/hero/reels/reel3.mp4",
-            products: [
-                {
-                    id: "f8964c87-0a46-4fb9-98c4-cc7cac816c4b",
-                    slug: "xilar-hyperiot",
-                    name: "Xilar HypeRiot",
-                    sellingPrice: "799",
-                    mrp: "1199",
-                    images: "https://res.cloudinary.com/du44kbibc/image/upload/v1773689124/xilar/products/jfo39kv36zcksesbeccn.webp"
-                }
-            ]
-        }
-    ];
 
     const scrollByCard = (direction: 1 | -1) => {
         scrollerRef.current?.scrollBy({
@@ -127,6 +76,8 @@ export function ShopTheReels() {
     }, [])
 
     useEffect(() => {
+        if (typeof IntersectionObserver === "undefined") return
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 const video = entry.target as HTMLVideoElement
@@ -207,13 +158,15 @@ export function ShopTheReels() {
                                     playsInline
                                     preload="none"
                                 >
-                                    <track
-                                        kind="captions"
-                                        src="/hero/reels/no-dialogue.vtt"
-                                        srcLang="en"
-                                        label="No dialogue"
-                                        default
-                                    />
+                                    {reel.captionsSrc && (
+                                        <track
+                                            kind="captions"
+                                            src={reel.captionsSrc}
+                                            srcLang="en"
+                                            label="Captions"
+                                            default
+                                        />
+                                    )}
                                 </video>
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/5 to-black/10" />
                                 <button
@@ -224,7 +177,7 @@ export function ShopTheReels() {
                                 >
                                     {audibleReelId === reel.id ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
                                 </button>
-                                
+
                                 <div className="absolute inset-x-3 bottom-3 z-10 flex flex-col gap-2">
                                     {reel.products.map((product) => (
                                         <ViewportPrefetchLink
@@ -258,10 +211,10 @@ export function ShopTheReels() {
                                 </div>
 
                                 {reel.products.length === 1 ? (
-                                    <ViewportPrefetchLink 
-                                        href={buildProductPath(reel.products[0].slug)} 
-                                        className="absolute inset-0 z-0" 
-                                        aria-label={`Shop ${reel.products[0].name}`} 
+                                    <ViewportPrefetchLink
+                                        href={buildProductPath(reel.products[0].slug)}
+                                        className="absolute inset-0 z-0"
+                                        aria-label={`Shop ${reel.products[0].name}`}
                                     />
                                 ) : (
                                     <button

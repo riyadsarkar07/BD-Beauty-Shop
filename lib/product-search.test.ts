@@ -15,13 +15,13 @@ import {
 test("search document includes colors and changes hash when a searchable field changes", () => {
   const searchText = buildProductSearchText({
     name: "Seoul Polo",
-    category: "tshirt",
+    category: "skincare",
     gender: "men",
     colors: [{ name: "Ivory", hex: "#fffff0" }],
   });
   const updatedSearchText = buildProductSearchText({
     name: "Seoul Polo",
-    category: "tshirt",
+    category: "skincare",
     gender: "men",
     colors: [{ name: "Black", hex: "#000000" }],
   });

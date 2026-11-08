@@ -13,7 +13,7 @@ export type ProductSearchSource = {
   category?: string | null;
   gender?: string | null;
   tags?: string[] | null;
-  fabric?: string | null;
+  ingredients?: string | null;
   careInstructions?: string[] | null;
   features?: string[] | null;
   images?: string[] | null;
@@ -97,7 +97,7 @@ export function buildProductSearchText(product: ProductSearchSource) {
   appendText(parts, product.category);
   appendText(parts, product.gender);
   appendTextList(parts, product.tags);
-  appendText(parts, product.fabric);
+  appendText(parts, product.ingredients);
   appendTextList(parts, product.features);
   appendTextList(parts, product.careInstructions);
   appendTextList(parts, product.sizes);

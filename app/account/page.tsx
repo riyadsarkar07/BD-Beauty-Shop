@@ -101,7 +101,7 @@ function AccountContent() {
                 <div className="w-full max-w-md space-y-8">
                     <div className="text-center space-y-2">
                         <h1 className="font-display text-3xl md:text-4xl">
-                            {showLogin ? "Welcome back" : "Join XILAR"}
+                            {showLogin ? "Welcome back" : "Join BD Beauty"}
                         </h1>
                         <p className="text-sm text-muted-foreground">
                             {showLogin ? "Sign in to your account" : "Create an account to get started"}
@@ -271,7 +271,7 @@ function AccountContent() {
 
                     <Link href="/account/wallet" className="flex items-center gap-4 p-5 border border-border/60 hover:border-foreground/20 transition-all duration-300">
                         <Wallet className="h-5 w-5 text-muted-foreground" />
-                        <div><h3 className="font-medium text-sm">Wallet</h3><p className="text-xs text-muted-foreground mt-0.5">Add funds, refunds, and XILAR-only spending</p></div>
+                        <div><h3 className="font-medium text-sm">Wallet</h3><p className="text-xs text-muted-foreground mt-0.5">Add funds, refunds, and BD Beauty-only spending</p></div>
                     </Link>
 
                     <button

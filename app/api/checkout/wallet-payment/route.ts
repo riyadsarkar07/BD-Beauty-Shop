@@ -16,8 +16,8 @@ export async function POST(request: NextRequest) {
     assertSameOrigin(request);
     const session = await requireAuth();
     const body = await request.json();
-    if (!["upi", "card", "netbanking"].includes(body.paymentMethod)) return NextResponse.json({ error: "Choose an online payment method." }, { status: 400 });
-    const quote = await createCheckoutQuote({ items: body.items, couponCode: body.couponCode, paymentMethod: body.paymentMethod, userId: session.user.id });
+    if (!["bkash", "nagad", "card"].includes(body.paymentMethod)) return NextResponse.json({ error: "Choose bKash, Nagad, or card." }, { status: 400 });
+    const quote = await createCheckoutQuote({ items: body.items, couponCode: body.couponCode, paymentMethod: body.paymentMethod, userId: session.user.id, district: body.shippingAddress?.district });
     const totalPaise = rupeesToPaise(quote.total);
     const requestedWalletPaise = Number(body.walletAmountPaise ?? 0);
     if (!Number.isInteger(requestedWalletPaise) || requestedWalletPaise < 0) return NextResponse.json({ error: "Invalid wallet amount." }, { status: 400 });
@@ -27,11 +27,11 @@ export async function POST(request: NextRequest) {
     const externalPaidPaise = totalPaise - walletPaidPaise;
     let razorpayOrderId: string | null = null;
     if (externalPaidPaise) {
-      const order = await razorpay.orders.create({ amount: externalPaidPaise, currency: "INR", receipt: `checkout_${paymentId.replace(/-/g, "").slice(0, 28)}` });
+      const order = await razorpay.orders.create({ amount: externalPaidPaise, currency: "BDT", receipt: `checkout_${paymentId.replace(/-/g, "").slice(0, 28)}` });
       razorpayOrderId = order.id;
     }
     await db.insert(walletCheckoutPayments).values({ id: paymentId, userId: session.user.id, quote, shippingAddress: body.shippingAddress, paymentMethod: body.paymentMethod, walletPaidPaise, externalPaidPaise, razorpayOrderId, expiresAt: new Date(Date.now() + 15 * 60_000) });
-    return NextResponse.json({ paymentId, walletPaidPaise, externalPaidPaise, razorpayOrderId, razorpay: razorpayOrderId ? { id: razorpayOrderId, amount: externalPaidPaise, currency: "INR" } : null });
+    return NextResponse.json({ paymentId, walletPaidPaise, externalPaidPaise, razorpayOrderId, razorpay: razorpayOrderId ? { id: razorpayOrderId, amount: externalPaidPaise, currency: "BDT" } : null });
   } catch (error) {
     if (paymentId) await releaseWalletReservation("checkout_payment", paymentId).catch(() => undefined);
     if (error instanceof CheckoutQuoteError) return NextResponse.json({ error: error.message }, { status: error.status });

@@ -84,5 +84,6 @@ export function useShopCatalog(
 export function getDisplaySizes(product: Pick<CatalogProduct, "availableSizes" | "sizes" | "stock" | "category">) {
   if (product.category === "accessory") return [];
   if (product.stock <= 0) return [];
-  return product.availableSizes?.length ? product.availableSizes : product.sizes || [];
+  const sizes = product.availableSizes?.length ? product.availableSizes : product.sizes || [];
+  return sizes.filter((size) => size !== "One Size");
 }

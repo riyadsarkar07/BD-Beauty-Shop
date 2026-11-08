@@ -8,6 +8,8 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useCart } from "@/lib/cart-context";
 import { normalizeProductImage } from "@/lib/image";
 import { ViewportPrefetchLink } from "@/components/ui/viewport-prefetch-link";
+import { formatMoney } from "@/lib/money";
+import { isThenable } from "@/lib/utils";
 
 interface ProductVariant {
   id: string;
@@ -36,11 +38,10 @@ export interface Combo {
   productB: ComboProduct;
 }
 
-const NUMBER_SIZE_CATEGORIES = ["jogger", "jeans", "cargo", "shorts"];
+const NUMBER_SIZE_CATEGORIES = ["nailcare", "makeup"];
 
 function formatPrice(value: string | number) {
-  const amount = typeof value === "number" ? value : Number(value);
-  return `₹${amount.toLocaleString("en-IN")}`;
+  return formatMoney(value);
 }
 
 function getVariantStock(variantMap: Map<string, number>, size: string, color: string | null) {
@@ -319,9 +320,9 @@ export function ComboSection({
   mobileLimit?: number;
   initialCombos?: Combo[] | Promise<Combo[]>;
 }) {
-  const resolvedInitialCombos = initialCombos && typeof (initialCombos as any).then === "function"
-    ? use(initialCombos as Promise<Combo[]>)
-    : initialCombos as Combo[] | undefined;
+  const resolvedInitialCombos = isThenable(initialCombos)
+    ? use(initialCombos)
+    : initialCombos;
 
   const { data: combos = [], isLoading: loading } = useQuery({
     queryKey: ["combos", limit],

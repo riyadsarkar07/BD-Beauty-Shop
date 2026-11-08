@@ -8,24 +8,23 @@ import Image from "next/image"
 import { Search, SlidersHorizontal, X, Loader2 } from "lucide-react"
 import { normalizeProductImage } from "@/lib/image"
 import { buildProductPath, normalizeSiteUrl } from "@/lib/seo"
-import { getDisplaySizes, useShopCatalog, type CatalogProduct, type ProductPageResponse, type ShopCatalogQuery } from "@/components/features/use-shop-catalog"
+import { useShopCatalog, type CatalogProduct, type ProductPageResponse, type ShopCatalogQuery } from "@/components/features/use-shop-catalog"
 import { ViewportPrefetchLink } from "@/components/ui/viewport-prefetch-link"
 import { useDebouncedValue } from "@/lib/use-debounced-value"
 import { JsonLd, collectionJsonLd } from "@/components/seo/structured-data"
-import { PRODUCT_CATEGORIES, PRODUCT_CATEGORY_LABELS, isWaistSizedCategory } from "@/lib/product-categories"
+import { PRODUCT_CATEGORIES, PRODUCT_CATEGORY_LABELS } from "@/lib/product-categories"
+import { formatMoney } from "@/lib/money"
 
 const CATEGORIES = ["All", ...PRODUCT_CATEGORIES]
 const CATEGORY_LABELS: Record<string, string> = {
     All: "All",
     ...Object.fromEntries(PRODUCT_CATEGORIES.map((category) => [category, PRODUCT_CATEGORY_LABELS[category].plural])),
 }
-const DEFAULT_SIZES = ["XS", "S", "M", "L", "XL", "XXL"]
-const NUMBER_SIZES = ["26", "28", "30", "32", "34"]
 const PRICE_RANGES = [
     { label: "All Prices", min: 0, max: Infinity },
-    { label: "Under ₹1000", min: 0, max: 1000 },
-    { label: "₹1000 - ₹2000", min: 1000, max: 2000 },
-    { label: "Over ₹2000", min: 2000, max: Infinity },
+    { label: "Under ৳1000", min: 0, max: 1000 },
+    { label: "৳1000 - ৳2000", min: 1000, max: 2000 },
+    { label: "Over ৳2000", min: 2000, max: Infinity },
 ]
 
 type ShopRestoreState = {
@@ -34,7 +33,6 @@ type ShopRestoreState = {
     historyIndex: number | null
     searchQuery: string
     selectedCategory: string
-    selectedSize: string | null
     selectedPriceRangeLabel: string
     clickedProductId: string
 }
@@ -87,7 +85,6 @@ export function ShopClient({
     const [searchQuery, setSearchQuery] = useState(initialSearch)
     const debouncedSearchQuery = useDebouncedValue(searchQuery, 300)
     const [selectedCategory, setSelectedCategory] = useState(fixedCategory || "All")
-    const [selectedSize, setSelectedSize] = useState<string | null>(null)
     const [selectedPriceRange, setSelectedPriceRange] = useState(PRICE_RANGES[0])
     const [showFilters, setShowFilters] = useState(false)
     const [visibleCount, setVisibleCount] = useState(8)
@@ -116,7 +113,6 @@ export function ShopClient({
             search: trimmedSearch || undefined,
             category: effectiveSelectedCategory === "All" ? undefined : effectiveSelectedCategory,
             gender: genderFilter === "all" ? undefined : genderFilter,
-            size: selectedSize || undefined,
             isNew: isNew || undefined,
             isPremium: isPremium || undefined,
         }
@@ -129,7 +125,7 @@ export function ShopClient({
         }
 
         return query
-    }, [debouncedSearchQuery, effectiveSelectedCategory, genderFilter, isNew, isPremium, selectedPriceRange, selectedSize])
+    }, [debouncedSearchQuery, effectiveSelectedCategory, genderFilter, isNew, isPremium, selectedPriceRange])
 
     useEffect(() => {
         if (restoredRef.current || typeof window === "undefined") return
@@ -168,7 +164,6 @@ export function ShopClient({
                 const urlSearch = new URLSearchParams(window.location.search).get("search")
                 setSearchQuery(urlSearch !== null ? urlSearch : saved.searchQuery)
                 setSelectedCategory(fixedCategory || saved.selectedCategory || "All")
-                setSelectedSize(saved.selectedSize)
                 setSelectedPriceRange(
                     PRICE_RANGES.find((range) => range.label === saved.selectedPriceRangeLabel) || PRICE_RANGES[0]
                 )
@@ -188,7 +183,6 @@ export function ShopClient({
             historyIndex: typeof window.history.state?.idx === "number" ? window.history.state.idx : null,
             searchQuery,
             selectedCategory,
-            selectedSize,
             selectedPriceRangeLabel: selectedPriceRange.label,
             clickedProductId,
         }
@@ -232,7 +226,6 @@ export function ShopClient({
         setSearchQuery("")
         navigateUrlSearch("")
         setSelectedCategory(fixedCategory || "All")
-        setSelectedSize(null)
         setSelectedPriceRange(PRICE_RANGES[0])
         setVisibleCount(8)
     }
@@ -240,7 +233,6 @@ export function ShopClient({
     const activeFilterCount = [
         searchQuery.trim() !== "",
         !fixedCategory && selectedCategory !== "All",
-        selectedSize !== null,
         selectedPriceRange !== PRICE_RANGES[0],
     ].filter(Boolean).length
 
@@ -306,34 +298,10 @@ export function ShopClient({
                                         className="rounded-none h-8 text-[10px] tracking-wide"
                                         onClick={() => {
                                             setSelectedCategory(cat)
-                                            setSelectedSize(null)
-                                            setVisibleCount(8)
+                                                                                setVisibleCount(8)
                                         }}
                                     >
                                         {CATEGORY_LABELS[cat] || cat}
-                                    </Button>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Size */}
-                    {effectiveSelectedCategory !== "accessory" && (
-                        <div className="space-y-2.5">
-                            <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Size</label>
-                            <div className="flex flex-wrap gap-1.5">
-                                {(isWaistSizedCategory(effectiveSelectedCategory) ? NUMBER_SIZES : effectiveSelectedCategory === "All" ? [...DEFAULT_SIZES, ...NUMBER_SIZES] : DEFAULT_SIZES).map((size) => (
-                                    <Button
-                                        key={size}
-                                        variant={selectedSize === size ? "default" : "outline"}
-                                        size="sm"
-                                        className="rounded-none h-8 text-[10px] tracking-wide"
-                                        onClick={() => {
-                                            setSelectedSize(selectedSize === size ? null : size)
-                                            setVisibleCount(8)
-                                        }}
-                                    >
-                                        {size}
                                     </Button>
                                 ))}
                             </div>
@@ -409,7 +377,6 @@ function ShopProductGrid({
     const canUseInitialCatalog =
         (query.search || "").trim() === "" &&
         (query.category || "All") === "All" &&
-        query.size === undefined &&
         query.minPrice === undefined
 
     const initialCatalogPage = canUseInitialCatalog ? initialCatalog : undefined
@@ -475,7 +442,7 @@ function ShopProductGrid({
 
     const formatPrice = (price: string) => {
         const num = parseFloat(price)
-        return `₹${num.toLocaleString("en-IN")}`
+        return formatMoney(num)
     }
 
     const discountPercent = (product: CatalogProduct) => {
@@ -489,8 +456,8 @@ function ShopProductGrid({
         <>
             <JsonLd
                 data={collectionJsonLd(baseUrl, {
-                    name: `${query.gender === "women" ? "Women's" : query.gender === "men" ? "Men's" : "All"} Streetwear - XILAR`,
-                    description: "Explore the premium streetwear collection from XILAR.",
+                    name: `${query.gender === "women" ? "Women's" : query.gender === "men" ? "Men's" : "All"} Beauty - BD Beauty Shop`,
+                    description: "Explore the beauty collection from BD Beauty Shop.",
                     url: pathname,
                     products: initialCatalog.products.map((product) => ({
                         name: product.name,
@@ -554,18 +521,6 @@ function ShopProductGrid({
                                                     )}
                                                 </div>
                                             </div>
-                                            {getDisplaySizes(product).length > 0 && (
-                                                <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                                                    {getDisplaySizes(product).slice(0, 5).map((size) => (
-                                                        <span
-                                                            key={size}
-                                                            className="border border-border/70 px-2 py-1 text-[10px] uppercase leading-none text-muted-foreground"
-                                                        >
-                                                            {size}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            )}
                                         </CardFooter>
                                     </Card>
                                 </ViewportPrefetchLink>

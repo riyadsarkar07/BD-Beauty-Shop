@@ -14,8 +14,8 @@ export interface Product {
   tags: string[];
   stock: number;
   images: string[];
-  fabric: string | null;
-  gsm: number | null;
+  ingredients: string | null;
+  volume: number | null;
   careInstructions: string[];
   features: string[];
   sizes: string[];
@@ -98,7 +98,9 @@ export interface ShippingAddress {
   phone: string;
   address: string;
   city: string;
-  state: string;
+  district: string;
+  area?: string;
+  state?: string;
   pincode: string;
 }
 
@@ -129,7 +131,7 @@ export interface BargainContext {
   sellingPrice: number;
   maxBargainDiscount: number;
   category?: string;
-  fabric?: string;
+  ingredients?: string;
   features?: string[];
 }
 

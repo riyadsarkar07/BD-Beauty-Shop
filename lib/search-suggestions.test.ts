@@ -8,18 +8,18 @@ import {
 
 const baseProduct = {
   id: "product-1",
-  name: "Xilar Seoul Prestige Polo",
-  category: "tshirt",
-  gender: "men",
+  name: "Hydra Glow Serum",
+  category: "skincare",
+  gender: "women",
   tags: [],
-  fabric: null,
+  ingredients: null,
   features: [],
   colors: [],
   isNew: false,
   isPremium: false,
   displayOrder: 0,
   stock: 1,
-  searchText: "Xilar Seoul Prestige Polo tshirt men premium polo",
+  searchText: "Hydra Glow Serum skincare women premium serum",
 };
 
 test("seeded shuffle changes with different seeds and is stable for the same seed", () => {
@@ -56,11 +56,11 @@ test("merchandising suggestion pool merges premium, new, and display buckets, de
 test("general phrase suggestions avoid exact product names and require at least six in-stock matches", () => {
   const rows = Array.from({ length: 6 }, (_, index) => ({
     ...baseProduct,
-    id: `shirt-${index}`,
-    name: `Xilar Seoul Prestige Shirt ${index}`,
-    category: "shirt",
+    id: `makeup-${index}`,
+    name: `Velvet Matte Lip Color ${index}`,
+    category: "makeup",
     isPremium: true,
-    searchText: "Xilar Seoul Prestige Shirt premium shirt men Seoul",
+    searchText: "Velvet Matte Lip Color premium makeup women",
   }));
 
   const phrases = buildGeneralSearchPhrases({
@@ -68,39 +68,39 @@ test("general phrase suggestions avoid exact product names and require at least 
       ...rows,
       {
         ...baseProduct,
-        id: "single-black-tee",
-        name: "Xilar Black Tee",
-        category: "tshirt",
+        id: "single-black-makeup",
+        name: "Black Kajal",
+        category: "makeup",
         colors: [{ name: "Black", hex: "#000000" }],
-        searchText: "Xilar Black Tee tshirt black",
+        searchText: "Black Kajal makeup black",
       },
     ],
     seed: "phrase-open",
-    limit: 4,
+    limit: 10,
     minMatches: 6,
   });
 
-  assert.equal(phrases.includes("Xilar Seoul Prestige Shirt 1"), false);
-  assert.ok(phrases.includes("Premium shirts"));
-  assert.equal(phrases.includes("Black tees"), false);
+  assert.equal(phrases.includes("Velvet Matte Lip Color 1"), false);
+  assert.ok(phrases.includes("Premium makeup"));
+  assert.equal(phrases.includes("Black makeup"), false);
 });
 
-test("general phrase suggestions clean noisy fabric descriptors", () => {
+test("general phrase suggestions clean noisy ingredients descriptors", () => {
   const rows = Array.from({ length: 6 }, (_, index) => ({
     ...baseProduct,
     id: `cotton-${index}`,
-    name: `Xilar Cotton Tee ${index}`,
-    fabric: "100%Premium Cotton",
-    searchText: "Xilar Cotton Tee premium cotton tshirt",
+    name: `Cotton Cleansing Pad ${index}`,
+    ingredients: "100%Premium Cotton",
+    searchText: "Cotton Cleansing Pad premium cotton skincare",
   }));
 
   const phrases = buildGeneralSearchPhrases({
     products: rows,
-    seed: "fabric-cleanup",
+    seed: "ingredients-cleanup",
     limit: 6,
     minMatches: 6,
   });
 
-  assert.ok(phrases.includes("Cotton tees"));
+  assert.ok(phrases.includes("Cotton skincare"));
   assert.equal(phrases.some((phrase) => phrase.includes("%") || /\d/.test(phrase)), false);
 });

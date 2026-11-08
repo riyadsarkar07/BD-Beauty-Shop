@@ -4,7 +4,7 @@ import { getServerSession } from "@/lib/auth-server";
 import { getWalletForUser } from "@/lib/wallet";
 import { WalletClient } from "./wallet-client";
 
-export const metadata: Metadata = { title: "Wallet | XILAR", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Wallet | BD Beauty", robots: { index: false, follow: false } };
 
 export default async function WalletPage() {
   const session = await getServerSession();

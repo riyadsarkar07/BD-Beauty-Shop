@@ -40,10 +40,10 @@ export async function generateMetadata({
   const priceB = Number(productB.sellingPrice)
   const totalPrice = priceA + priceB
 
-  const title = `${productA.name} + ${productB.name} Combo | XILAR`
+  const title = `${productA.name} + ${productB.name} Combo | BD Beauty`
 
-  const description = `Shop ${productA.name} + ${productB.name} combo from XILAR. Bundle deal starting at ₹${totalPrice.toLocaleString(
-    "en-IN"
+  const description = `Shop ${productA.name} + ${productB.name} combo from BD Beauty. Bundle deal starting at ৳${totalPrice.toLocaleString(
+    "en-BD"
   )}.`
 
   return {
@@ -53,7 +53,7 @@ export async function generateMetadata({
       canonical: `/combo/${id}`,
     },
     openGraph: {
-      title: `${productA.name} + ${productB.name} Combo — XILAR`,
+      title: `${productA.name} + ${productB.name} Combo — BD Beauty`,
       description,
       url: `/combo/${id}`,
     },

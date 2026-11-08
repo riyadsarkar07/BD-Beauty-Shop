@@ -15,14 +15,14 @@ export type GalleryBandItem = {
 };
 
 const FALLBACK_IMAGES: GalleryBandItem[] = [
-  { src: "/clothes/shirt1.jpeg", alt: "XILAR shirt" },
-  { src: "/clothes/topwear-men1.jpeg", alt: "XILAR topwear" },
-  { src: "/clothes/topwear-women.jpeg", alt: "XILAR womenswear" },
-  { src: "/clothes/denim1.jpeg", alt: "XILAR denim" },
-  { src: "/clothes/shirts8.jpeg", alt: "XILAR printed shirt" },
-  { src: "/clothes/pants1.jpeg", alt: "XILAR pants" },
-  { src: "/clothes/clothes4.jpeg", alt: "XILAR outfit" },
-  { src: "/clothes/jackets-men1.jpeg", alt: "XILAR jacket" },
+  { src: "/hero/image(1).webp", alt: "beauty product" },
+  { src: "/hero/image(2).webp", alt: "skincare product" },
+  { src: "/hero/image(3).webp", alt: "makeup product" },
+  { src: "/hero/image(4).webp", alt: "haircare product" },
+  { src: "/hero/image(5).webp", alt: "fragrance product" },
+  { src: "/hero/image(6).webp", alt: "bodycare product" },
+  { src: "/hero/image(7).webp", alt: "beauty set" },
+  { src: "/hero/image(8).webp", alt: "beauty tool" },
 ];
 const ROW_SPEEDS = [0.92, 1.08, 0.87, 1.14] as const;
 
@@ -166,9 +166,9 @@ export function Dec2024GalleryBand({ items }: { items?: GalleryBandItem[] }) {
       ref={rootRef}
       style={{ visibility: isVisible ? "visible" : "hidden" }}
       className="relative min-h-[78svh] overflow-hidden border-t border-border/60 bg-background px-6 py-16 text-foreground md:min-h-[94svh] md:px-12 md:py-24"
-      aria-label="XILAR moving product gallery"
+      aria-label="BD Beauty moving product gallery"
       data-cursor="explore"
-      data-cursor-label="XILAR"
+      data-cursor-label="BD Beauty"
     >
       <div className="pointer-events-none absolute left-1/2 top-[56%] z-0 w-[220vw] -translate-x-1/2 -translate-y-1/2 rotate-[14deg] md:rotate-[28deg] scale-125 md:top-1/2">
         {rows.map((row, rowIndex) => (

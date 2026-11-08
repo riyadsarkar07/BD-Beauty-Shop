@@ -6,9 +6,9 @@ import { normalizeProductImage } from "@/lib/image";
 import { buildProductPath, normalizeSiteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Gallery — XILAR Product Field",
+  title: "Gallery — BD Beauty Product Grid",
   description:
-    "Visual drop of XILAR products. Explore oversized streetwear basics, cargos, joggers, and accessories in Lucknow.",
+    "Visual gallery of BD Beauty products. Explore skincare, makeup, haircare, fragrance, and accessories from our Narsingdi shop.",
   alternates: {
     canonical: "/gallery",
   },
@@ -35,8 +35,8 @@ export default async function GalleryPage() {
       />
       <JsonLd
         data={collectionJsonLd(baseUrl, {
-          name: "Gallery — XILAR Product Field",
-          description: "Visual lookbook and catalog grid of active products from XILAR.",
+          name: "Gallery — BD Beauty Product Grid",
+          description: "Visual lookbook and catalog grid of active products from BD Beauty.",
           url: "/gallery",
           products: products.map((product) => ({
             name: product.name,

@@ -100,7 +100,7 @@ export function AdminCombosClient({
               </select>
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Max Bargain Discount (₹)</label>
+              <label className="text-sm font-medium">Max Bargain Discount (৳)</label>
               <input type="number" name="discountAmount" min="0" step="0.01" required defaultValue="0" className="w-full px-3 py-2 border rounded-lg bg-background" />
             </div>
             <div className="space-y-2">
@@ -131,10 +131,10 @@ export function AdminCombosClient({
                       {combo.productA?.name || "Missing Product A"} + {combo.productB?.name || "Missing Product B"}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      {combo.productA ? `₹${combo.productA.sellingPrice}` : "N/A"} + {combo.productB ? `₹${combo.productB.sellingPrice}` : "N/A"}
+                      {combo.productA ? `৳${combo.productA.sellingPrice}` : "N/A"} + {combo.productB ? `৳${combo.productB.sellingPrice}` : "N/A"}
                     </p>
                     <p className="text-xs text-red-accent">
-                      Max bargain discount: ₹{Number(combo.discountAmount).toLocaleString("en-IN")}
+                      Max bargain discount: ৳{Number(combo.discountAmount).toLocaleString("en-BD")}
                     </p>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:items-end gap-3 w-full">
@@ -154,7 +154,7 @@ export function AdminCombosClient({
                       }}
                     >
                       <div className="space-y-1 col-span-1">
-                        <label className="text-xs text-muted-foreground">Max Bargain Discount (₹)</label>
+                        <label className="text-xs text-muted-foreground">Max Bargain Discount (৳)</label>
                         <input type="number" name="discountAmount" min="0" step="0.01" defaultValue={Number(combo.discountAmount)} className="w-full sm:w-28 px-3 py-2 border rounded-lg bg-background text-sm" />
                       </div>
                       <div className="space-y-1 col-span-1">

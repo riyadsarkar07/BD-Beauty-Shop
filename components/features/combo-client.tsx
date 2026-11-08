@@ -46,9 +46,10 @@ function sizeOptions(product: ComboProduct) {
   return product.sizes
 }
 
+import { formatMoney } from "@/lib/money"
+
 function formatPrice(value: string | number) {
-  const amount = typeof value === "number" ? value : Number(value)
-  return `₹${amount.toLocaleString("en-IN")}`
+  return formatMoney(value)
 }
 
 function getVariantStock(variantMap: Map<string, number>, size: string, color: string | null) {

@@ -50,7 +50,7 @@ export async function validateCoupon(code: string, orderTotal: number, userId?: 
   }
 
   if (coupon.minOrderValue && orderTotal < Number(coupon.minOrderValue)) {
-    return { valid: false, error: `Minimum order value is ₹${coupon.minOrderValue}` };
+    return { valid: false, error: `Minimum order value is ৳${coupon.minOrderValue}` };
   }
 
   if (coupon.userId && coupon.userId !== userId) {

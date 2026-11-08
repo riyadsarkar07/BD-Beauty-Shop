@@ -11,17 +11,15 @@ import {
   validateTryOnImageFile,
 } from "./try-on.ts";
 
-test("try-on mode maps apparel categories to strict body photo requirements", () => {
-  assert.equal(getRequiredTryOnMode("tshirt"), "upper");
-  assert.equal(getRequiredTryOnMode("shirt"), "upper");
-  assert.equal(getRequiredTryOnMode("hoodie"), "upper");
-  assert.equal(getRequiredTryOnMode("jacket"), "upper");
+test("try-on mode maps beauty categories to strict body photo requirements", () => {
+  assert.equal(getRequiredTryOnMode("makeup"), "upper");
+  assert.equal(getRequiredTryOnMode("skincare"), "upper");
+  assert.equal(getRequiredTryOnMode("fragrance"), "upper");
 
-  assert.equal(getRequiredTryOnMode("jeans"), "lower");
-  assert.equal(getRequiredTryOnMode("cargo"), "lower");
-  assert.equal(getRequiredTryOnMode("jogger"), "lower");
-  assert.equal(getRequiredTryOnMode("shorts"), "lower");
+  assert.equal(getRequiredTryOnMode("nailcare"), "lower");
+  assert.equal(getRequiredTryOnMode("bodycare"), "lower");
 
+  assert.equal(getRequiredTryOnMode("tools"), "unsupported");
   assert.equal(getRequiredTryOnMode("accessory"), "unsupported");
 });
 
@@ -62,17 +60,16 @@ test("try-on image validation accepts only supported image types within the size
 
 test("try-on prompt is preset-only and fit-focused", () => {
   const prompt = buildTryOnPrompt({
-    productName: "Seoul Black Tee",
-    category: "tshirt",
+    productName: "Velvet Matte Lip Color",
+    category: "makeup",
     requiredMode: "upper",
   });
 
   assert.equal(TRY_ON_PROMPT_VERSION, "try-on-v1");
-  assert.match(prompt, /Seoul Black Tee/);
+  assert.match(prompt, /Velvet Matte Lip Color/);
   assert.match(prompt, /preserve the person/i);
   assert.match(prompt, /pose/i);
-  assert.match(prompt, /proportions/i);
-  assert.match(prompt, /replace only the upper-body garment/i);
+  assert.match(prompt, /face and the indicated area/i);
   assert.doesNotMatch(prompt, /admin/i);
 });
 

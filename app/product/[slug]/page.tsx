@@ -40,7 +40,7 @@ export async function generateMetadata(
 
     const price = parseFloat(product.sellingPrice)
     const mrp = parseFloat(product.mrp)
-    const description = product.description || `Shop ${product.name} — premium streetwear from XILAR. Starting at ₹${price.toLocaleString("en-IN")}.`
+    const description = product.description || `Shop ${product.name} from BD Beauty Shop. Starting at ৳${price.toLocaleString("en-BD")}.`
 
     return {
         title: product.name,
@@ -49,7 +49,7 @@ export async function generateMetadata(
             canonical: buildProductPath(product.slug),
         },
         openGraph: {
-            title: `${product.name} — ₹${price.toLocaleString("en-IN")} | XILAR`,
+            title: `${product.name} — ৳${price.toLocaleString("en-BD")} | BD Beauty Shop`,
             description,
             url: buildProductPath(product.slug),
             type: "website",
@@ -60,20 +60,20 @@ export async function generateMetadata(
                     height: 800,
                     alt: product.name,
                 }))
-                : [{ url: "/logo.jpeg", width: 1200, height: 630, alt: "XILAR" }],
+                : [{ url: "/logo.jpeg", width: 1200, height: 630, alt: "BD Beauty Shop" }],
         },
         twitter: {
             card: "summary_large_image",
-            title: `${product.name} | XILAR`,
+            title: `${product.name} | BD Beauty Shop`,
             description,
             images: product.images?.length ? product.images : ["/logo.jpeg"],
         },
         other: {
             "product:price:amount": price.toString(),
-            "product:price:currency": "INR",
+            "product:price:currency": "BDT",
             ...(mrp > price && {
                 "product:original_price:amount": mrp.toString(),
-                "product:original_price:currency": "INR",
+                "product:original_price:currency": "BDT",
             }),
             "product:availability": product.stock > 0 ? "in stock" : "out of stock",
         },

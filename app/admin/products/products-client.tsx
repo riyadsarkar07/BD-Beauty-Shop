@@ -258,10 +258,10 @@ export function AdminProductsClient({ initialPage }: { initialPage: AdminProduct
                       <span className="text-muted-foreground"> / {product.gender}</span>
                     </td>
                     <td className="p-4">
-                      <div className="font-medium">₹{product.sellingPrice}</div>
+                      <div className="font-medium">৳{product.sellingPrice}</div>
                       {product.mrp !== product.sellingPrice && (
                         <div className="text-sm text-muted-foreground line-through">
-                          ₹{product.mrp}
+                          ৳{product.mrp}
                         </div>
                       )}
                     </td>

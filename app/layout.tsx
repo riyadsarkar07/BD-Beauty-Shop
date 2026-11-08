@@ -42,61 +42,55 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000",
   ),
   title: {
-    default: "XILAR | The Future Wear — Premium Streetwear India",
-    template: "%s | XILAR",
+    default: "BD Beauty Shop | Beauty, delivered across Bangladesh",
+    template: "%s | BD Beauty Shop",
   },
   description:
-    "Next-gen streetwear for the bold. Premium basics, oversized fits, and urban essentials. Shop Gen-Z fashion with free shipping above ₹999.",
-  applicationName: "XILAR",
+    "Premium Bangladesh beauty store for skincare, makeup, haircare, fragrance, and wellness. Cash on Delivery and nationwide delivery. Free shipping above ৳2,000.",
+  applicationName: "BD Beauty Shop",
   keywords: [
-    "the future wear",
-    "XILAR",
-    "xilar.in",
-    "streetwear",
-    "unisex fashion",
-    "Gen-Z clothing",
-    "premium basics",
-    "urban wear",
-    "India streetwear",
-    "oversized tshirts",
-    "cargo pants India",
-    "streetwear brand India",
-    "affordable streetwear",
-    "joggers",
-    "hoodies India",
-    "online clothing store India",
+    "BD Beauty Shop",
+    "beauty shop Bangladesh",
+    "skincare Bangladesh",
+    "makeup Bangladesh",
+    "haircare",
+    "fragrance",
+    "Cash on Delivery",
+    "bKash",
+    "Nagad",
+    "Narsingdi",
+    "Beauty Room By Afrin",
   ],
   authors: [
-    { name: "XILAR", url: "https://xilar.in" },
-    { name: "Aditya (fate1ess)", url: "https://fateless.dev" },
+    { name: "BD Beauty Shop", url: "https://bdbeautyshop.com" },
   ],
-  creator: "Aditya Singh (fatelessdev)",
-  publisher: "XILAR",
+  creator: "BD Beauty Shop",
+  publisher: "BD Beauty Shop",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
-    locale: "en_IN",
-    siteName: "XILAR",
-    title: "XILAR | The Future Wear — Premium Streetwear India",
+    locale: "en_BD",
+    siteName: "BD Beauty Shop",
+    title: "BD Beauty Shop | Beauty, delivered across Bangladesh",
     description:
-      "Next-gen streetwear for the bold. Premium basics, oversized fits, and urban essentials. Shop Gen-Z fashion with free shipping above ₹999.",
+      "Premium Bangladesh beauty store for skincare, makeup, haircare, fragrance, and wellness. Cash on Delivery and nationwide delivery.",
     url: "/",
     images: [
       {
-        url: "/logo.png",
+        url: "/logo.jpeg",
         width: 1200,
         height: 630,
-        alt: "XILAR — The Future Wear | Premium Streetwear India",
+        alt: "BD Beauty Shop — Beauty, delivered across Bangladesh",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "XILAR | The Future Wear",
+    title: "BD Beauty Shop",
     description:
-      "Next-gen streetwear for the bold. Premium basics, oversized fits, and urban essentials.",
+      "Premium Bangladesh beauty store for skincare, makeup, haircare, and wellness.",
     images: ["/logo.jpeg"],
   },
   icons: {
@@ -133,7 +127,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+     <html lang="en-BD" className="dark" suppressHydrationWarning>
       <head>
         <script
           id="xilar-theme-init"

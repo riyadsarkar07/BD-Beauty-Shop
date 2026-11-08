@@ -5,16 +5,16 @@ import { getCatalogProducts } from "@/lib/product-catalog"
 import { normalizeSiteUrl } from "@/lib/seo"
 
 export const metadata: Metadata = {
-    title: "Premium Collection — Elevated XILAR Picks",
+    title: "Premium Collection — Elevated Beauty Picks",
     description:
-        "Shop the XILAR Premium collection — elevated streetwear picks selected for standout fabric, finish, and presence.",
+        "Shop the BD Beauty Premium collection — elevated beauty picks selected for standout formulas and finish.",
     alternates: {
         canonical: "/collections/premium",
     },
     openGraph: {
-        title: "Premium Collection | XILAR",
+        title: "Premium Collection | BD Beauty",
         description:
-            "Elevated streetwear picks selected for standout fabric, finish, and presence.",
+            "Elevated beauty picks selected for standout formulas and finish.",
         url: "/collections/premium",
     },
 }
@@ -40,7 +40,7 @@ export default function PremiumPage() {
             <ShopClient
                 genderFilter="all"
                 title="Premium"
-                subtitle="Elevated picks. Better fabrics. Stronger presence."
+                subtitle="Elevated formulas. Considered finish. Standout presence."
                 isPremium
                 initialCatalogPromise={catalogPromise}
             />
@@ -48,7 +48,7 @@ export default function PremiumPage() {
                 <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-[0.8fr_1.2fr]">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground">Premium edit</p>
                     <p className="text-base leading-8 text-muted-foreground">
-                        The XILAR Premium collection highlights pieces selected for stronger fabric feel, cleaner finish, and more visible outfit presence. It is a focused edit for shoppers who want the brand&apos;s sharpest streetwear pieces first.
+                        The BD Beauty Premium collection highlights beauty products selected for richer formulas, cleaner finish, and a more considered routine. It is a focused edit for shoppers who want the brand&apos;s standout picks first.
                     </p>
                 </div>
             </section>

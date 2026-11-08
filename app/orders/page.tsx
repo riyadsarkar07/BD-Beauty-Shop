@@ -11,7 +11,7 @@ import { normalizeProductImage } from "@/lib/image"
 
 export const metadata: Metadata = {
     title: "My Orders",
-    description: "View and track your XILAR orders.",
+    description: "View and track your BD Beauty orders.",
     robots: {
         index: false,
         follow: false,
@@ -75,7 +75,7 @@ export default async function OrdersPage() {
                                         Order #{order.id.slice(0, 8).toUpperCase()}
                                     </p>
                                     <p className="text-xs text-muted-foreground tabular-nums mt-0.5">
-                                        {new Date(order.createdAt).toLocaleDateString("en-IN", {
+                                        {new Date(order.createdAt).toLocaleDateString("en-BD", {
                                             day: "numeric",
                                             month: "short",
                                             year: "numeric"
@@ -86,7 +86,7 @@ export default async function OrdersPage() {
                                     <span className={`text-[10px] uppercase tracking-[0.1em] font-medium px-2.5 py-1 ${STATUS_COLORS[order.status] || STATUS_COLORS.pending}`}>
                                         {order.status}
                                     </span>
-                                    <p className="font-semibold text-sm mt-1.5 tabular-nums">₹{parseFloat(order.total).toLocaleString("en-IN")}</p>
+                                    <p className="font-semibold text-sm mt-1.5 tabular-nums">৳{parseFloat(order.total).toLocaleString("en-BD")}</p>
                                 </div>
                             </div>
 
@@ -121,13 +121,13 @@ export default async function OrdersPage() {
                                 {order.couponCode && (
                                     <div className="flex justify-between text-green-600 dark:text-green-400">
                                         <span>Discount ({order.couponCode})</span>
-                                        <span className="tabular-nums">-₹{parseFloat(order.couponDiscount || "0").toLocaleString("en-IN")}</span>
+                                        <span className="tabular-nums">-৳{parseFloat(order.couponDiscount || "0").toLocaleString("en-BD")}</span>
                                     </div>
                                 )}
                                 {order.codFee && parseFloat(order.codFee) > 0 && (
                                     <div className="flex justify-between text-orange-600 dark:text-orange-400">
                                         <span>COD Fee</span>
-                                        <span className="tabular-nums">+₹{parseFloat(order.codFee).toLocaleString("en-IN")}</span>
+                                        <span className="tabular-nums">+৳{parseFloat(order.codFee).toLocaleString("en-BD")}</span>
                                     </div>
                                 )}
                                 <div className="flex justify-between">

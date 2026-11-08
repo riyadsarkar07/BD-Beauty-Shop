@@ -15,6 +15,7 @@ import { ANNOUNCEMENT_MESSAGES } from "@/lib/constants";
 import { normalizeProductImage } from "@/lib/image";
 import { buildProductPath } from "@/lib/seo";
 import { useDebouncedValue } from "@/lib/use-debounced-value";
+import { formatMoney } from "@/lib/money";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -138,12 +139,12 @@ function StaggeredAnnouncementText({
 
 
 const overlayLinks = [
-  { href: "/shop/men", label: "Men", img: "/hero/image(7).webp" },
-  { href: "/shop/women", label: "Women", img: "/hero/image(12).webp" },
-  { href: "/shop/accessories", label: "Accessories", img: "/hero/image(13).webp" },
-  { href: "/collections/winter", label: "Winter", img: "/hero/image(5).webp" },
-  { href: "/collections/premium", label: "Premium", img: "/hero/image(2).webp" },
-  { href: "/collections/summer-26", label: "Summer '26", img: "/hero/image(3).webp" },
+  { href: "/shop/skincare", label: "Skincare", img: "/hero/image(7).webp" },
+  { href: "/shop/makeup", label: "Makeup", img: "/hero/image(12).webp" },
+  { href: "/shop/haircare", label: "Haircare", img: "/hero/image(13).webp" },
+  { href: "/shop/fragrance", label: "Fragrance", img: "/hero/image(5).webp" },
+  { href: "/shop/kits", label: "Kits", img: "/hero/image(2).webp" },
+  { href: "/shop/accessories", label: "Accessories", img: "/hero/image(3).webp" },
 ];
 
 const utilityLinks = [
@@ -157,11 +158,12 @@ const utilityLinks = [
 
 const searchableCatalogPaths = new Set([
   "/shop",
-  "/shop/men",
-  "/shop/women",
+  "/shop/skincare",
+  "/shop/makeup",
+  "/shop/haircare",
+  "/shop/fragrance",
   "/shop/accessories",
   "/collections/premium",
-  "/collections/winter",
   "/new",
 ]);
 
@@ -440,7 +442,7 @@ function CatalogSearchOverlay({
                               <p className="truncate text-sm font-medium uppercase tracking-[0.08em] text-foreground/70 transition-colors duration-300 group-hover:text-foreground">{product.name}</p>
                               <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{product.category}</p>
                             </div>
-                            <p className="text-sm font-semibold tabular-nums text-foreground/70 transition-colors duration-300 group-hover:text-foreground">₹{Number(product.sellingPrice).toLocaleString("en-IN")}</p>
+                            <p className="text-sm font-semibold tabular-nums text-foreground/70 transition-colors duration-300 group-hover:text-foreground">{formatMoney(product.sellingPrice)}</p>
                           </Link>
                         </motion.div>
                       ))}
@@ -504,7 +506,7 @@ function CatalogSearchOverlay({
                               <p className="truncate text-sm font-medium uppercase tracking-[0.08em] text-foreground/70 transition-colors duration-300 group-hover:text-foreground">{product.name}</p>
                               <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{product.category}</p>
                             </div>
-                            <p className="text-sm font-semibold tabular-nums text-foreground/70 transition-colors duration-300 group-hover:text-foreground">₹{Number(product.sellingPrice).toLocaleString("en-IN")}</p>
+                            <p className="text-sm font-semibold tabular-nums text-foreground/70 transition-colors duration-300 group-hover:text-foreground">{formatMoney(product.sellingPrice)}</p>
                           </Link>
                         </motion.div>
                       ))}
@@ -855,10 +857,10 @@ export function Navbar() {
 
             <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
               {[
-                { href: "/shop/men", label: "For Him" },
-                { href: "/shop/women", label: "For Her" },
-                { href: "/new", label: "New Drop" },
-                { href: "/collections/premium", label: "Collections" },
+                { href: "/shop/skincare", label: "Skincare" },
+                { href: "/shop/makeup", label: "Makeup" },
+                { href: "/new", label: "New" },
+                { href: "/shop", label: "Shop" },
               ].map((link) => (
                 <Link
                   key={link.href}
@@ -954,7 +956,7 @@ export function Navbar() {
         >
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center" onClick={() => setShowMobileMenu(false)}>
-              <span className="font-[family-name:var(--font-instrument-serif)] text-3xl md:text-4xl text-foreground">Xilar</span>
+            <span className="font-[family-name:var(--font-instrument-serif)] text-2xl md:text-3xl text-foreground">BD Beauty</span>
             </Link>
             <Button
               variant="ghost"
@@ -1058,7 +1060,7 @@ export function Navbar() {
               style={{ transform: "translateY(120%)", opacity: 0.25, willChange: "transform" }}
               className="hidden sm:inline"
             >
-              Lucknow / Streetwise Minimalism
+              Narsingdi / Everyday Beauty
             </span>
             <Link
               href="/gallery"

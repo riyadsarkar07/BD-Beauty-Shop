@@ -5,10 +5,10 @@ import gsap from "gsap";
 import { useReducedMotion } from "framer-motion";
 
 const DEFAULT_ITEMS = [
-  "Future Wear",
-  "New Drops",
+  "Skincare",
+  "New Arrivals",
   "Bargain Smarter",
-  "Free Shipping Above Rs. 999",
+  "Free Shipping Above ৳2,000",
 ];
 
 function ArrowGlyph() {
@@ -118,7 +118,7 @@ export function DirectionalMarquee({ items = DEFAULT_ITEMS }: { items?: string[]
     <section
       ref={rootRef}
       className="relative overflow-hidden border-y border-border/70 bg-foreground py-3 text-background md:py-4"
-      aria-label="XILAR highlights"
+      aria-label="BD Beauty Shop highlights"
     >
       <div data-marquee-track className="flex w-fit flex-row whitespace-nowrap will-change-transform">
         {[0, 1].map((group) => (
