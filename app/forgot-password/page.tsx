@@ -5,8 +5,10 @@ import { Loader2, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
 import { authClient } from "@/lib/auth-client"
+import { StorefrontUnavailable } from "@/components/features/storefront-unavailable"
+import { isStorefrontOnly } from "@/lib/storefront-mode"
 
-export default function ForgotPasswordPage() {
+function ForgotPasswordContent() {
     const [email, setEmail] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState("")
@@ -100,4 +102,12 @@ export default function ForgotPasswordPage() {
             </div>
         </div>
     )
+}
+
+export default function ForgotPasswordPage() {
+    if (isStorefrontOnly()) {
+        return <StorefrontUnavailable title="Password reset is paused" />
+    }
+
+    return <ForgotPasswordContent />
 }

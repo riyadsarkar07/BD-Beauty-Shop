@@ -2,6 +2,8 @@ import { randomUUID } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import razorpay from "@/lib/razorpay";
 import { requireAuth } from "@/lib/auth-server";
+import { isStorefrontOnly } from "@/lib/storefront-mode";
+import { storefrontUnavailableResponse } from "@/lib/storefront-api";
 import { db } from "@/lib/db";
 import { walletTopUps } from "@/lib/db/schema";
 import { and, eq } from "drizzle-orm";
@@ -11,6 +13,10 @@ import { assertSameOrigin } from "@/lib/request-security";
 export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
+  if (isStorefrontOnly()) {
+    return storefrontUnavailableResponse("Wallet");
+  }
+
   try {
     assertSameOrigin(request);
     const session = await requireAuth();

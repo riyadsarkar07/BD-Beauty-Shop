@@ -1,7 +1,9 @@
 import { db } from "@/lib/db";
 import { combos, productRecommendations, products, productVariants } from "@/lib/db/schema";
+import { getDemoProductDetails, getDemoProductStaticParams } from "@/lib/demo-catalog";
 import { mergeRelatedProductIds, PRODUCT_RECOMMENDATION_LIMIT } from "@/lib/product-recommendations";
 import { isProductUuid } from "@/lib/seo";
+import { isStorefrontOnly } from "@/lib/storefront-mode";
 import { and, asc, desc, eq, gt, inArray, or } from "drizzle-orm";
 import { cache } from "react";
 
@@ -43,6 +45,10 @@ export type ProductDetails = ProductRow & {
 };
 
 export async function getActiveProductStaticParams() {
+  if (isStorefrontOnly()) {
+    return getDemoProductStaticParams();
+  }
+
   const rows = await db
     .select({ slug: products.slug })
     .from(products)
@@ -90,6 +96,9 @@ export const getProductDetails = cache(async function getProductDetails(
   id: string,
   options: { includeInactive?: boolean } = {}
 ): Promise<ProductDetails | null> {
+  if (isStorefrontOnly()) {
+    return getDemoProductDetails(id);
+  }
   return getProductDetailsByIdUncached(id, options);
 });
 
@@ -97,6 +106,9 @@ export const getProductDetailsBySlugOrId = cache(async function getProductDetail
   slugOrId: string,
   options: { includeInactive?: boolean } = {}
 ): Promise<ProductDetails | null> {
+  if (isStorefrontOnly()) {
+    return getDemoProductDetails(slugOrId);
+  }
   return getProductDetailsBySlugOrIdUncached(slugOrId, options);
 });
 

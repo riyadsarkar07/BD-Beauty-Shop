@@ -21,6 +21,7 @@ function catalogNoindexHeaders() {
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  allowedDevOrigins: [".monkeycode-ai.live"],
   images: {
     minimumCacheTTL: 60 * 60 * 24 * 30,
     remotePatterns: [

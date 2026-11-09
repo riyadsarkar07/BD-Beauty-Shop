@@ -1,5 +1,7 @@
 import { db } from "@/lib/db";
 import { combos, products, productVariants } from "@/lib/db/schema";
+import { getDemoComboDetails, getDemoComboStaticParams, getDemoCombosWithProducts } from "@/lib/demo-catalog";
+import { isStorefrontOnly } from "@/lib/storefront-mode";
 import { and, desc, eq, inArray } from "drizzle-orm";
 
 export type ComboLinkedItem = {
@@ -15,6 +17,10 @@ export function canonicalizeComboPair(productAId: string, productBId: string) {
 }
 
 export async function getActiveComboStaticParams() {
+  if (isStorefrontOnly()) {
+    return getDemoComboStaticParams();
+  }
+
   const rows = await db
     .select({ id: combos.id })
     .from(combos)
@@ -25,6 +31,10 @@ export async function getActiveComboStaticParams() {
 }
 
 export async function getActiveCombosWithProducts(limit = 6) {
+  if (isStorefrontOnly()) {
+    return getDemoCombosWithProducts(limit);
+  }
+
   const activeCombos = await db
     .select()
     .from(combos)
@@ -90,6 +100,10 @@ export async function getActiveCombosWithProducts(limit = 6) {
 }
 
 export async function getComboDetails(id: string) {
+  if (isStorefrontOnly()) {
+    return getDemoComboDetails(id);
+  }
+
   const [combo] = await db
     .select()
     .from(combos)

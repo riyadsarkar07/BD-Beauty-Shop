@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { uploadImage, deleteImage } from "@/lib/cloudinary";
 import { requireAdmin } from "@/lib/auth-server";
+import { isStorefrontOnly } from "@/lib/storefront-mode";
+import { storefrontUnavailableResponse } from "@/lib/storefront-api";
 
 export async function POST(req: NextRequest) {
+  if (isStorefrontOnly()) {
+    return storefrontUnavailableResponse("Uploads");
+  }
+
   try {
     // Verify admin access
     await requireAdmin();
@@ -46,6 +52,10 @@ export async function POST(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
+  if (isStorefrontOnly()) {
+    return storefrontUnavailableResponse("Uploads");
+  }
+
   try {
     // Verify admin access
     await requireAdmin();

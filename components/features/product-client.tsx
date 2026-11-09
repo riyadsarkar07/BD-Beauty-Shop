@@ -10,6 +10,7 @@ import { ProductTryOnWorkspace } from "@/components/features/product-try-on-work
 import { Button } from "@/components/ui/button"
 import { useCart } from "@/lib/cart-context"
 import { useSession } from "@/lib/auth-client"
+import { isStorefrontOnly } from "@/lib/storefront-mode"
 import {
     addWishlistItem,
     getProductWishlist,
@@ -469,8 +470,8 @@ export function ProductClient({ id, initialProduct }: { id: string; initialProdu
                                 type="button"
                                 className="absolute right-4 top-4 z-30 flex h-11 items-center gap-2 border border-white/70 bg-black/45 px-4 text-[10px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-sm transition-colors duration-300 hover:bg-white hover:text-black"
                                 onClick={() => {
-                                    if (!session?.user) {
-                                        router.push(`/account?redirect=${encodeURIComponent(window.location.pathname)}`)
+                                    if (isStorefrontOnly() || !session?.user) {
+                                        router.push(isStorefrontOnly() ? "/account" : `/account?redirect=${encodeURIComponent(window.location.pathname)}`)
                                         return
                                     }
 

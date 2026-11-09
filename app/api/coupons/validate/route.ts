@@ -1,11 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validateCoupon } from "@/lib/coupon-validation";
 import { getServerSession } from "@/lib/auth-server";
+import { isStorefrontOnly } from "@/lib/storefront-mode";
+import { storefrontUnavailableResponse } from "@/lib/storefront-api";
 
 export async function POST(req: NextRequest) {
+  if (isStorefrontOnly()) {
+    return storefrontUnavailableResponse("Coupons");
+  }
+
   try {
     const { code, orderTotal } = await req.json();
-    
+
     if (!code || orderTotal === undefined) {
       return NextResponse.json(
         { valid: false, error: "Code and order total are required" },

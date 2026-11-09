@@ -1,9 +1,11 @@
 import { db } from "@/lib/db";
 import { products, productVariants } from "@/lib/db/schema";
 import { and, desc, eq, gt, gte, inArray, lte, or, sql, type SQL } from "drizzle-orm";
+import { getDemoCatalogProducts } from "@/lib/demo-catalog";
 import { generateProductQuerySearchEmbedding } from "@/lib/product-search-embedding";
 import { queryProductSemanticCandidates } from "@/lib/product-search-pinecone";
 import type { SemanticProductCandidate } from "@/lib/product-search";
+import { isStorefrontOnly } from "@/lib/storefront-mode";
 
 export type CatalogProduct = Pick<
   typeof products.$inferSelect,
@@ -233,6 +235,10 @@ async function addAvailableSizes(productRows: CatalogProductRow[]): Promise<Cata
 }
 
 export async function getCatalogProducts(query: CatalogQuery = {}) {
+  if (isStorefrontOnly()) {
+    return getDemoCatalogProducts(query);
+  }
+
   const search = query.search?.trim();
   if (search) {
     return getHybridCatalogProducts({ ...query, search });

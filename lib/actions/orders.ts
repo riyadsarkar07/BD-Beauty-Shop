@@ -3,11 +3,16 @@
 import { db } from "@/lib/db";
 import { orders, orderItems, user } from "@/lib/db/schema";
 import { getServerSession } from "@/lib/auth-server";
+import { isStorefrontOnly, STOREFRONT_UNAVAILABLE_MESSAGE } from "@/lib/storefront-mode";
 import { eq, desc, sql, and, inArray } from "drizzle-orm";
 import { getCustomerCodCancellationFailure } from "@/lib/order-cancellation";
 import { restoreOrderItemStock } from "@/lib/checkout/order-intake";
 
 export async function getUserOrders() {
+  if (isStorefrontOnly()) {
+    return [];
+  }
+
   const session = await getServerSession();
   
   if (!session?.user?.id) {
@@ -53,6 +58,10 @@ export async function getUserOrders() {
 // ============================================
 
 export async function cancelOrder(orderId: string) {
+  if (isStorefrontOnly()) {
+    return { success: false, error: STOREFRONT_UNAVAILABLE_MESSAGE };
+  }
+
   const session = await getServerSession();
   if (!session?.user?.id) {
     return { success: false, error: "Authentication required" };
@@ -139,6 +148,10 @@ export async function cancelOrder(orderId: string) {
 // ============================================
 
 export async function getSavedShippingAddress() {
+  if (isStorefrontOnly()) {
+    return null;
+  }
+
   const session = await getServerSession();
   if (!session?.user?.id) return null;
 

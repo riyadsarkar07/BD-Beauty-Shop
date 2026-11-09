@@ -2,6 +2,8 @@ import { randomUUID } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import razorpay from "@/lib/razorpay";
 import { requireAuth } from "@/lib/auth-server";
+import { isStorefrontOnly } from "@/lib/storefront-mode";
+import { storefrontUnavailableResponse } from "@/lib/storefront-api";
 import { CheckoutQuoteError, createCheckoutQuote } from "@/lib/checkout/quote";
 import { db } from "@/lib/db";
 import { walletCheckoutPayments } from "@/lib/db/schema";
@@ -11,6 +13,10 @@ import { releaseWalletReservation, reserveWalletFunds, rupeesToPaise } from "@/l
 export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
+  if (isStorefrontOnly()) {
+    return storefrontUnavailableResponse("Payments");
+  }
+
   let paymentId: string | null = null;
   try {
     assertSameOrigin(request);

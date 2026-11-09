@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
 import { unsubscribeFromMarketing } from "@/lib/actions/marketing";
+import { StorefrontUnavailable } from "@/components/features/storefront-unavailable";
+import { isStorefrontOnly } from "@/lib/storefront-mode";
 
 export const dynamic = "force-dynamic";
 
@@ -8,6 +10,10 @@ export default async function MarketingUnsubscribePage({
 }: {
   searchParams: Promise<{ token?: string; status?: string; email?: string }>;
 }) {
+  if (isStorefrontOnly()) {
+    return <StorefrontUnavailable title="Email preferences are paused" />;
+  }
+
   const params = await searchParams;
   const token = params.token ?? "";
 

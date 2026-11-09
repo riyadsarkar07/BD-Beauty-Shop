@@ -2,6 +2,8 @@ import { streamText } from "ai";
 import { bargainModel } from "@/lib/openrouter";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
+import { isStorefrontOnly } from "@/lib/storefront-mode";
+import { storefrontUnavailableResponse } from "@/lib/storefront-api";
 import { BARGAIN_SYSTEM_PROMPT } from "@/lib/bargain/prompt";
 import { createBargainCoupon } from "@/lib/actions/bargain";
 import { getBargainEligibilityContext } from "@/lib/bargain/context";
@@ -21,6 +23,10 @@ import {
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
+  if (isStorefrontOnly() || !auth) {
+    return storefrontUnavailableResponse("Bargain");
+  }
+
   try {
     const { messages = [], cartItems = [], cartTotal, negotiationRound = 0 } = await req.json();
     

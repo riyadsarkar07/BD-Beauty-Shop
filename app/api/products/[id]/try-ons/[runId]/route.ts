@@ -5,6 +5,8 @@ import {
 } from "@/lib/actions/try-on";
 import { deleteImage } from "@/lib/cloudinary";
 import { requireTryOnAccess } from "@/lib/try-on-access";
+import { isStorefrontOnly } from "@/lib/storefront-mode";
+import { storefrontUnavailableResponse } from "@/lib/storefront-api";
 
 function forbiddenOrUnauthorized(error: unknown) {
   const message = error instanceof Error ? error.message : "";
@@ -24,6 +26,10 @@ export async function DELETE(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string; runId: string }> },
 ) {
+  if (isStorefrontOnly()) {
+    return storefrontUnavailableResponse("Try-on");
+  }
+
   try {
     const session = await requireTryOnAccess();
     const { id: productId, runId } = await params;

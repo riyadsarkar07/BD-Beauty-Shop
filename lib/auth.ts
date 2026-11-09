@@ -4,6 +4,7 @@ import { admin } from "better-auth/plugins";
 import { db } from "./db";
 import * as schema from "./db/schema";
 import { sendResetPasswordEmail } from "./email";
+import { isStorefrontOnly } from "./storefront-mode";
 
 const authBaseUrl =
   process.env.BETTER_AUTH_URL ||
@@ -12,91 +13,93 @@ const authBaseUrl =
   "http://localhost:3000";
 
 const authSecret = process.env.BETTER_AUTH_SECRET;
-
-if (!authSecret) {
-  throw new Error("CRITICAL VULNERABILITY: BETTER_AUTH_SECRET environment variable is missing. Application cannot start securely.");
-}
-
 const googleClientId = process.env.GOOGLE_CLIENT_ID;
 const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
 const hasGoogleOAuth = Boolean(googleClientId && googleClientSecret);
 
-export const auth = betterAuth({
-  baseURL: authBaseUrl,
-  secret: authSecret,
-  database: drizzleAdapter(db, {
-    provider: "pg",
-    schema: {
-      user: schema.user,
-      session: schema.session,
-      account: schema.account,
-      verification: schema.verification,
-    },
-  }),
+function createAuth() {
+  if (isStorefrontOnly() || !authSecret || !process.env.DATABASE_URL) {
+    return null;
+  }
 
-  emailAndPassword: {
-    enabled: true,
-    minPasswordLength: 8,
-    sendResetPassword: async ({ user, url }) => {
-      try {
-        await sendResetPasswordEmail(user, url);
-      } catch {
-        throw new Error("Failed to send password reset email");
-      }
-    },
-  },
-
-  socialProviders: hasGoogleOAuth
-    ? {
-        google: {
-          clientId: googleClientId!,
-          clientSecret: googleClientSecret!,
-        },
-      }
-    : {},
-
-  account: {
-    accountLinking: {
-      enabled: true,
-      trustedProviders: hasGoogleOAuth ? ["email-password", "google"] : ["email-password"],
-      updateUserInfoOnLink: true,
-    },
-  },
-
-  session: {
-    expiresIn: 60 * 60 * 24 * 7, // 7 days
-    updateAge: 60 * 60 * 24, // 1 day
-    cookieCache: {
-      enabled: true,
-      maxAge: 60 * 5, // 5 minutes
-    },
-  },
-
-  user: {
-    additionalFields: {
-      role: {
-        type: "string",
-        required: false,
-        defaultValue: "user",
-        input: false, // Don't allow setting via signup
+  return betterAuth({
+    baseURL: authBaseUrl,
+    secret: authSecret,
+    database: drizzleAdapter(db, {
+      provider: "pg",
+      schema: {
+        user: schema.user,
+        session: schema.session,
+        account: schema.account,
+        verification: schema.verification,
       },
-      phone: {
-        type: "string",
-        required: false,
-      },
-    },
-  },
-
-  plugins: [
-    admin({
-      defaultRole: "user",
-      adminRole: "admin",
     }),
-  ],
 
-  trustedOrigins: ["http://localhost:3000", authBaseUrl].filter(Boolean),
-});
+    emailAndPassword: {
+      enabled: true,
+      minPasswordLength: 8,
+      sendResetPassword: async ({ user, url }) => {
+        try {
+          await sendResetPasswordEmail(user, url);
+        } catch {
+          throw new Error("Failed to send password reset email");
+        }
+      },
+    },
 
-// Export types
-export type Session = typeof auth.$Infer.Session;
-export type User = typeof auth.$Infer.Session.user;
+    socialProviders: hasGoogleOAuth
+      ? {
+          google: {
+            clientId: googleClientId!,
+            clientSecret: googleClientSecret!,
+          },
+        }
+      : {},
+
+    account: {
+      accountLinking: {
+        enabled: true,
+        trustedProviders: hasGoogleOAuth ? ["email-password", "google"] : ["email-password"],
+        updateUserInfoOnLink: true,
+      },
+    },
+
+    session: {
+      expiresIn: 60 * 60 * 24 * 7,
+      updateAge: 60 * 60 * 24,
+      cookieCache: {
+        enabled: true,
+        maxAge: 60 * 5,
+      },
+    },
+
+    user: {
+      additionalFields: {
+        role: {
+          type: "string",
+          required: false,
+          defaultValue: "user",
+          input: false,
+        },
+        phone: {
+          type: "string",
+          required: false,
+        },
+      },
+    },
+
+    plugins: [
+      admin({
+        defaultRole: "user",
+        adminRole: "admin",
+      }),
+    ],
+
+    trustedOrigins: ["http://localhost:3000", authBaseUrl].filter(Boolean),
+  });
+}
+
+export const auth = createAuth();
+
+export type Session = NonNullable<typeof auth> extends { $Infer: { Session: infer T } } ? T : never;
+export type User = Session extends { user: infer T } ? T : never;

@@ -3,8 +3,14 @@ import { createOrderFromQuote } from "@/lib/checkout/order-intake";
 import { getServerSession } from "@/lib/auth-server";
 import { CheckoutQuoteError, createCheckoutQuote } from "@/lib/checkout/quote";
 import { findBangladeshDistrict, isValidBangladeshPhone, isValidBangladeshPostalCode } from "@/lib/bangladesh";
+import { isStorefrontOnly } from "@/lib/storefront-mode";
+import { storefrontUnavailableResponse } from "@/lib/storefront-api";
 
 export async function POST(_req: NextRequest) {
+  if (isStorefrontOnly()) {
+    return storefrontUnavailableResponse("Orders");
+  }
+
   try {
     const body = await _req.json();
 

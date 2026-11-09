@@ -7,6 +7,8 @@ import { getUserOrders } from "@/lib/actions/orders"
 import { getServerSession } from "@/lib/auth-server"
 import { redirect } from "next/navigation"
 import { CancelOrderButton } from "./cancel-button"
+import { StorefrontUnavailable } from "@/components/features/storefront-unavailable"
+import { isStorefrontOnly } from "@/lib/storefront-mode"
 import { normalizeProductImage } from "@/lib/image"
 
 export const metadata: Metadata = {
@@ -31,6 +33,10 @@ const STATUS_COLORS: Record<string, string> = {
 }
 
 export default async function OrdersPage() {
+    if (isStorefrontOnly()) {
+        return <StorefrontUnavailable title="Orders are paused" />
+    }
+
     const session = await getServerSession()
     
     if (!session) {

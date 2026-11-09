@@ -10,6 +10,8 @@ import { Check, CreditCard, Truck, MapPin, Loader2, AlertCircle, Sparkles } from
 import { CheckoutBargain } from "@/components/features/checkout-bargain"
 import { useSession } from "@/lib/auth-client"
 import { getSavedShippingAddress } from "@/lib/actions/orders"
+import { StorefrontUnavailable } from "@/components/features/storefront-unavailable"
+import { isStorefrontOnly } from "@/lib/storefront-mode"
 import { FREE_SHIPPING_THRESHOLD, FREE_SHIPPING_THRESHOLD_DISPLAY, COD_FEE, PAYMENT_TEST_MODE } from "@/lib/constants"
 import { BANGLADESH_DISTRICTS, getDeliveryCharge, isValidBangladeshPhone, isValidBangladeshPostalCode } from "@/lib/bangladesh"
 import { formatMoney } from "@/lib/money"
@@ -49,7 +51,7 @@ function loadCheckoutState(): Partial<CheckoutState> | null {
     }
 }
 
-export default function CheckoutPage() {
+function CheckoutFlow() {
     const { items, totalPrice, clearCart } = useCart()
     const { data: session, isPending: isAuthPending } = useSession()
     const router = useRouter()
@@ -843,4 +845,17 @@ export default function CheckoutPage() {
         </div>
         </>
     )
+}
+
+export default function CheckoutPage() {
+    if (isStorefrontOnly()) {
+        return (
+            <StorefrontUnavailable
+                title="Checkout is paused"
+                description="This public preview does not process orders or payments. Browse the catalog and add items to your cart; checkout returns when the live backend is connected."
+            />
+        )
+    }
+
+    return <CheckoutFlow />
 }

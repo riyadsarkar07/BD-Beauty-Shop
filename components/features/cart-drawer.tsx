@@ -8,6 +8,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useSession } from "@/lib/auth-client"
+import { isStorefrontOnly } from "@/lib/storefront-mode"
 import { useEffect, useRef } from "react"
 import { normalizeProductImage } from "@/lib/image"
 import { FREE_SHIPPING_THRESHOLD } from "@/lib/constants"
@@ -179,7 +180,18 @@ export function CartDrawer() {
                                     <span>Total</span>
                                     <span className="tabular-nums">{formatMoney(totalPrice)}</span>
                                 </div>
-                                {!session ? (
+                                {isStorefrontOnly() ? (
+                                    <div className="space-y-2">
+                                        <Link href="/checkout" onClick={() => setIsOpen(false)}>
+                                            <Button className="w-full h-13 rounded-none text-xs uppercase tracking-[0.2em] font-semibold">
+                                                Checkout
+                                            </Button>
+                                        </Link>
+                                        <p className="text-[10px] text-center text-muted-foreground tracking-wide">
+                                            Checkout is paused in this storefront preview
+                                        </p>
+                                    </div>
+                                ) : !session ? (
                                     <div className="space-y-2">
                                         <Button
                                             className="w-full h-13 rounded-none text-xs uppercase tracking-[0.2em] font-semibold"

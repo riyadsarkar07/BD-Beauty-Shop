@@ -3,6 +3,8 @@ import path from "node:path";
 import { generateImage } from "ai";
 import { NextRequest, NextResponse } from "next/server";
 import { createProductTryOnRun, listProductTryOnRuns } from "@/lib/actions/try-on";
+import { isStorefrontOnly } from "@/lib/storefront-mode";
+import { storefrontUnavailableResponse } from "@/lib/storefront-api";
 import { uploadImage } from "@/lib/cloudinary";
 import { getProductDetails } from "@/lib/product-detail";
 import { normalizeProductImage } from "@/lib/image";
@@ -56,6 +58,10 @@ export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  if (isStorefrontOnly()) {
+    return storefrontUnavailableResponse("Try-on");
+  }
+
   try {
     const session = await requireTryOnAccess();
     const { id: productId } = await params;
@@ -76,6 +82,10 @@ export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  if (isStorefrontOnly()) {
+    return storefrontUnavailableResponse("Try-on");
+  }
+
   try {
     const session = await requireTryOnAccess();
     const { id: productId } = await params;

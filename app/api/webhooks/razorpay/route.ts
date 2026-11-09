@@ -4,10 +4,16 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { walletTopUps, walletWebhookEvents } from "@/lib/db/schema";
 import { assertDailyFundingCapacity, creditWallet } from "@/lib/wallet";
+import { isStorefrontOnly } from "@/lib/storefront-mode";
+import { storefrontUnavailableResponse } from "@/lib/storefront-api";
 
 export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
+  if (isStorefrontOnly()) {
+    return storefrontUnavailableResponse("Payments");
+  }
+
   const body = await request.text();
   const signature = request.headers.get("x-razorpay-signature");
   const secret = process.env.RAZORPAY_WEBHOOK_SECRET;

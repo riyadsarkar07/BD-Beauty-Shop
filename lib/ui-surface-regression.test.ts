@@ -208,6 +208,22 @@ test("google analytics tag is installed once at the root layout", () => {
   assert.equal(tagIdMatches.length, 1);
 });
 
+test("storefront-only preview pauses checkout, accounts, and backend APIs", () => {
+  const couponRoute = read("app/api/coupons/validate/route.ts");
+  const checkoutPage = read("app/checkout/page.tsx");
+  const accountPage = read("app/account/page.tsx");
+  const adminLayout = read("app/admin/layout.tsx");
+  const wishlistActions = read("lib/actions/wishlist.ts");
+
+  assert.match(couponRoute, /storefrontUnavailableResponse\("Coupons"\)/);
+  assert.match(checkoutPage, /Checkout is paused/);
+  assert.match(accountPage, /Accounts are paused/);
+  assert.match(adminLayout, /Admin is paused/);
+  assert.match(wishlistActions, /STOREFRONT_UNAVAILABLE_MESSAGE/);
+  assert.equal(existsSync("components/features/storefront-unavailable.tsx"), true);
+  assert.equal(existsSync("data/demo-catalog.json"), true);
+});
+
 test("public media has explicit cache policy for repeat visits", () => {
   const nextConfig = read("next.config.ts");
 

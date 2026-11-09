@@ -3,6 +3,8 @@ import { validatePaymentVerification } from "razorpay/dist/utils/razorpay-utils"
 import { and, eq } from "drizzle-orm";
 import razorpay from "@/lib/razorpay";
 import { requireAuth } from "@/lib/auth-server";
+import { isStorefrontOnly } from "@/lib/storefront-mode";
+import { storefrontUnavailableResponse } from "@/lib/storefront-api";
 import { createOrderFromQuote, type ShippingAddress } from "@/lib/checkout/order-intake";
 import { db } from "@/lib/db";
 import { walletCheckoutPayments } from "@/lib/db/schema";
@@ -14,6 +16,10 @@ import { refundUnfulfilledPayment } from "@/lib/checkout/refund";
 export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
+  if (isStorefrontOnly()) {
+    return storefrontUnavailableResponse("Payments");
+  }
+
   try {
     assertSameOrigin(request);
     const session = await requireAuth();

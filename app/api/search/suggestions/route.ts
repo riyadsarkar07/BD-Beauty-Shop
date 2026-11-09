@@ -2,12 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { and, desc, eq, gt } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { products } from "@/lib/db/schema";
+import { getDemoSuggestionProducts } from "@/lib/demo-catalog";
 import { getCatalogProducts } from "@/lib/product-catalog";
 import {
   buildGeneralSearchPhrases,
   mergeMerchandisingSuggestionPool,
   type SearchSuggestionProductSource,
 } from "@/lib/search-suggestions";
+import { isStorefrontOnly } from "@/lib/storefront-mode";
 
 const PRODUCT_SUGGESTION_LIMIT = 3;
 const TERM_SUGGESTION_LIMIT = 4;
@@ -65,6 +67,17 @@ async function getMerchandisingBucket(extraCondition: ReturnType<typeof eq>) {
 }
 
 async function getEmptyQueryProducts(seed: string) {
+  if (isStorefrontOnly()) {
+    const demoProducts = getDemoSuggestionProducts().filter((product) => product.stock > 0);
+    return mergeMerchandisingSuggestionPool({
+      premiumProducts: demoProducts.filter((product) => product.isPremium).slice(0, BUCKET_LIMIT),
+      newProducts: demoProducts.filter((product) => product.isNew).slice(0, BUCKET_LIMIT),
+      displayOrderProducts: demoProducts.slice(0, BUCKET_LIMIT),
+      seed,
+      limit: PRODUCT_SUGGESTION_LIMIT,
+    });
+  }
+
   const [premiumProducts, newProducts, displayOrderProducts] = await Promise.all([
     getMerchandisingBucket(eq(products.isPremium, true)),
     getMerchandisingBucket(eq(products.isNew, true)),
@@ -86,6 +99,10 @@ async function getEmptyQueryProducts(seed: string) {
 }
 
 async function getPhraseProducts() {
+  if (isStorefrontOnly()) {
+    return getDemoSuggestionProducts().filter((product) => product.stock > 0);
+  }
+
   return db
     .select(phraseProductColumns)
     .from(products)

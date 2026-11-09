@@ -24,7 +24,11 @@ npm run dev
 
 Open `http://localhost:3000`.
 
-Required environment variables:
+The public storefront builds and runs without database, auth, or payment credentials. Storefront-only mode is the default (`NEXT_PUBLIC_STOREFRONT_ONLY` is not `false`). Catalog pages use the static demo products in `data/demo-catalog.json`. Accounts, checkout, payments, orders, and admin stay paused until the live backend is connected.
+
+To enable the live backend later, set `NEXT_PUBLIC_STOREFRONT_ONLY=false` and provide the credentials below.
+
+Required environment variables for the live backend:
 
 ```bash
 DATABASE_URL=

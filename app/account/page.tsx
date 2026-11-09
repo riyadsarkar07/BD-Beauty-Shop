@@ -5,6 +5,8 @@ import { Package, Heart, LogOut, Shield, Loader2, Wallet } from "lucide-react"
 import Link from "next/link"
 import { useState, Suspense } from "react"
 import { useSession, signIn, signUp, signOut } from "@/lib/auth-client"
+import { StorefrontUnavailable } from "@/components/features/storefront-unavailable"
+import { isStorefrontOnly } from "@/lib/storefront-mode"
 import { useSearchParams, useRouter } from "next/navigation"
 
 function AccountContent() {
@@ -310,6 +312,10 @@ function AccountContent() {
 }
 
 export default function AccountPage() {
+    if (isStorefrontOnly()) {
+        return <StorefrontUnavailable title="Accounts are paused" />
+    }
+
     return (
         <Suspense fallback={
             <div className="min-h-screen flex flex-col items-center justify-center gap-4">

@@ -6,6 +6,8 @@ import Link from "next/link"
 import { useState, Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import { authClient } from "@/lib/auth-client"
+import { StorefrontUnavailable } from "@/components/features/storefront-unavailable"
+import { isStorefrontOnly } from "@/lib/storefront-mode"
 
 function ResetPasswordContent() {
     const searchParams = useSearchParams()
@@ -161,6 +163,10 @@ function ResetPasswordContent() {
 }
 
 export default function ResetPasswordPage() {
+    if (isStorefrontOnly()) {
+        return <StorefrontUnavailable title="Password reset is paused" />
+    }
+
     return (
         <Suspense fallback={
             <div className="min-h-screen flex items-center justify-center">

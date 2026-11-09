@@ -1,6 +1,7 @@
 "use server";
 
 import { getServerSession, requireAuth } from "@/lib/auth-server";
+import { isStorefrontOnly, STOREFRONT_UNAVAILABLE_MESSAGE } from "@/lib/storefront-mode";
 import {
   addProductWishlistItem,
   getProductWishlistState,
@@ -17,6 +18,13 @@ function friendlyActionError(error: unknown, fallback: string) {
 }
 
 export async function getWishlistNavState() {
+  if (isStorefrontOnly()) {
+    return {
+      authenticated: false as const,
+      count: 0,
+    };
+  }
+
   const session = await getServerSession();
 
   if (!session?.user?.id) {
@@ -41,6 +49,15 @@ export async function getWishlistNavState() {
 }
 
 export async function getProductWishlist(productId: string) {
+  if (isStorefrontOnly()) {
+    return {
+      authenticated: false as const,
+      saved: false,
+      wishlistId: null,
+      savedAt: null,
+    };
+  }
+
   const session = await getServerSession();
 
   if (!session?.user?.id) {
@@ -69,6 +86,13 @@ export async function getProductWishlist(productId: string) {
 }
 
 export async function addWishlistItem(productId: string) {
+  if (isStorefrontOnly()) {
+    return {
+      success: false as const,
+      error: STOREFRONT_UNAVAILABLE_MESSAGE,
+    };
+  }
+
   try {
     const session = await requireAuth();
     return addProductWishlistItem(session.user.id, productId);
@@ -81,6 +105,13 @@ export async function addWishlistItem(productId: string) {
 }
 
 export async function removeWishlistItem(productId: string) {
+  if (isStorefrontOnly()) {
+    return {
+      success: false as const,
+      error: STOREFRONT_UNAVAILABLE_MESSAGE,
+    };
+  }
+
   try {
     const session = await requireAuth();
     return removeProductWishlistItem(session.user.id, productId);

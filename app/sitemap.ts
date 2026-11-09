@@ -1,7 +1,9 @@
 import type { MetadataRoute } from "next";
 import { db } from "@/lib/db";
 import { products } from "@/lib/db/schema";
+import { getDemoSitemapProducts } from "@/lib/demo-catalog";
 import { buildAbsoluteUrl, buildProductPath, CATEGORY_SEO, normalizeSiteUrl } from "@/lib/seo";
+import { isStorefrontOnly } from "@/lib/storefront-mode";
 import { eq } from "drizzle-orm";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -110,16 +112,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   let productRows: Array<{ slug: string; updatedAt: Date | null }> = [];
 
-  try {
-    productRows = await db
-      .select({
-        slug: products.slug,
-        updatedAt: products.updatedAt,
-      })
-      .from(products)
-      .where(eq(products.isActive, true));
-  } catch {
-    return [...staticRoutes, ...categoryRoutes];
+  if (isStorefrontOnly()) {
+    productRows = getDemoSitemapProducts();
+  } else {
+    try {
+      productRows = await db
+        .select({
+          slug: products.slug,
+          updatedAt: products.updatedAt,
+        })
+        .from(products)
+        .where(eq(products.isActive, true));
+    } catch {
+      return [...staticRoutes, ...categoryRoutes];
+    }
   }
 
   const productRoutes: MetadataRoute.Sitemap = productRows.map((product) => ({

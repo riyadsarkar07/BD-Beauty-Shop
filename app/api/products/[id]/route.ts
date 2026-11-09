@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isAdmin } from "@/lib/auth-server";
 import { getProductDetails } from "@/lib/product-detail";
+import { isStorefrontOnly } from "@/lib/storefront-mode";
 
 export async function GET(
   _request: NextRequest,
@@ -8,7 +9,7 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const admin = await isAdmin();
+    const admin = isStorefrontOnly() ? false : await isAdmin();
     const product = await getProductDetails(id, { includeInactive: admin });
 
     if (!product || (!product.isActive && !admin)) {
