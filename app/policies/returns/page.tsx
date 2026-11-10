@@ -7,12 +7,12 @@ import { normalizeSiteUrl } from "@/lib/seo"
 export const metadata: Metadata = {
     title: "Return Policy — Defective Items Only",
     description:
-        "BD Beauty return policy: returns accepted only for defective or damaged items. Unboxing video required as proof of damage.",
+        "Beauty Room return policy: returns accepted only for defective or damaged items. Unboxing video required as proof of damage.",
     alternates: {
         canonical: "/policies/returns",
     },
     openGraph: {
-        title: "Return Policy | BD Beauty",
+        title: "Return Policy | Beauty Room",
         description:
             "Returns accepted only for defective or damaged items. Unboxing video required as proof of damage.",
         url: "/policies/returns",
@@ -164,7 +164,7 @@ export default function ReturnPolicyPage() {
                             <span className="w-7 h-7 bg-red-accent text-white flex items-center justify-center text-xs font-semibold flex-shrink-0">4</span>
                             <div>
                                 <p className="font-medium text-sm">Refund processed</p>
-                                <p className="text-xs text-muted-foreground">If approved, you&apos;ll receive the approved amount in your BD Beauty wallet. See our Refund Policy.</p>
+                                <p className="text-xs text-muted-foreground">If approved, you&apos;ll receive the approved amount in your Beauty Room wallet. See our Refund Policy.</p>
                             </div>
                         </div>
                     </div>

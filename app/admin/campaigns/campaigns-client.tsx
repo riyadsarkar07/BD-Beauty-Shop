@@ -279,7 +279,7 @@ export function AdminCampaignsClient({
     <div className="mx-auto max-w-7xl space-y-10 px-2 py-10 sm:px-4 md:py-14">
       <div className="border-b border-border/40 pb-7">
         <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-muted-foreground">
-          BD BEAUTY LEDGER // CAMPAIGN DESK
+          BEAUTY ROOM LEDGER // CAMPAIGN DESK
         </span>
         <div className="mt-3 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div>

@@ -15,7 +15,7 @@ const PANEL_TRANSITION = {
 const HERO_IMAGES = [
   {
     src: "/hero/newhero.jpeg",
-    alt: "Beauty editorial still for BD Beauty Shop",
+    alt: "Skincare bottles and daily facial ritual at Beauty Room",
     eyebrow: "Skincare",
     title: "Daily rituals",
     cta: "Skincare",
@@ -23,7 +23,7 @@ const HERO_IMAGES = [
   },
   {
     src: "/hero/newhero1.webp",
-    alt: "Makeup editorial still for BD Beauty Shop",
+    alt: "Lipstick and makeup still life at Beauty Room",
     eyebrow: "Color",
     title: "Makeup",
     cta: "Makeup",
@@ -31,7 +31,7 @@ const HERO_IMAGES = [
   },
   {
     src: "/hero/newhero2.webp",
-    alt: "Haircare editorial still for BD Beauty Shop",
+    alt: "Haircare bottles and shampoo still at Beauty Room",
     eyebrow: "Hair",
     title: "Haircare",
     cta: "Haircare",
@@ -39,7 +39,7 @@ const HERO_IMAGES = [
   },
   {
     src: "/hero/newhero3.jpeg",
-    alt: "Fragrance editorial still for BD Beauty Shop",
+    alt: "Fragrance bottles on a warm vanity at Beauty Room",
     eyebrow: "Scent",
     title: "Fragrance",
     cta: "Fragrance",
@@ -47,7 +47,7 @@ const HERO_IMAGES = [
   },
   {
     src: "/hero/newhero4.jpeg",
-    alt: "New beauty arrivals at BD Beauty Shop",
+    alt: "Sunscreen and new skincare arrivals at Beauty Room",
     eyebrow: "Just in",
     title: "New",
     cta: "New",
@@ -55,7 +55,7 @@ const HERO_IMAGES = [
   },
   {
     src: "/hero/newhero5.jpeg",
-    alt: "Beauty kits and sets at BD Beauty Shop",
+    alt: "Beauty kits and gift sets at Beauty Room",
     eyebrow: "Sets",
     title: "Kits",
     cta: "Kits",

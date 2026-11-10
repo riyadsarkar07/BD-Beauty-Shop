@@ -10,12 +10,12 @@ import { normalizeSiteUrl } from "@/lib/seo"
 export const metadata: Metadata = {
     title: "Winter Care — Skincare, Bodycare & Haircare",
     description:
-        "Cold-weather care from BD Beauty — richer moisturizers, bodycare, and haircare for drier days.",
+        "Cold-weather care from Beauty Room — richer moisturizers, bodycare, and haircare for drier days.",
     alternates: {
         canonical: "/collections/winter",
     },
     openGraph: {
-        title: "Winter Care | BD Beauty",
+        title: "Winter Care | Beauty Room",
         description:
             "Richer moisturizers, bodycare, and haircare selected for drier days.",
         url: "/collections/winter",
@@ -39,7 +39,7 @@ async function WinterGridAndSeo({
         <>
             <JsonLd
                 data={collectionJsonLd(baseUrl, {
-                    name: "Winter Care — BD Beauty",
+                    name: "Winter Care — Beauty Room",
                     description: "Skincare, bodycare, and haircare for colder days.",
                     url: "/collections/winter",
                     products: winterProducts.map((product) => ({

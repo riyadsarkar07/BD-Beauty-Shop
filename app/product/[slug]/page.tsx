@@ -40,7 +40,7 @@ export async function generateMetadata(
 
     const price = parseFloat(product.sellingPrice)
     const mrp = parseFloat(product.mrp)
-    const description = product.description || `Shop ${product.name} from BD Beauty Shop. Starting at ৳${price.toLocaleString("en-BD")}.`
+    const description = product.description || `Shop ${product.name} from Beauty Room. Starting at ৳${price.toLocaleString("en-BD")}.`
 
     return {
         title: product.name,
@@ -49,7 +49,7 @@ export async function generateMetadata(
             canonical: buildProductPath(product.slug),
         },
         openGraph: {
-            title: `${product.name} — ৳${price.toLocaleString("en-BD")} | BD Beauty Shop`,
+            title: `${product.name} — ৳${price.toLocaleString("en-BD")} | Beauty Room`,
             description,
             url: buildProductPath(product.slug),
             type: "website",
@@ -60,11 +60,11 @@ export async function generateMetadata(
                     height: 800,
                     alt: product.name,
                 }))
-                : [{ url: "/logo.jpeg", width: 1200, height: 630, alt: "BD Beauty Shop" }],
+                : [{ url: "/logo.jpeg", width: 1200, height: 630, alt: "Beauty Room" }],
         },
         twitter: {
             card: "summary_large_image",
-            title: `${product.name} | BD Beauty Shop`,
+            title: `${product.name} | Beauty Room`,
             description,
             images: product.images?.length ? product.images : ["/logo.jpeg"],
         },

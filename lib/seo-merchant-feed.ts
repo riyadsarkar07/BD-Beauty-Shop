@@ -33,7 +33,7 @@ function price(value: string | number) {
 }
 
 function descriptionFor(product: MerchantFeedProduct) {
-  return product.description?.trim() || `Shop ${product.name} from BD Beauty Shop.`;
+  return product.description?.trim() || `Shop ${product.name} from Beauty Room.`;
 }
 
 export function buildGoogleMerchantFeed({ baseUrl, products }: MerchantFeedInput) {
@@ -74,7 +74,7 @@ export function buildGoogleMerchantFeed({ baseUrl, products }: MerchantFeedInput
   <channel>
     <title>${SITE_NAME} product feed</title>
     <link>${escapeXml(siteUrl)}</link>
-    <description>Active BD Beauty Shop product catalog for Google Merchant Center.</description>
+    <description>Active Beauty Room product catalog for Google Merchant Center.</description>
     <lastBuildDate>${updated}</lastBuildDate>
 ${items.join("\n")}
   </channel>

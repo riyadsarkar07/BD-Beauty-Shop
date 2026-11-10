@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "Account",
-  description: "Sign in or manage your BD Beauty account.",
+  description: "Sign in or manage your Beauty Room account.",
   robots: {
     index: false,
     follow: false,

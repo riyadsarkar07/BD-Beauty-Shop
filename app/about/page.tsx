@@ -7,14 +7,14 @@ import { JsonLd, breadcrumbJsonLd, organizationJsonLd, webSiteJsonLd } from "@/c
 import { CONTACT_EMAIL, CONTACT_FACEBOOK, CONTACT_PHONE, STORE_ADDRESS_LINE, STORE_LOCALITY } from "@/lib/constants"
 
 export const metadata: Metadata = {
-    title: "About BD Beauty Shop",
+    title: "About Beauty Room",
     description:
-        "BD Beauty Shop is a premium Bangladesh beauty store based in Narsingdi, offering skincare, makeup, haircare, and wellness with Cash on Delivery nationwide.",
+        "Beauty Room is a premium Bangladesh beauty store based in Narsingdi, offering skincare, makeup, haircare, and wellness with Cash on Delivery nationwide.",
     alternates: {
         canonical: "/about",
     },
     openGraph: {
-        title: "About BD Beauty Shop",
+        title: "About Beauty Room",
         description:
             "A premium Bangladesh beauty store based in Narsingdi, offering skincare, makeup, haircare, and wellness with Cash on Delivery nationwide.",
         url: "/about",
@@ -48,7 +48,7 @@ const teamMembers = [
         ),
         image: "/team/founder.jpeg",
         description:
-            "Aman is listed as a founder profile in this codebase. BD Beauty Shop merchandising is operated from Narsingdi, Bangladesh."
+            "Aman is listed as a founder profile in this codebase. Beauty Room merchandising is operated from Narsingdi, Bangladesh."
     },
     // {
     //     index: "03",
@@ -99,12 +99,12 @@ export default function AboutPage() {
 
                     <div className="grid gap-8">
                         <h1 className="font-display max-w-5xl text-6xl leading-[0.88] md:text-8xl lg:text-9xl">
-                            About BD Beauty Shop
+                            About Beauty Room
                         </h1>
                         <div className="relative h-[48svh] min-h-[24rem] overflow-hidden bg-muted md:h-[56svh]">
                             <Image
                                 src="/logo.jpeg"
-                                alt="BD Beauty Shop"
+                                alt="Beauty Room"
                                 fill
                                 sizes="(max-width: 768px) 100vw, 68vw"
                                 priority

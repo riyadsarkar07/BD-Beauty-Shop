@@ -456,8 +456,8 @@ function ShopProductGrid({
         <>
             <JsonLd
                 data={collectionJsonLd(baseUrl, {
-                    name: `${query.gender === "women" ? "Women's" : query.gender === "men" ? "Men's" : "All"} Beauty - BD Beauty Shop`,
-                    description: "Explore the beauty collection from BD Beauty Shop.",
+                    name: `${query.gender === "women" ? "Women's" : query.gender === "men" ? "Men's" : "All"} Beauty - Beauty Room`,
+                    description: "Explore the beauty collection from Beauty Room.",
                     url: pathname,
                     products: initialCatalog.products.map((product) => ({
                         name: product.name,

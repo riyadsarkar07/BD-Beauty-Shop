@@ -157,7 +157,7 @@ export async function POST(
       const message = walletError instanceof Error ? walletError.message : "Wallet payment is unavailable.";
       if (/insufficient|frozen|balance/i.test(message)) {
         return NextResponse.json({
-          error: "You need at least ৳7 in your BD Beauty Wallet to generate a try-on.",
+          error: "You need at least ৳7 in your Beauty Room Wallet to generate a try-on.",
           code: "WALLET_INSUFFICIENT",
           walletUrl: "/account/wallet",
         }, { status: 402 });

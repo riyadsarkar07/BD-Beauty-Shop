@@ -10,14 +10,14 @@ import { normalizeSiteUrl } from "@/lib/seo"
 export const metadata: Metadata = {
     title: "Beauty for Her",
     description:
-        "Shop skincare, makeup, haircare, and fragrance at BD Beauty. Cash on Delivery across Bangladesh and free shipping above ৳2,000.",
+        "Shop skincare, makeup, haircare, and fragrance at Beauty Room. Cash on Delivery across Bangladesh and free shipping above ৳2,000.",
     alternates: {
         canonical: "/shop/women",
     },
     openGraph: {
-        title: "Beauty for Her | BD Beauty",
+        title: "Beauty for Her | Beauty Room",
         description:
-            "Shop skincare, makeup, haircare, and fragrance at BD Beauty.",
+            "Shop skincare, makeup, haircare, and fragrance at Beauty Room.",
         url: "/shop/women",
     },
 }

@@ -7,12 +7,12 @@ import { normalizeSiteUrl } from "@/lib/seo"
 export const metadata: Metadata = {
     title: "Shipping Policy — Free Delivery Above ৳2,000",
     description:
-        "BD Beauty Shop shipping policy: free shipping above ৳2,000, Dhaka metro ৳60, outside Dhaka ৳120, COD available with no extra fee. Delivery across Bangladesh.",
+        "Beauty Room shipping policy: free shipping above ৳2,000, Dhaka metro ৳60, outside Dhaka ৳120, COD available with no extra fee. Delivery across Bangladesh.",
     alternates: {
         canonical: "/policies/shipping",
     },
     openGraph: {
-        title: "Shipping Policy | BD Beauty Shop",
+        title: "Shipping Policy | Beauty Room",
         description:
             "Free shipping above ৳2,000, Dhaka metro ৳60, outside Dhaka ৳120, COD available with no extra fee.",
         url: "/policies/shipping",

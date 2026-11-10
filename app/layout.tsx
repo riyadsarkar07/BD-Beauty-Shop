@@ -42,14 +42,14 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000",
   ),
   title: {
-    default: "BD Beauty Shop | Beauty, delivered across Bangladesh",
-    template: "%s | BD Beauty Shop",
+    default: "Beauty Room | Beauty, delivered across Bangladesh",
+    template: "%s | Beauty Room",
   },
   description:
     "Premium Bangladesh beauty store for skincare, makeup, haircare, fragrance, and wellness. Cash on Delivery and nationwide delivery. Free shipping above ৳2,000.",
-  applicationName: "BD Beauty Shop",
+  applicationName: "Beauty Room",
   keywords: [
-    "BD Beauty Shop",
+    "Beauty Room",
     "beauty shop Bangladesh",
     "skincare Bangladesh",
     "makeup Bangladesh",
@@ -62,18 +62,18 @@ export const metadata: Metadata = {
     "Beauty Room By Afrin",
   ],
   authors: [
-    { name: "BD Beauty Shop", url: "https://bdbeautyshop.com" },
+    { name: "Beauty Room", url: "https://bdbeautyshop.com" },
   ],
-  creator: "BD Beauty Shop",
-  publisher: "BD Beauty Shop",
+  creator: "Beauty Room",
+  publisher: "Beauty Room",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_BD",
-    siteName: "BD Beauty Shop",
-    title: "BD Beauty Shop | Beauty, delivered across Bangladesh",
+    siteName: "Beauty Room",
+    title: "Beauty Room | Beauty, delivered across Bangladesh",
     description:
       "Premium Bangladesh beauty store for skincare, makeup, haircare, fragrance, and wellness. Cash on Delivery and nationwide delivery.",
     url: "/",
@@ -82,13 +82,13 @@ export const metadata: Metadata = {
         url: "/logo.jpeg",
         width: 1200,
         height: 630,
-        alt: "BD Beauty Shop — Beauty, delivered across Bangladesh",
+        alt: "Beauty Room — Beauty, delivered across Bangladesh",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BD Beauty Shop",
+    title: "Beauty Room",
     description:
       "Premium Bangladesh beauty store for skincare, makeup, haircare, and wellness.",
     images: ["/logo.jpeg"],

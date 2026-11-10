@@ -2,11 +2,11 @@ import { normalizeSiteUrl, SITE_DESCRIPTION } from "@/lib/seo";
 
 export function GET() {
   const baseUrl = normalizeSiteUrl();
-  const body = `# BD Beauty Shop
+  const body = `# Beauty Room
 
 ${SITE_DESCRIPTION}
 
-BD Beauty Shop is an online-first Bangladesh beauty store based in Narsingdi. It sells skincare, makeup, haircare, fragrance, bodycare, nailcare, tools, kits, wellness, and accessories with Cash on Delivery nationwide.
+Beauty Room is an online-first Bangladesh beauty store based in Narsingdi. It sells skincare, makeup, haircare, fragrance, bodycare, nailcare, tools, kits, wellness, and accessories with Cash on Delivery nationwide.
 
 Important public pages:
 - Home: ${baseUrl}/

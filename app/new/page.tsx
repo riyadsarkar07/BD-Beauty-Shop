@@ -7,14 +7,14 @@ import { normalizeSiteUrl } from "@/lib/seo"
 export const metadata: Metadata = {
     title: "New Arrivals — Latest Drops",
     description:
-        "Fresh arrivals at BD Beauty — new skincare, makeup, haircare, and fragrance just added to the catalog.",
+        "Fresh arrivals at Beauty Room — new skincare, makeup, haircare, and fragrance just added to the catalog.",
     alternates: {
         canonical: "/new",
     },
     openGraph: {
-        title: "New Arrivals | BD Beauty",
+        title: "New Arrivals | Beauty Room",
         description:
-            "Fresh arrivals at BD Beauty — new skincare, makeup, haircare, and fragrance.",
+            "Fresh arrivals at Beauty Room — new skincare, makeup, haircare, and fragrance.",
         url: "/new",
     },
 }
@@ -47,7 +47,7 @@ export default function NewArrivalsPage() {
                 <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-[0.8fr_1.2fr]">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground">Latest drops</p>
                     <p className="text-base leading-8 text-muted-foreground">
-                        New arrivals collect the freshest BD Beauty products in one place, from skincare and makeup to haircare and fragrance. Availability changes with live catalog stock.
+                        New arrivals collect the freshest Beauty Room products in one place, from skincare and makeup to haircare and fragrance. Availability changes with live catalog stock.
                     </p>
                 </div>
             </section>

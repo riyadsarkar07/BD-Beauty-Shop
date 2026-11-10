@@ -7,12 +7,12 @@ import { normalizeSiteUrl } from "@/lib/seo"
 export const metadata: Metadata = {
     title: "Premium Collection — Elevated Beauty Picks",
     description:
-        "Shop the BD Beauty Premium collection — elevated beauty picks selected for standout formulas and finish.",
+        "Shop the Beauty Room Premium collection — elevated beauty picks selected for standout formulas and finish.",
     alternates: {
         canonical: "/collections/premium",
     },
     openGraph: {
-        title: "Premium Collection | BD Beauty",
+        title: "Premium Collection | Beauty Room",
         description:
             "Elevated beauty picks selected for standout formulas and finish.",
         url: "/collections/premium",
@@ -48,7 +48,7 @@ export default function PremiumPage() {
                 <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-[0.8fr_1.2fr]">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground">Premium edit</p>
                     <p className="text-base leading-8 text-muted-foreground">
-                        The BD Beauty Premium collection highlights beauty products selected for richer formulas, cleaner finish, and a more considered routine. It is a focused edit for shoppers who want the brand&apos;s standout picks first.
+                        The Beauty Room Premium collection highlights beauty products selected for richer formulas, cleaner finish, and a more considered routine. It is a focused edit for shoppers who want the brand&apos;s standout picks first.
                     </p>
                 </div>
             </section>

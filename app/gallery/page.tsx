@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { GalleryClient, type XilarGalleryItem } from "@/components/features/gallery-client";
+import { GalleryClient, type GalleryItem } from "@/components/features/gallery-client";
 import { JsonLd, breadcrumbJsonLd, collectionJsonLd } from "@/components/seo/structured-data";
 import { getCatalogProducts } from "@/lib/product-catalog";
 import { normalizeProductImage } from "@/lib/image";
 import { buildProductPath, normalizeSiteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Gallery — BD Beauty Product Grid",
+  title: "Gallery — Beauty Room Product Grid",
   description:
-    "Visual gallery of BD Beauty products. Explore skincare, makeup, haircare, fragrance, and accessories from our Narsingdi shop.",
+    "Visual gallery of Beauty Room products. Explore skincare, makeup, haircare, fragrance, and accessories from our Narsingdi shop.",
   alternates: {
     canonical: "/gallery",
   },
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default async function GalleryPage() {
   const baseUrl = normalizeSiteUrl();
   const { products } = await getCatalogProducts({ limit: 24 });
-  const galleryItems: XilarGalleryItem[] = products.map((product) => ({
+  const galleryItems: GalleryItem[] = products.map((product) => ({
     id: product.id,
     title: product.name,
     src: normalizeProductImage(product.images[0]),
@@ -35,8 +35,8 @@ export default async function GalleryPage() {
       />
       <JsonLd
         data={collectionJsonLd(baseUrl, {
-          name: "Gallery — BD Beauty Product Grid",
-          description: "Visual lookbook and catalog grid of active products from BD Beauty.",
+          name: "Gallery — Beauty Room Product Grid",
+          description: "Visual lookbook and catalog grid of active products from Beauty Room.",
           url: "/gallery",
           products: products.map((product) => ({
             name: product.name,

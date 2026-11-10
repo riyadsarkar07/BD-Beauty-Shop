@@ -8,12 +8,12 @@ import { normalizeSiteUrl } from "@/lib/seo"
 export const metadata: Metadata = {
     title: "Summer '26 — Lightweight Beauty Essentials",
     description:
-        "Lightweight formulas for hot days. Shop the BD Beauty Summer '26 edit — lightweight skincare, fresh fragrance, and everyday makeup.",
+        "Lightweight formulas for hot days. Shop the Beauty Room Summer '26 edit — lightweight skincare, fresh fragrance, and everyday makeup.",
     alternates: {
         canonical: "/collections/summer-26",
     },
     openGraph: {
-        title: "Summer '26 Edit | BD Beauty",
+        title: "Summer '26 Edit | Beauty Room",
         description:
             "Lightweight skincare, fresh fragrance, and everyday makeup for hot days.",
         url: "/collections/summer-26",
@@ -32,7 +32,7 @@ async function Summer26GridAndSeo({
         <>
             <JsonLd
                 data={collectionJsonLd(baseUrl, {
-                    name: "Summer '26 Edit — BD Beauty",
+                    name: "Summer '26 Edit — Beauty Room",
                     description: "Lightweight formulas selected for hot days.",
                     url: "/collections/summer-26",
                     products: products.map((product) => ({

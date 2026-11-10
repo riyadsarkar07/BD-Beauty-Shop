@@ -13,7 +13,7 @@ import { normalizeProductImage } from "@/lib/image"
 
 export const metadata: Metadata = {
     title: "My Orders",
-    description: "View and track your BD Beauty orders.",
+    description: "View and track your Beauty Room orders.",
     robots: {
         index: false,
         follow: false,

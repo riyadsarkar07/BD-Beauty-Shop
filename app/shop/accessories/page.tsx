@@ -7,14 +7,14 @@ import { normalizeSiteUrl } from "@/lib/seo"
 export const metadata: Metadata = {
     title: "Accessories",
     description:
-        "Shop beauty accessories at BD Beauty, including pouches, mirrors, and finishing extras.",
+        "Shop beauty accessories at Beauty Room, including pouches, mirrors, and finishing extras.",
     alternates: {
         canonical: "/shop/accessories",
     },
     openGraph: {
-        title: "Accessories | BD Beauty",
+        title: "Accessories | Beauty Room",
         description:
-            "Shop beauty accessories at BD Beauty, including pouches, mirrors, and finishing extras.",
+            "Shop beauty accessories at Beauty Room, including pouches, mirrors, and finishing extras.",
         url: "/shop/accessories",
     },
 }
@@ -48,7 +48,7 @@ export default function AccessoriesPage() {
                 <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-[0.8fr_1.2fr]">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground">Accessories</p>
                     <p className="text-base leading-8 text-muted-foreground">
-                        BD Beauty accessories are selected as finishing pieces rather than filler: pouches, mirrors, and compact essentials that support a beauty routine without cluttering it.
+                        Beauty Room accessories are selected as finishing pieces rather than filler: pouches, mirrors, and compact essentials that support a beauty routine without cluttering it.
                     </p>
                 </div>
             </section>

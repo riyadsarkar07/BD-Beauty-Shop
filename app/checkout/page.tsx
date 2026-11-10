@@ -310,7 +310,7 @@ function CheckoutFlow() {
                     key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
                     amount: rzpOrderData.razorpay.amount,
                     currency: rzpOrderData.razorpay.currency,
-                    name: "BD Beauty Shop",
+                    name: "Beauty Room",
                     description: "Order Payment",
                     order_id: rzpOrderData.razorpay.id,
                     handler: async (response: {
@@ -411,7 +411,7 @@ function CheckoutFlow() {
                         <h1 className="font-display text-4xl">Order confirmed</h1>
                     </div>
                     <p className="text-sm text-muted-foreground">
-                        Thank you for shopping with BD Beauty Shop. Your order has been placed and will be delivered soon.
+                        Thank you for shopping with Beauty Room. Your order has been placed and will be delivered soon.
                     </p>
                     {appliedCoupon && (
                         <p className="text-xs text-red-accent tabular-nums">You saved {formatMoney(appliedCoupon.discount)} with coupon {appliedCoupon.code}</p>

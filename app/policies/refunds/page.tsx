@@ -5,16 +5,16 @@ import { JsonLd, breadcrumbJsonLd } from "@/components/seo/structured-data"
 import { normalizeSiteUrl } from "@/lib/seo"
 
 export const metadata: Metadata = {
-    title: "Refund Policy — BD Beauty Shop Wallet",
+    title: "Refund Policy — Beauty Room Wallet",
     description:
-        "BD Beauty Shop refund policy: approved refunds are credited to your store wallet. No cash withdrawals or transfers.",
+        "Beauty Room refund policy: approved refunds are credited to your store wallet. No cash withdrawals or transfers.",
     alternates: {
         canonical: "/policies/refunds",
     },
     openGraph: {
-        title: "Refund Policy | BD Beauty Shop",
+        title: "Refund Policy | Beauty Room",
         description:
-            "Approved refunds are credited to your BD Beauty Shop wallet. No cash withdrawals or transfers.",
+            "Approved refunds are credited to your Beauty Room wallet. No cash withdrawals or transfers.",
         url: "/policies/refunds",
     },
 }
@@ -49,10 +49,10 @@ export default function RefundPolicyPage() {
                     <h2 className="text-sm font-semibold uppercase tracking-[0.1em]">No cash refunds</h2>
                     <div className="p-4 bg-secondary/10 border border-border/60">
                         <p className="font-medium text-sm">
-                            All approved refunds are processed as <strong>BD Beauty wallet credit</strong>.
+                            All approved refunds are processed as <strong>Beauty Room wallet credit</strong>.
                         </p>
                         <p className="text-xs text-muted-foreground mt-2">
-                            We do not offer cash withdrawals, bank transfers, or wallet transfers. Wallet credit can be used on BD Beauty purchases and try-ons.
+                            We do not offer cash withdrawals, bank transfers, or wallet transfers. Wallet credit can be used on Beauty Room purchases and try-ons.
                         </p>
                     </div>
                 </section>
@@ -110,7 +110,7 @@ export default function RefundPolicyPage() {
                             <span className="w-7 h-7 bg-red-accent text-white flex items-center justify-center text-xs font-semibold flex-shrink-0">2</span>
                             <div>
                                 <p className="font-medium text-sm">Credit issued</p>
-                                <p className="text-xs text-muted-foreground">Your approved amount is credited directly to your BD Beauty wallet</p>
+                                <p className="text-xs text-muted-foreground">Your approved amount is credited directly to your Beauty Room wallet</p>
                             </div>
                         </div>
                         <div className="flex gap-4 p-4 border border-border/60">
@@ -155,7 +155,7 @@ export default function RefundPolicyPage() {
                     <div className="p-4 bg-secondary/10 border border-border/60">
                         <p className="font-medium text-sm">Why wallet credit instead of cash?</p>
                         <p className="text-xs text-muted-foreground mt-2">
-                            Wallet credit keeps refunds secure, immediate, and tied to the account that placed the order. It can only be used within BD Beauty and is never transferable or withdrawable.
+                            Wallet credit keeps refunds secure, immediate, and tied to the account that placed the order. It can only be used within Beauty Room and is never transferable or withdrawable.
                         </p>
                     </div>
                 </section>

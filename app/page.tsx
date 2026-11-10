@@ -19,14 +19,14 @@ import { normalizeSiteUrl } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Home | Beauty, delivered across Bangladesh",
   description:
-    "Shop skincare, makeup, haircare, fragrance, and wellness at BD Beauty Shop. Cash on Delivery nationwide. Free shipping above ৳2,000.",
+    "Shop skincare, makeup, haircare, fragrance, and wellness at Beauty Room. Cash on Delivery nationwide. Free shipping above ৳2,000.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "BD Beauty Shop | Beauty, delivered across Bangladesh",
+    title: "Beauty Room | Beauty, delivered across Bangladesh",
     description:
-      "Shop skincare, makeup, haircare, fragrance, and wellness at BD Beauty Shop. Cash on Delivery nationwide. Free shipping above ৳2,000.",
+      "Shop skincare, makeup, haircare, fragrance, and wellness at Beauty Room. Cash on Delivery nationwide. Free shipping above ৳2,000.",
     url: "/",
   },
 };

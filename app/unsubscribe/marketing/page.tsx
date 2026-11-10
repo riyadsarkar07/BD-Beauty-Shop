@@ -30,7 +30,7 @@ export default async function MarketingUnsubscribePage({
     <main className="min-h-screen bg-background px-4 py-20 text-foreground">
       <div className="mx-auto max-w-xl border-y border-border/40 py-10">
         <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-muted-foreground">
-          BD BEAUTY // EMAIL PREFERENCES
+          BEAUTY ROOM // EMAIL PREFERENCES
         </p>
         <h1 className="mt-4 text-4xl font-black uppercase leading-none tracking-tight">
           Marketing Emails
@@ -38,7 +38,7 @@ export default async function MarketingUnsubscribePage({
 
         {params.status === "success" ? (
           <p className="mt-6 text-sm leading-6 text-muted-foreground">
-            {params.email ? `${params.email} has` : "You have"} been unsubscribed from BD Beauty marketing emails.
+            {params.email ? `${params.email} has` : "You have"} been unsubscribed from Beauty Room marketing emails.
           </p>
         ) : params.status === "invalid" || !token ? (
           <p className="mt-6 text-sm leading-6 text-muted-foreground">
@@ -47,7 +47,7 @@ export default async function MarketingUnsubscribePage({
         ) : (
           <form action={confirmUnsubscribe} className="mt-7 space-y-5">
             <p className="text-sm leading-6 text-muted-foreground">
-              Confirm that you want to stop receiving BD Beauty drop announcements, promos, and product emails.
+              Confirm that you want to stop receiving Beauty Room drop announcements, promos, and product emails.
             </p>
             <button
               type="submit"

@@ -1,4 +1,4 @@
-# BD Beauty Shop — Copilot Instructions
+# Beauty Room — Copilot Instructions
 
 > [!IMPORTANT]
 > **Design Philosophy & Visual Styling:**

@@ -53,7 +53,7 @@ export function Footer() {
                 Beauty, delivered across Bangladesh
               </p>
               <PixelatedText
-                text="BD BEAUTY"
+                 text="BEAUTY ROOM"
                 className="h-[clamp(8rem,24vw,22rem)] max-w-5xl"
                 align="left"
                 textClassName="text-left"
@@ -117,7 +117,7 @@ export function Footer() {
 
         <div className="mt-16 border-t border-border/70 pt-8">
           <div className="grid gap-3 text-[10px] uppercase tracking-[0.2em] text-muted-foreground sm:flex sm:items-center sm:justify-between">
-            <p>&copy; {COPYRIGHT_YEAR} BD Beauty Shop. All rights reserved.</p>
+            <p>&copy; {COPYRIGHT_YEAR} Beauty Room. All rights reserved.</p>
             <div className="flex items-center justify-between gap-5 sm:contents">
               <p>{STORE_LOCALITY}, Bangladesh</p>
               <Link href="/gallery" className="transition-colors duration-300 hover:text-foreground">

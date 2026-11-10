@@ -32,7 +32,7 @@ export default async function AdminLayout({
       <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-md">
         <div className="flex h-16 items-center px-4 md:px-8 gap-4">
           <Link href="/admin" className="text-2xl font-display tracking-tight flex items-baseline gap-1 select-none">
-            BD Beauty <span className="text-[10px] uppercase font-mono tracking-[0.2em] text-muted-foreground font-semibold">ADMIN</span>
+            Beauty Room <span className="text-[10px] uppercase font-mono tracking-[0.2em] text-muted-foreground font-semibold">ADMIN</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-8 ml-10">

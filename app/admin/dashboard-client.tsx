@@ -91,7 +91,7 @@ export function AdminDashboardClient({ initialStats }: { initialStats: Dashboard
           <div>
             <div className="mb-2">
               <span className="text-[10px] uppercase font-mono tracking-[0.3em] text-muted-foreground">
-                BD BEAUTY LEDGER // CORE ADMIN DESK
+                BEAUTY ROOM LEDGER // CORE ADMIN DESK
               </span>
             </div>
             <h1 className="text-5xl font-black uppercase tracking-tighter leading-none font-sans md:text-6xl">

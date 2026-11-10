@@ -7,12 +7,12 @@ import { normalizeSiteUrl } from "@/lib/seo"
 export const metadata: Metadata = {
     title: "Exchange Policy — Size & Color Exchanges Within 48 Hours",
     description:
-        "BD Beauty exchange policy: exchanges accepted within 48 hours of delivery for size or color issues only. Product must be unused with tags intact.",
+        "Beauty Room exchange policy: exchanges accepted within 48 hours of delivery for size or color issues only. Product must be unused with tags intact.",
     alternates: {
         canonical: "/policies/exchange",
     },
     openGraph: {
-        title: "Exchange Policy | BD Beauty",
+        title: "Exchange Policy | Beauty Room",
         description:
             "Exchanges accepted within 48 hours of delivery for size or color issues only. Product must be unused with tags intact.",
         url: "/policies/exchange",
@@ -105,7 +105,7 @@ export default function ExchangePolicyPage() {
                             Only <strong>one</strong> exchange attempt per order.
                         </p>
                         <p className="text-xs text-muted-foreground mt-2">
-                            If the size/color you want is unavailable, we&apos;ll issue BD Beauty wallet credit instead.
+                            If the size/color you want is unavailable, we&apos;ll issue Beauty Room wallet credit instead.
                         </p>
                     </div>
                 </section>

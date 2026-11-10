@@ -11,14 +11,14 @@ import { normalizeSiteUrl } from "@/lib/seo"
 export const metadata: Metadata = {
     title: "Shop All Beauty",
     description:
-        "Explore skincare, makeup, haircare, fragrance, and wellness at BD Beauty Shop. Cash on Delivery nationwide. Free shipping above ৳2,000.",
+        "Explore skincare, makeup, haircare, fragrance, and wellness at Beauty Room. Cash on Delivery nationwide. Free shipping above ৳2,000.",
     alternates: {
         canonical: "/shop",
     },
     openGraph: {
-        title: "Shop All Beauty | BD Beauty Shop",
+        title: "Shop All Beauty | Beauty Room",
         description:
-            "Explore skincare, makeup, haircare, fragrance, and wellness at BD Beauty Shop. Cash on Delivery nationwide.",
+            "Explore skincare, makeup, haircare, fragrance, and wellness at Beauty Room. Cash on Delivery nationwide.",
         url: "/shop",
     },
 }
@@ -43,7 +43,7 @@ export default async function ShopPage() {
                 data={collectionJsonLd(baseUrl, {
                     name: "Shop All Beauty",
                     description:
-                        "Skincare, makeup, haircare, fragrance, bodycare, nailcare, tools, kits, and wellness from BD Beauty Shop.",
+                        "Skincare, makeup, haircare, fragrance, bodycare, nailcare, tools, kits, and wellness from Beauty Room.",
                     url: "/shop",
                     products: catalog.products.map((product) => ({
                         name: product.name,
@@ -63,7 +63,7 @@ export default async function ShopPage() {
                 <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-[0.8fr_1.2fr]">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground">Beauty index</p>
                     <p className="text-base leading-8 text-muted-foreground">
-                        BD Beauty brings together skincare, makeup, haircare, fragrance, bodycare, nailcare, tools, kits, and wellness in one focused catalog. Every listing shows the details supplied by the brand, with prices in Bangladeshi Taka and server-verified totals at checkout.
+                        Beauty Room brings together skincare, makeup, haircare, fragrance, bodycare, nailcare, tools, kits, and wellness in one focused catalog. Every listing shows the details supplied by the brand, with prices in Bangladeshi Taka and server-verified totals at checkout.
                     </p>
                 </div>
             </section>

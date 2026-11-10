@@ -7,14 +7,14 @@ import { normalizeSiteUrl } from "@/lib/seo"
 export const metadata: Metadata = {
     title: "Store Policies — Exchange, Returns, Refunds & Shipping",
     description:
-        "Read BD Beauty Shop policies on exchanges, returns, wallet refunds, and shipping.",
+        "Read Beauty Room policies on exchanges, returns, wallet refunds, and shipping.",
     alternates: {
         canonical: "/policies",
     },
     openGraph: {
-        title: "Store Policies | BD Beauty Shop",
+        title: "Store Policies | Beauty Room",
         description:
-            "Read BD Beauty Shop policies on exchanges, returns, refunds, and shipping. Free shipping above ৳2,000.",
+            "Read Beauty Room policies on exchanges, returns, refunds, and shipping. Free shipping above ৳2,000.",
         url: "/policies",
     },
 }
@@ -37,7 +37,7 @@ export default function PoliciesPage() {
         },
         {
             title: "Refund Policy",
-            description: "Approved refunds are credited to your BD Beauty Shop wallet.",
+            description: "Approved refunds are credited to your Beauty Room wallet.",
             href: "/policies/refunds",
             icon: CreditCard,
         },
@@ -60,19 +60,19 @@ export default function PoliciesPage() {
             <JsonLd
                 data={faqJsonLd([
                     {
-                        question: "What is BD Beauty Shop's exchange policy?",
+                        question: "What is Beauty Room's exchange policy?",
                         answer: "Exchanges are accepted within 48 hours of delivery for size or color issues only. Product must be unused with tags intact.",
                     },
                     {
-                        question: "Does BD Beauty Shop accept returns?",
+                        question: "Does Beauty Room accept returns?",
                         answer: "Returns are accepted only for defective or damaged products. An unboxing video is required as proof.",
                     },
                     {
-                        question: "How does BD Beauty Shop handle refunds?",
-                        answer: "Approved refunds are credited at their exact value to your account-bound BD Beauty Shop wallet. Wallet credit does not expire and cannot be withdrawn or transferred.",
+                        question: "How does Beauty Room handle refunds?",
+                        answer: "Approved refunds are credited at their exact value to your account-bound Beauty Room wallet. Wallet credit does not expire and cannot be withdrawn or transferred.",
                     },
                     {
-                        question: "What are BD Beauty Shop's shipping charges?",
+                        question: "What are Beauty Room's shipping charges?",
                         answer: "Free shipping on orders above ৳2,000. Dhaka metro delivery is ৳60 and outside Dhaka is ৳120. Cash on Delivery is available with no extra fee.",
                     },
                 ])}
@@ -124,7 +124,7 @@ export default function PoliciesPage() {
                         </li>
                         <li className="flex items-start gap-2">
                             <span className="text-red-accent mt-0.5">·</span>
-                            <span><strong className="text-foreground">Refunds:</strong> <span className="text-muted-foreground">Issued to your BD Beauty Shop wallet at the approved amount.</span></span>
+                            <span><strong className="text-foreground">Refunds:</strong> <span className="text-muted-foreground">Issued to your Beauty Room wallet at the approved amount.</span></span>
                         </li>
                         <li className="flex items-start gap-2">
                             <span className="text-red-accent mt-0.5">·</span>

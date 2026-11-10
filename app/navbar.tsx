@@ -144,7 +144,7 @@ const overlayLinks = [
   { href: "/shop/haircare", label: "Haircare", img: "/hero/image(13).webp" },
   { href: "/shop/fragrance", label: "Fragrance", img: "/hero/image(5).webp" },
   { href: "/shop/kits", label: "Kits", img: "/hero/image(2).webp" },
-  { href: "/shop/accessories", label: "Accessories", img: "/hero/image(3).webp" },
+  { href: "/shop/accessories", label: "Accessories", img: "/hero/pouch.webp" },
 ];
 
 const utilityLinks = [
@@ -875,7 +875,7 @@ export function Navbar() {
 
           {/* Center: Logo */}
           <Link href="/" className="flex-shrink-0 flex items-center justify-center">
-            <span className="font-[family-name:var(--font-instrument-serif)] text-3xl md:text-4xl text-foreground">Xilar</span>
+            <span className="whitespace-nowrap font-[family-name:var(--font-instrument-serif)] text-[1.7rem] leading-none tracking-tight text-foreground md:text-3xl lg:text-4xl">Beauty Room</span>
           </Link>
 
           {/* Right: Actions */}
@@ -956,7 +956,7 @@ export function Navbar() {
         >
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center" onClick={() => setShowMobileMenu(false)}>
-            <span className="font-[family-name:var(--font-instrument-serif)] text-2xl md:text-3xl text-foreground">BD Beauty</span>
+            <span className="whitespace-nowrap font-[family-name:var(--font-instrument-serif)] text-2xl leading-none tracking-tight text-foreground md:text-3xl">Beauty Room</span>
             </Link>
             <Button
               variant="ghost"

@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       canonical: `/shop/${seo.slug}`,
     },
     openGraph: {
-      title: `${seo.title} | BD Beauty`,
+      title: `${seo.title} | Beauty Room`,
       description: seo.description,
       url: `/shop/${seo.slug}`,
     },
@@ -74,7 +74,7 @@ export default async function CategoryPage({ params }: Props) {
       <section className="border-t border-border/60 px-6 py-12 md:px-12 md:py-16">
         <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-[0.8fr_1.2fr]">
           <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-            BD Beauty category note
+            Beauty Room category note
           </p>
           <div className="space-y-6">
             <p className="text-base leading-8 text-muted-foreground">{seo.intro}</p>

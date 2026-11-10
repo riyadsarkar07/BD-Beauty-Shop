@@ -10,13 +10,13 @@ import {
   STORE_REGION,
 } from "./constants.ts";
 
-export const SITE_NAME = "BD Beauty Shop";
+export const SITE_NAME = "Beauty Room";
 export const SITE_BRAND_LINE = "Beauty, delivered across Bangladesh";
 export const DEFAULT_SITE_URL = "https://bdbeautyshop.com";
 export const DEFAULT_OG_IMAGE = "/logo.jpeg";
 
 export const SITE_DESCRIPTION =
-  "BD Beauty Shop is a premium Bangladesh beauty store for skincare, makeup, haircare, fragrance, and wellness, with Cash on Delivery and nationwide delivery.";
+  "Beauty Room is a premium Bangladesh beauty store for skincare, makeup, haircare, fragrance, and wellness, with Cash on Delivery and nationwide delivery.";
 
 export const SEO_CONTACT = {
   email: CONTACT_EMAIL,
@@ -97,12 +97,12 @@ export const CATEGORY_SEO: CategorySeo[] = [
     h1: "Skincare",
     subtitle: "Cleansers, serums, moisturizers, and daily skin rituals.",
     description:
-      "Shop skincare at BD Beauty Shop. Browse cleansers, serums, moisturizers, and everyday skin care with Cash on Delivery across Bangladesh.",
+      "Shop skincare at Beauty Room. Browse cleansers, serums, moisturizers, and everyday skin care with Cash on Delivery across Bangladesh.",
     intro:
-      "Skincare at BD Beauty Shop is merchandised for daily routines. Product pages show live stock and any details provided by the catalog.",
+      "Skincare at Beauty Room is merchandised for daily routines. Product pages show live stock and any details provided by the catalog.",
     faq: [
       {
-        question: "Does BD Beauty Shop ship skincare across Bangladesh?",
+        question: "Does Beauty Room ship skincare across Bangladesh?",
         answer:
           "Yes. Orders ship nationwide, with Cash on Delivery available and free shipping above the sitewide order threshold.",
       },
@@ -116,7 +116,7 @@ export const CATEGORY_SEO: CategorySeo[] = [
     h1: "Makeup",
     subtitle: "Face, eyes, lips, and finishing color.",
     description:
-      "Shop makeup at BD Beauty Shop, including face, eye, and lip products with nationwide delivery in Bangladesh.",
+      "Shop makeup at Beauty Room, including face, eye, and lip products with nationwide delivery in Bangladesh.",
     intro:
       "Makeup listings keep shade and stock details on the product page. Only information supplied in the catalog is shown.",
     faq: [
@@ -134,7 +134,7 @@ export const CATEGORY_SEO: CategorySeo[] = [
     h1: "Haircare",
     subtitle: "Shampoo, treatments, oils, and styling care.",
     description:
-      "Shop haircare at BD Beauty Shop. Browse shampoos, treatments, and oils with delivery across Bangladesh.",
+      "Shop haircare at Beauty Room. Browse shampoos, treatments, and oils with delivery across Bangladesh.",
     intro:
       "Haircare products are listed with the details available from the catalog. Stock and price are always server-verified.",
     faq: [
@@ -153,14 +153,14 @@ export const CATEGORY_SEO: CategorySeo[] = [
     h1: "Fragrance",
     subtitle: "Perfumes and body mists.",
     description:
-      "Shop fragrance at BD Beauty Shop. Browse perfumes and body mists with Cash on Delivery in Bangladesh.",
+      "Shop fragrance at Beauty Room. Browse perfumes and body mists with Cash on Delivery in Bangladesh.",
     intro:
       "Fragrance pages only show names, images, prices, and descriptions that exist in the catalog.",
     faq: [
       {
         question: "Do fragrance products include invented notes or claims?",
         answer:
-          "No. BD Beauty Shop does not invent ingredients, notes, or product claims. Missing details stay blank until an admin adds them.",
+          "No. Beauty Room does not invent ingredients, notes, or product claims. Missing details stay blank until an admin adds them.",
       },
     ],
   },
@@ -172,7 +172,7 @@ export const CATEGORY_SEO: CategorySeo[] = [
     h1: "Bodycare",
     subtitle: "Lotions, washes, and body treatments.",
     description:
-      "Shop bodycare at BD Beauty Shop, including lotions, washes, and body treatments delivered across Bangladesh.",
+      "Shop bodycare at Beauty Room, including lotions, washes, and body treatments delivered across Bangladesh.",
     intro:
       "Bodycare is merchandised as everyday self-care. Catalog details are preserved exactly as imported or entered by admin.",
     faq: [
@@ -190,7 +190,7 @@ export const CATEGORY_SEO: CategorySeo[] = [
     h1: "Nailcare",
     subtitle: "Polishes, treatments, and nail kits.",
     description:
-      "Shop nailcare at BD Beauty Shop, including polishes and nail kits with delivery across Bangladesh.",
+      "Shop nailcare at Beauty Room, including polishes and nail kits with delivery across Bangladesh.",
     intro:
       "Nailcare listings keep shade names when provided. Empty fields mean the source did not include that information.",
     faq: [
@@ -208,7 +208,7 @@ export const CATEGORY_SEO: CategorySeo[] = [
     h1: "Beauty Tools",
     subtitle: "Brushes, applicators, and grooming tools.",
     description:
-      "Shop beauty tools at BD Beauty Shop, including brushes and applicators with nationwide Bangladesh delivery.",
+      "Shop beauty tools at Beauty Room, including brushes and applicators with nationwide Bangladesh delivery.",
     intro:
       "Tools are single-SKU unless the catalog supplies variants. Stock is shown on each product page.",
     faq: [
@@ -226,7 +226,7 @@ export const CATEGORY_SEO: CategorySeo[] = [
     h1: "Kits & Sets",
     subtitle: "Gift sets and bundled beauty routines.",
     description:
-      "Shop beauty kits and sets at BD Beauty Shop. Bundled routines and gift sets with Cash on Delivery in Bangladesh.",
+      "Shop beauty kits and sets at Beauty Room. Bundled routines and gift sets with Cash on Delivery in Bangladesh.",
     intro:
       "Kits are merchandised as complete routines. Combo discounts, when configured, are applied server-side at checkout.",
     faq: [
@@ -245,12 +245,12 @@ export const CATEGORY_SEO: CategorySeo[] = [
     h1: "Wellness",
     subtitle: "Self-care extras beyond the makeup bag.",
     description:
-      "Shop wellness products at BD Beauty Shop with nationwide delivery and Cash on Delivery in Bangladesh.",
+      "Shop wellness products at Beauty Room with nationwide delivery and Cash on Delivery in Bangladesh.",
     intro:
       "Wellness listings only include information supplied in the catalog. No health claims are invented.",
     faq: [
       {
-        question: "Does BD Beauty Shop invent wellness claims?",
+        question: "Does Beauty Room invent wellness claims?",
         answer: "No. Missing specifications stay blank or marked for admin review.",
       },
     ],
@@ -263,12 +263,12 @@ export const CATEGORY_SEO: CategorySeo[] = [
     h1: "Beauty Accessories",
     subtitle: "Pouches, mirrors, and finishing extras.",
     description:
-      "Shop beauty accessories at BD Beauty Shop, including pouches and finishing extras with delivery across Bangladesh.",
+      "Shop beauty accessories at Beauty Room, including pouches and finishing extras with delivery across Bangladesh.",
     intro:
       "Accessories are kept focused: finishing extras that support a beauty routine rather than cluttering it.",
     faq: [
       {
-        question: "What accessories does BD Beauty Shop sell?",
+        question: "What accessories does Beauty Room sell?",
         answer:
           "Accessories include pouches, mirrors, and selected extras currently active in the catalog.",
       },

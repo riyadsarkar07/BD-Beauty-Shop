@@ -10,14 +10,14 @@ import { normalizeSiteUrl } from "@/lib/seo"
 export const metadata: Metadata = {
     title: "Grooming for Him",
     description:
-        "Shop grooming and skincare essentials for men at BD Beauty. Cleansers, moisturizers, fragrance, and tools with Cash on Delivery across Bangladesh.",
+        "Shop grooming and skincare essentials for men at Beauty Room. Cleansers, moisturizers, fragrance, and tools with Cash on Delivery across Bangladesh.",
     alternates: {
         canonical: "/shop/men",
     },
     openGraph: {
-        title: "Grooming for Him | BD Beauty",
+        title: "Grooming for Him | Beauty Room",
         description:
-            "Shop grooming and skincare essentials for men at BD Beauty. Cleansers, moisturizers, fragrance, and tools.",
+            "Shop grooming and skincare essentials for men at Beauty Room. Cleansers, moisturizers, fragrance, and tools.",
         url: "/shop/men",
     },
 }

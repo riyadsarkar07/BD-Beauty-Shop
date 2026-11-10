@@ -137,7 +137,7 @@ export async function assertDailyFundingCapacity(userId: string, amountPaise: nu
 
 export async function debitWalletForGeneration(userId: string, referenceId: string) {
   await reserveWalletFunds({ userId, amountPaise: WALLET_LIMITS.tryOnCostPaise, referenceType: "try_on_generation", referenceId });
-  return db.transaction((tx) => consumeWalletReservation(tx, { referenceType: "try_on_generation", referenceId, ledgerType: "generation", note: "BD Beauty virtual try-on" }));
+  return db.transaction((tx) => consumeWalletReservation(tx, { referenceType: "try_on_generation", referenceId, ledgerType: "generation", note: "Beauty Room virtual try-on" }));
 }
 
 export async function reverseGenerationCharge(userId: string, referenceId: string) {

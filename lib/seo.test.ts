@@ -77,7 +77,7 @@ test("structured data uses real organization, search, product, and collection UR
     updatedAt: new Date("2026-06-01T00:00:00.000Z"),
   });
   const collection = collectionJsonLd(baseUrl, {
-    name: "Skincare - BD Beauty Shop",
+    name: "Skincare - Beauty Room",
     description: "Cleansers, serums, and daily skin rituals.",
     url: "/shop/skincare",
     products: [

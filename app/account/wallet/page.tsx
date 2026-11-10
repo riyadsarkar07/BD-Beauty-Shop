@@ -6,7 +6,7 @@ import { StorefrontUnavailable } from "@/components/features/storefront-unavaila
 import { isStorefrontOnly } from "@/lib/storefront-mode";
 import { WalletClient } from "./wallet-client";
 
-export const metadata: Metadata = { title: "Wallet | BD Beauty", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Wallet | Beauty Room", robots: { index: false, follow: false } };
 
 export default async function WalletPage() {
   if (isStorefrontOnly()) {

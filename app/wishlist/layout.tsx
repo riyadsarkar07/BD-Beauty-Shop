@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "Wishlist",
-  description: "Your saved items at BD Beauty.",
+  description: "Your saved items at Beauty Room.",
   robots: {
     index: false,
     follow: false,

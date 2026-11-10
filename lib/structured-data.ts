@@ -161,7 +161,7 @@ export function productJsonLd(
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
-    description: product.description || `Shop ${product.name} from BD Beauty Shop.`,
+    description: product.description || `Shop ${product.name} from Beauty Room.`,
     image: product.images?.length
       ? product.images.map((image) => buildAbsoluteUrl(image, baseUrl))
       : [buildAbsoluteUrl("/logo.jpeg", baseUrl)],
