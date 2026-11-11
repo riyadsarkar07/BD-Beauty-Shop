@@ -74,6 +74,7 @@ test("brand protection is linked from sitemap, footer, about, policies, and llms
   const about = read("app/about/page.tsx")
   const policies = read("app/policies/page.tsx")
   const llms = read("app/llms.txt/route.ts")
+  const navbar = read("app/navbar.tsx")
 
   assert.match(sitemap, /\/brand-protection/)
   assert.match(footer, /\/brand-protection/)
@@ -82,4 +83,5 @@ test("brand protection is linked from sitemap, footer, about, policies, and llms
   assert.match(about, /TRADEMARK\.registeredMark|TRADEMARK_NOTICE_LONG/)
   assert.match(policies, /\/brand-protection/)
   assert.match(llms, /\/brand-protection/)
+  assert.match(navbar, /href: "\/brand-protection", label: "Brand Protection"/)
 })

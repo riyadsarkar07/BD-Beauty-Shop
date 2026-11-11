@@ -125,6 +125,18 @@ test("footer and menu shells use theme tokens instead of fixed black and white",
   assert.doesNotMatch(navbar, /bg-neutral-950 text-white/);
 });
 
+test("brand protection is a top-level navbar and footer link with a shield icon", () => {
+  const navbar = read("app/navbar.tsx");
+  const footer = read("components/layout/footer.tsx");
+
+  assert.match(navbar, /href: "\/shop", label: "Shop"/);
+  assert.match(navbar, /href: "\/brand-protection", label: "Brand Protection"/);
+  assert.match(navbar, /href: "\/account"/);
+  assert.match(navbar, /ShieldCheck/);
+  assert.match(navbar, /aria-label="Brand Protection"/);
+  assert.match(footer, /href: "\/brand-protection", label: "Brand Protection"/);
+});
+
 test("non-critical root effects are deferred out of the initial client path", () => {
   const footerGate = read("components/layout/footer-gate.tsx");
   const cursorLoader = read("components/effects/cursor-dot-loader.tsx");

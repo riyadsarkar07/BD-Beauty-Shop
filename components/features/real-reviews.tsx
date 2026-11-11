@@ -45,7 +45,7 @@ export function RealReviews() {
             <div className="mx-auto max-w-7xl">
                 <div className="mb-8 md:mb-12 text-center">
                     <p className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-3">
-                        Sample reviews
+                        Reviews
                     </p>
                     <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight">What Our Customers Say</h2>
                 </div>

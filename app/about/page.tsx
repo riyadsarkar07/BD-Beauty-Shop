@@ -24,7 +24,6 @@ export const metadata: Metadata = {
 
 const teamMembers = [
     {
-        index: "01",
         role: "CTO",
         name: "Aditya Singh",
         shortName: (
@@ -38,7 +37,6 @@ const teamMembers = [
             "Aditya is a skilled developer with expertise in modern web technologies and a passion for creating seamless user experiences.",
     },
     {
-        index: "02",
         role: "Founder",
         name: "Aman Somvanshi",
         shortName: (
@@ -49,22 +47,8 @@ const teamMembers = [
         ),
         image: "/team/founder.jpeg",
         description:
-            "Aman is listed as a founder profile in this codebase. Beauty Room merchandising is operated from Narsingdi, Bangladesh."
+            "Beauty Room merchandising is operated from Narsingdi, Bangladesh."
     },
-    // {
-    //     index: "03",
-    //     role: "Project Manager",
-    //     name: "Michael Brown",
-    //     shortName: (
-    //         <>
-    //             Michael <br />
-    //             Brown
-    //         </>
-    //     ),
-    //     image: "/team/team-3.jpg",
-    //     description:
-    //         "Michael ensures projects are delivered on time and within scope, maintaining excellent communication with clients and the team.",
-    // },
 ]
 
 export default function AboutPage() {
@@ -184,9 +168,6 @@ export default function AboutPage() {
                                     </div>
                                 </div>
                                 <div className="mt-3 md:mt-4">
-                                    <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-muted-foreground md:block hidden">
-                                        ({member.index})
-                                    </p>
                                     <h3 className="text-3xl font-light mt-2 md:hidden block">
                                         {member.name}
                                     </h3>

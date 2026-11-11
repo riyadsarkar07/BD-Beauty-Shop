@@ -18,6 +18,7 @@ const shopLinks = [
 
 const accountLinks = [
   { href: "/about", label: "About" },
+  { href: "/brand-protection", label: "Brand Protection" },
   { href: "/account", label: "Account" },
   { href: "/orders", label: "Orders" },
   { href: "/wishlist", label: "Wishlist" },

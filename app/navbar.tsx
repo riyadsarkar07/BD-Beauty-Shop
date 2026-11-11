@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Suspense, useEffect, useRef, useState, type CSSProperties } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Menu, X, ArrowRight, Search, Loader2 } from "lucide-react";
+import { Menu, X, ArrowRight, Search, Loader2, ShieldCheck } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
@@ -147,10 +147,18 @@ const overlayLinks = [
   { href: "/shop/accessories", label: "Accessories", img: "/hero/pouch.webp" },
 ];
 
+const desktopShopLinks = [
+  { href: "/shop/skincare", label: "Skincare" },
+  { href: "/shop/makeup", label: "Makeup" },
+  { href: "/new", label: "New" },
+  { href: "/shop", label: "Shop" },
+  { href: "/brand-protection", label: "Brand Protection" },
+];
+
 const utilityLinks = [
+  { href: "/brand-protection", label: "Brand Protection" },
   { href: "/gallery", label: "Gallery" },
   { href: "/about", label: "About" },
-  { href: "/brand-protection", label: "Brand Protection" },
   { href: "/account", label: "Account" },
   { href: "/orders", label: "Orders" },
   { href: "/wishlist", label: "Wishlist" },
@@ -856,18 +864,24 @@ export function Navbar() {
               <Search className="h-4 w-4 stroke-[1.5]" />
             </button>
 
+            <Link
+              href="/brand-protection"
+              aria-label="Brand Protection"
+              className="flex h-9 w-9 items-center justify-center text-muted-foreground transition-colors duration-500 hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground/60 sm:hidden"
+            >
+              <ShieldCheck className="h-4 w-4 stroke-[1.5]" />
+            </Link>
+
             <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
-              {[
-                { href: "/shop/skincare", label: "Skincare" },
-                { href: "/shop/makeup", label: "Makeup" },
-                { href: "/new", label: "New" },
-                { href: "/shop", label: "Shop" },
-              ].map((link) => (
+              {desktopShopLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="group relative px-3 py-1.5 tracking-[0.15em] uppercase text-[11px] font-medium text-muted-foreground transition-colors duration-300 hover:text-foreground"
+                  className="group relative inline-flex items-center gap-1.5 px-3 py-1.5 tracking-[0.15em] uppercase text-[11px] font-medium text-muted-foreground transition-colors duration-300 hover:text-foreground"
                 >
+                  {link.href === "/brand-protection" ? (
+                    <ShieldCheck className="h-3.5 w-3.5 stroke-[1.5]" aria-hidden="true" />
+                  ) : null}
                   <StaggeredTextRoll text={link.label} shouldReduceMotion={shouldReduceMotion} />
                 </Link>
               ))}
@@ -891,6 +905,14 @@ export function Navbar() {
             >
               <Search className="h-4 w-4 stroke-[1.5]" />
             </button>
+
+            <Link
+              href="/brand-protection"
+              className="group relative hidden items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-muted-foreground transition-colors duration-300 hover:text-foreground sm:inline-flex md:hidden"
+            >
+              <ShieldCheck className="h-3.5 w-3.5 stroke-[1.5]" aria-hidden="true" />
+              <StaggeredTextRoll text="BRAND PROTECTION" shouldReduceMotion={shouldReduceMotion} />
+            </Link>
 
             <Link
               href="/account"
@@ -1031,7 +1053,7 @@ export function Navbar() {
                     key={link.href}
                     href={link.href}
                     data-xilar-menu-animate
-                    className="w-fit transition-colors duration-300 hover:text-foreground"
+                    className="inline-flex w-fit items-center gap-1.5 transition-colors duration-300 hover:text-foreground"
                     style={{
                       transform: "translateY(120%)",
                       opacity: 0.25,
@@ -1039,6 +1061,9 @@ export function Navbar() {
                     }}
                     onClick={() => setShowMobileMenu(false)}
                   >
+                    {link.href === "/brand-protection" ? (
+                      <ShieldCheck className="h-3.5 w-3.5 stroke-[1.5]" aria-hidden="true" />
+                    ) : null}
                     {link.label}
                   </Link>
                 ))}
