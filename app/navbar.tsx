@@ -8,7 +8,6 @@ import { useQuery } from "@tanstack/react-query";
 import { Menu, X, ArrowRight, Search, Loader2, ShieldCheck } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { useCart } from "@/lib/cart-context";
 import { getWishlistNavState } from "@/lib/actions/wishlist";
 import ThemeToggleButton from "@/components/ui/theme-toggle-button";
 import { ANNOUNCEMENT_MESSAGES } from "@/lib/constants";
@@ -152,7 +151,6 @@ const desktopShopLinks = [
   { href: "/shop/makeup", label: "Makeup" },
   { href: "/new", label: "New" },
   { href: "/shop", label: "Shop" },
-  { href: "/brand-protection", label: "Brand Protection" },
 ];
 
 const utilityLinks = [
@@ -562,7 +560,6 @@ function CatalogSearchOverlay({
 }
 
 export function Navbar() {
-  const { totalItems, setIsOpen, isHydrated: isCartHydrated } = useCart();
   const { data: wishlistNavState } = useQuery({
     queryKey: ["wishlist-nav"],
     queryFn: getWishlistNavState,
@@ -864,14 +861,6 @@ export function Navbar() {
               <Search className="h-4 w-4 stroke-[1.5]" />
             </button>
 
-            <Link
-              href="/brand-protection"
-              aria-label="Brand Protection"
-              className="flex h-9 w-9 items-center justify-center text-muted-foreground transition-colors duration-500 hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground/60 sm:hidden"
-            >
-              <ShieldCheck className="h-4 w-4 stroke-[1.5]" />
-            </Link>
-
             <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
               {desktopShopLinks.map((link) => (
                 <Link
@@ -879,9 +868,6 @@ export function Navbar() {
                   href={link.href}
                   className="group relative inline-flex items-center gap-1.5 px-3 py-1.5 tracking-[0.15em] uppercase text-[11px] font-medium text-muted-foreground transition-colors duration-300 hover:text-foreground"
                 >
-                  {link.href === "/brand-protection" ? (
-                    <ShieldCheck className="h-3.5 w-3.5 stroke-[1.5]" aria-hidden="true" />
-                  ) : null}
                   <StaggeredTextRoll text={link.label} shouldReduceMotion={shouldReduceMotion} />
                 </Link>
               ))}
@@ -907,14 +893,6 @@ export function Navbar() {
             </button>
 
             <Link
-              href="/brand-protection"
-              className="group relative hidden items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-muted-foreground transition-colors duration-300 hover:text-foreground sm:inline-flex md:hidden"
-            >
-              <ShieldCheck className="h-3.5 w-3.5 stroke-[1.5]" aria-hidden="true" />
-              <StaggeredTextRoll text="BRAND PROTECTION" shouldReduceMotion={shouldReduceMotion} />
-            </Link>
-
-            <Link
               href="/account"
               className="group relative hidden px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-muted-foreground transition-colors duration-300 hover:text-foreground sm:block"
             >
@@ -931,16 +909,14 @@ export function Navbar() {
               />
             </Link>
 
-            <button
-              type="button"
-              className="group relative px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
-              onClick={() => setIsOpen(true)}
+            <Link
+              href="/brand-protection"
+              aria-label="Brand Protection"
+              className="group relative hidden items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-muted-foreground transition-colors duration-300 hover:text-foreground md:inline-flex"
             >
-              <StaggeredTextRoll 
-                text={`CART [${isCartHydrated ? totalItems : 0}]`} 
-                shouldReduceMotion={shouldReduceMotion} 
-              />
-            </button>
+              <ShieldCheck className="h-3.5 w-3.5 stroke-[1.5]" aria-hidden="true" />
+              <StaggeredTextRoll text="BRAND PROTECTION" shouldReduceMotion={shouldReduceMotion} />
+            </Link>
           </div>
         </div>
       </header>

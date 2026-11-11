@@ -83,5 +83,5 @@ test("brand protection is linked from sitemap, footer, about, policies, and llms
   assert.match(about, /TRADEMARK\.registeredMark|TRADEMARK_NOTICE_LONG/)
   assert.match(policies, /\/brand-protection/)
   assert.match(llms, /\/brand-protection/)
-  assert.match(navbar, /href: "\/brand-protection", label: "Brand Protection"/)
+  assert.match(navbar, /href="\/brand-protection"/)
 })

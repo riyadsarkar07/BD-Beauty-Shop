@@ -130,10 +130,11 @@ test("brand protection is a top-level navbar and footer link with a shield icon"
   const footer = read("components/layout/footer.tsx");
 
   assert.match(navbar, /href: "\/shop", label: "Shop"/);
-  assert.match(navbar, /href: "\/brand-protection", label: "Brand Protection"/);
-  assert.match(navbar, /href: "\/account"/);
+  assert.match(navbar, /href="\/brand-protection"/);
+  assert.match(navbar, /href="\/account"/);
   assert.match(navbar, /ShieldCheck/);
   assert.match(navbar, /aria-label="Brand Protection"/);
+  assert.doesNotMatch(navbar, /CART \[/);
   assert.match(footer, /href: "\/brand-protection", label: "Brand Protection"/);
 });
 
