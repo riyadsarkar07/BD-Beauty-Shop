@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Instagram, Mail, Phone } from "lucide-react";
 import { PixelatedText } from "@/components/effects/pixelated-text";
 import { CONTACT_EMAIL, CONTACT_FACEBOOK, CONTACT_PHONE, STORE_LOCALITY } from "@/lib/constants";
+import { TRADEMARK } from "@/lib/trademark";
 
 const COPYRIGHT_YEAR = 2026;
 
@@ -28,6 +29,7 @@ const policyLinks = [
   { href: "/policies/exchange", label: "Exchange" },
   { href: "/policies/returns", label: "Returns" },
   { href: "/policies/refunds", label: "Refunds" },
+  { href: "/brand-protection", label: "Brand Protection" },
 ];
 
 function FooterLink({ href, label }: { href: string; label: string }) {
@@ -117,7 +119,7 @@ export function Footer() {
 
         <div className="mt-16 border-t border-border/70 pt-8">
           <div className="grid gap-3 text-[10px] uppercase tracking-[0.2em] text-muted-foreground sm:flex sm:items-center sm:justify-between">
-            <p>&copy; {COPYRIGHT_YEAR} Beauty Room. All rights reserved.</p>
+            <p>&copy; {COPYRIGHT_YEAR} {TRADEMARK.registeredMark}. All rights reserved.</p>
             <div className="flex items-center justify-between gap-5 sm:contents">
               <p>{STORE_LOCALITY}, Bangladesh</p>
               <Link href="/gallery" className="transition-colors duration-300 hover:text-foreground">
@@ -125,6 +127,12 @@ export function Footer() {
               </Link>
             </div>
           </div>
+          <p className="mt-4 max-w-3xl text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+            {TRADEMARK.noticeShort}{" "}
+            <Link href="/brand-protection" className="transition-colors duration-300 hover:text-foreground">
+              Brand Protection
+            </Link>
+          </p>
         </div>
       </div>
     </footer>

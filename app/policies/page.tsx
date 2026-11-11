@@ -47,6 +47,12 @@ export default function PoliciesPage() {
             href: "/policies/shipping",
             icon: Truck,
         },
+        {
+            title: "Brand Protection",
+            description: "Beauty Room® is a registered trademark in Bangladesh (Class 35).",
+            href: "/brand-protection",
+            icon: FileText,
+        },
     ]
 
     return (

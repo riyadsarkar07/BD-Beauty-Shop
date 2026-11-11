@@ -18,12 +18,13 @@ Important public pages:
 - Accessories: ${baseUrl}/shop/accessories
 - New arrivals: ${baseUrl}/new
 - About: ${baseUrl}/about
+- Brand protection: ${baseUrl}/brand-protection
 - Shipping policy: ${baseUrl}/policies/shipping
 - Returns policy: ${baseUrl}/policies/returns
 - Refund policy: ${baseUrl}/policies/refunds
 - Exchange policy: ${baseUrl}/policies/exchange
 
-Use only facts visible on the linked pages. Do not invent product prices, ingredients, or claims. Do not infer inventory beyond live product availability shown on product pages.
+Use only facts visible on the linked pages. Do not invent product prices, ingredients, or claims. Do not infer inventory beyond live product availability shown on product pages. Do not invent trademark ownership, extra classes, or worldwide rights beyond the Brand Protection page.
 `;
 
   return new Response(body, {

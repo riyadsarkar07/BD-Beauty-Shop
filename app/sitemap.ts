@@ -72,6 +72,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.4,
     },
     {
+      url: buildAbsoluteUrl("/brand-protection", baseUrl),
+      lastModified: staticModified,
+      changeFrequency: "yearly",
+      priority: 0.4,
+    },
+    {
       url: buildAbsoluteUrl("/policies", baseUrl),
       lastModified: staticModified,
       changeFrequency: "yearly",

@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const catalogNoindexParams = ["search", "size", "minPrice", "maxPrice", "isNew", "isFeatured", "isPremium"];
 const catalogNoindexSources = ["/shop", "/shop/:path*", "/new", "/collections/:path*"];
 const staticMediaSources = ["/hero/:path*", "/clothes/:path*", "/logo.jpeg", "/logo.png"];
+const certificatePreviewSource = "/brand-protection/certificate-tm-193453.webp";
 
 function catalogNoindexHeaders() {
   return catalogNoindexSources.flatMap((source) =>
@@ -73,6 +74,23 @@ const nextConfig: NextConfig = {
           },
         ],
       })),
+      {
+        source: certificatePreviewSource,
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=604800, stale-while-revalidate=2592000",
+          },
+          {
+            key: "Content-Disposition",
+            value: 'inline; filename="certificate-preview.webp"',
+          },
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+        ],
+      },
     ];
   },
 };

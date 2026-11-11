@@ -150,6 +150,7 @@ const overlayLinks = [
 const utilityLinks = [
   { href: "/gallery", label: "Gallery" },
   { href: "/about", label: "About" },
+  { href: "/brand-protection", label: "Brand Protection" },
   { href: "/account", label: "Account" },
   { href: "/orders", label: "Orders" },
   { href: "/wishlist", label: "Wishlist" },

@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { JsonLd, breadcrumbJsonLd, organizationJsonLd, webSiteJsonLd } from "@/components/seo/structured-data"
 import { CONTACT_EMAIL, CONTACT_FACEBOOK, CONTACT_PHONE, STORE_ADDRESS_LINE, STORE_LOCALITY } from "@/lib/constants"
+import { TRADEMARK, TRADEMARK_NOTICE_LONG } from "@/lib/trademark"
 
 export const metadata: Metadata = {
     title: "About Beauty Room",
@@ -99,7 +100,7 @@ export default function AboutPage() {
 
                     <div className="grid gap-8">
                         <h1 className="font-display max-w-5xl text-6xl leading-[0.88] md:text-8xl lg:text-9xl">
-                            About Beauty Room
+                            About {TRADEMARK.registeredMark}
                         </h1>
                         <div className="relative h-[48svh] min-h-[24rem] overflow-hidden bg-muted md:h-[56svh]">
                             <Image
@@ -222,6 +223,12 @@ export default function AboutPage() {
                                 Beauty Room By Afrin on Facebook
                             </a>
                         </div>
+                        <p className="max-w-md text-xs leading-6 text-muted-foreground md:text-right">
+                            {TRADEMARK_NOTICE_LONG}{" "}
+                            <Link href="/brand-protection" className="text-foreground underline underline-offset-4">
+                                Brand Protection
+                            </Link>
+                        </p>
                         <Button asChild variant="outline" className="h-13 rounded-full px-7 text-xs font-semibold uppercase tracking-[0.2em]">
                             <Link href="/shop">
                                 Shop the edit
