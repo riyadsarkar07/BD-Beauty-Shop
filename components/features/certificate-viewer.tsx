@@ -62,7 +62,7 @@ export function CertificateViewer() {
           role="dialog"
           aria-modal="true"
           aria-labelledby={dialogId}
-          className="fixed inset-0 z-50 flex flex-col bg-background/95"
+          className="fixed inset-0 z-[110] flex flex-col bg-background/95"
         >
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/60 px-4 py-4 md:px-8">
             <p id={dialogId} className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">

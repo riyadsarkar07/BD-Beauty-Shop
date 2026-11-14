@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Facebook, Mail, Phone } from "lucide-react";
-import { PixelatedText } from "@/components/effects/pixelated-text";
+import Image from "next/image";
 import { STORE_LOCALITY } from "@/lib/constants";
 import { TRADEMARK } from "@/lib/trademark";
 
@@ -55,11 +55,12 @@ export function Footer() {
               <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.4em] text-muted-foreground">
                 Beauty, delivered across Bangladesh
               </p>
-              <PixelatedText
-                 text="BEAUTY ROOM"
-                className="h-[clamp(8rem,24vw,22rem)] max-w-5xl"
-                align="left"
-                textClassName="text-left"
+              <Image
+                src="/branding/beauty-room-gold-logo.webp"
+                alt="Beauty Room luxury gold floral logo"
+                width={240}
+                height={195}
+                className="h-auto w-full max-w-60 rounded-xl border border-border/70 object-contain shadow-sm"
               />
             </div>
 
