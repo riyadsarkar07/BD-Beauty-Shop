@@ -103,9 +103,9 @@ async function HomeMerchandisingSections() {
         initialProducts={products}
         hideWhenEmpty
       />
-      <ProductGrid title="Best Sellers" isFeatured includeProductIds={merchandising.bestSellers} initialProducts={products} />
+      <ProductGrid title="Best Sellers" isFeatured includeProductIds={merchandising.bestSellers} initialProducts={products} hideWhenEmpty />
       <ComboSection limit={4} interactive={false} mobileLimit={3} initialCombos={combos} />
-      <ProductGrid title="New Arrivals" isNew includeProductIds={merchandising.newArrivals} viewAllHref="/new" viewAllLabel="Shop all new arrivals" initialProducts={products} />
+      <ProductGrid title="New Arrivals" isNew includeProductIds={merchandising.newArrivals} viewAllHref="/new" viewAllLabel="Shop all new arrivals" initialProducts={products} hideWhenEmpty />
       <ProductGrid
         title="Premium"
         isPremium
@@ -116,7 +116,7 @@ async function HomeMerchandisingSections() {
         hideWhenEmpty
       />
       <DirectionalMarquee />
-      <ProductGrid title="Accessories" fixedCategory="accessory" includeProductIds={merchandising.accessories} viewAllHref="/shop/accessories" initialProducts={products} />
+      <ProductGrid title="Accessories" fixedCategory="accessory" includeProductIds={merchandising.accessories} viewAllHref="/shop/accessories" initialProducts={products} hideWhenEmpty />
       <Dec2024GalleryBand items={galleryBandItems} />
       <RealReviews />
     </>
