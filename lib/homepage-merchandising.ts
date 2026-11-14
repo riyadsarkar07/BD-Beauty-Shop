@@ -50,12 +50,22 @@ export function planHomepageMerchandising<T extends HomepageProduct>(
       // have more alternatives so they may fill the seasonal row first.
       penalty: Number(product.isFeatured) * 2 + Number(product.isNew),
     }))
-    .sort((a, b) => a.penalty - b.penalty || a.index - b.index)
+    .sort((a, b) =>
+      a.penalty - b.penalty ||
+      // For similarly eligible new products, keep hair treatments for the
+      // dedicated New Arrivals row and favor seasonal bodycare instead.
+      (a.penalty > 0
+        ? Number(b.product.category === "haircare") - Number(a.product.category === "haircare")
+        : 0) ||
+      a.index - b.index
+    )
     .map(({ product }) => product);
 
   const seasonal = allocate(seasonalCandidates, 4);
-  const bestSellers = allocate(products.filter((product) => product.isFeatured), 8);
-  const newArrivals = allocate(products.filter((product) => product.isNew), 8);
+  // Four distinct bestseller cards fit the desktop four-column grid.
+  const bestSellers = allocate(products.filter((product) => product.isFeatured), 4);
+  // Keep a new accessory eligible for the dedicated Accessories row.
+  const newArrivals = allocate(products.filter((product) => product.isNew), 3);
   const premium = allocate(products.filter((product) => product.isPremium), 8);
   const accessories = allocate(products.filter((product) => product.category === "accessory"), 8);
 
