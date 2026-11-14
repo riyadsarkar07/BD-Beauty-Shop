@@ -257,3 +257,20 @@ test("homepage avoids a nearly empty accessories grid", () => {
   assert.match(home, /merchandising\.accessories\.length >= 2/);
   assert.match(home, /viewAllHref="\/shop\/accessories"/);
 });
+
+test("uploaded gold brand logo is visible in navbar, menu, footer, brand page and metadata", () => {
+  const asset = "public/branding/beauty-room-gold-logo.webp";
+  const navbar = read("app/navbar.tsx");
+  const footer = read("components/layout/footer.tsx");
+  const brandPage = read("app/brand-protection/page.tsx");
+  const layout = read("app/layout.tsx");
+
+  assert.equal(existsSync(asset), true);
+  const src = "/branding/beauty-room-gold-logo.webp";
+  assert.equal(navbar.split(src).length - 1, 2);
+  assert.match(footer, /beauty-room-gold-logo\.webp/);
+  assert.match(brandPage, /beauty-room-gold-logo\.webp/);
+  assert.match(layout, /beauty-room-gold-logo\.webp/);
+  assert.match(brandPage, /<CertificateViewer \/>/);
+  assert.doesNotMatch(brandPage, /TRADEMARK_FACTS|TRADEMARK\.proprietorAddress/);
+});
