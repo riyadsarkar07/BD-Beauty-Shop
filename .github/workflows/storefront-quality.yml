@@ -16,9 +16,6 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    env:
-      NEXT_PUBLIC_STOREFRONT_ONLY: "true"
-      NEXT_PUBLIC_APP_URL: "https://example.com"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -34,4 +31,7 @@ jobs:
       - name: Unit tests
         run: npm test
       - name: Production build (storefront only)
+        env:
+          NEXT_PUBLIC_STOREFRONT_ONLY: "true"
+          NEXT_PUBLIC_APP_URL: "https://example.com"
         run: npm run build
