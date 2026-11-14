@@ -96,6 +96,7 @@ async function HomeMerchandisingSections() {
     <>
       <ProductGrid
         title="Seasonal Care"
+        showGenderTabs={false}
         categories={WINTER_CATEGORIES}
         includeProductIds={merchandising.seasonal}
         viewAllHref="/shop/skincare"
@@ -103,11 +104,12 @@ async function HomeMerchandisingSections() {
         initialProducts={products}
         hideWhenEmpty
       />
-      <ProductGrid title="Best Sellers" isFeatured includeProductIds={merchandising.bestSellers} initialProducts={products} hideWhenEmpty />
+      <ProductGrid title="Best Sellers" showGenderTabs={false} isFeatured includeProductIds={merchandising.bestSellers} initialProducts={products} hideWhenEmpty />
       <ComboSection limit={4} interactive={false} mobileLimit={3} initialCombos={combos} />
-      <ProductGrid title="New Arrivals" isNew includeProductIds={merchandising.newArrivals} viewAllHref="/new" viewAllLabel="Shop all new arrivals" initialProducts={products} hideWhenEmpty />
+      <ProductGrid title="New Arrivals" showGenderTabs={false} isNew includeProductIds={merchandising.newArrivals} viewAllHref="/new" viewAllLabel="Shop all new arrivals" initialProducts={products} hideWhenEmpty />
       <ProductGrid
         title="Premium"
+        showGenderTabs={false}
         isPremium
         includeProductIds={merchandising.premium}
         viewAllHref="/collections/premium"
@@ -116,7 +118,7 @@ async function HomeMerchandisingSections() {
         hideWhenEmpty
       />
       <DirectionalMarquee />
-      <ProductGrid title="Accessories" fixedCategory="accessory" includeProductIds={merchandising.accessories} viewAllHref="/shop/accessories" initialProducts={products} hideWhenEmpty />
+      <ProductGrid title="Accessories" showGenderTabs={false} fixedCategory="accessory" includeProductIds={merchandising.accessories} viewAllHref="/shop/accessories" initialProducts={products} hideWhenEmpty />
       <Dec2024GalleryBand items={galleryBandItems} />
       <RealReviews />
     </>
