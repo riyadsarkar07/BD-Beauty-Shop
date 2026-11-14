@@ -30,8 +30,11 @@ jobs:
         run: npx tsc --noEmit
       - name: Unit tests
         run: npm test
-      - name: Production build (storefront only)
+      # Next.js 16 Turbopack has an intermittent remote Google-font loader
+      # regression. Run the independent CI build with Webpack; Vercel still
+      # verifies the normal production build for this repository.
+      - name: Production build (storefront only, webpack fallback)
         env:
           NEXT_PUBLIC_STOREFRONT_ONLY: "true"
           NEXT_PUBLIC_APP_URL: "https://example.com"
-        run: npm run build
+        run: npm run build -- --webpack
