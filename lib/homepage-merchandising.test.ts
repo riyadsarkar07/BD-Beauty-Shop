@@ -66,3 +66,10 @@ test("legacy photo aliases are counted as a single image", () => {
   assert.deepEqual(result.newArrivals, ["lip"]);
   assert.deepEqual(result.accessories, []);
 });
+
+test("products missing images do not repeat the same fallback photo", () => {
+  const missingA = item("a", "skincare", "");
+  const missingB = item("b", "skincare", "");
+  const result = planHomepageMerchandising([missingA, missingB], ["skincare"]);
+  assert.deepEqual(result.seasonal, ["a"]);
+});
