@@ -273,3 +273,17 @@ test("brand protection keeps certificate accessible without restoring private fa
   assert.match(page, /trademark-certificate-title/);
   assert.doesNotMatch(page, /TRADEMARK_FACTS|TRADEMARK\.proprietorAddress/);
 });
+
+test("certificate is presented in the first desktop content row and the footer uses the gold logo", () => {
+  const page = read("app/brand-protection/page.tsx");
+  const footer = read("components/layout/footer.tsx");
+  const viewer = read("components/features/certificate-viewer.tsx");
+
+  assert.match(page, /lg:grid-cols-\\[/);
+  assert.match(page, /id="trademark-certificate-title"/);
+  assert.match(page, /<CertificateViewer \\/>/);
+  assert.match(page, /beauty-room-gold-logo\\.webp/);
+  assert.match(footer, /src="\\/branding\\/beauty-room-gold-logo\\.webp"/);
+  assert.doesNotMatch(footer, /<PixelatedText/);
+  assert.match(viewer, /z-\\[110\\]/);
+});
