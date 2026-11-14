@@ -210,7 +210,7 @@ export default function NewProductPage() {
                   value={formData.name}
                   onChange={(e) => handleNameChange(e.target.value)}
                   className="w-full px-3 py-2 border rounded-lg bg-background"
-                  placeholder="Street Cargo Pants"
+                  placeholder="Hydrating Face Serum"
                 />
               </div>
               <div className="space-y-2">
@@ -221,7 +221,7 @@ export default function NewProductPage() {
                   value={formData.slug}
                   onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
                   className="w-full px-3 py-2 border rounded-lg bg-background"
-                  placeholder="street-cargo-pants"
+                  placeholder="hydrating-face-serum"
                 />
               </div>
             </div>
