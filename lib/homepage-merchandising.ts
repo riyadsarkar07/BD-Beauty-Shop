@@ -46,7 +46,9 @@ export function planHomepageMerchandising<T extends HomepageProduct>(
     .map((product, index) => ({
       product,
       index,
-      penalty: Number(product.isFeatured) + Number(product.isNew),
+      // Preserve featured products for the Best Sellers row. New arrivals
+      // have more alternatives so they may fill the seasonal row first.
+      penalty: Number(product.isFeatured) * 2 + Number(product.isNew),
     }))
     .sort((a, b) => a.penalty - b.penalty || a.index - b.index)
     .map(({ product }) => product);
