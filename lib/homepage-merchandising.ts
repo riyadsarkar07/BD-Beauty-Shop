@@ -28,7 +28,7 @@ export function planHomepageMerchandising<T extends HomepageProduct>(
   const allocate = (candidates: readonly T[], max: number) => {
     const chosen: string[] = [];
     for (const product of candidates) {
-      const image = canonicalPhoto(product.images[0]?.trim() ?? "");
+      const image = canonicalPhoto(product.images[0]?.trim() || "/hero/image.webp");
       if (usedProductIds.has(product.id) || (image && usedPrimaryImages.has(image))) continue;
 
       chosen.push(product.id);
