@@ -20,10 +20,15 @@ export function planHomepageMerchandising<T extends HomepageProduct>(
   const usedProductIds = new Set<string>();
   const usedPrimaryImages = new Set<string>();
 
+  // These two legacy public assets have the same Git blob SHA, despite
+  // different filenames. Treat them as one photograph when curating rows.
+  const canonicalPhoto = (src: string) =>
+    src === "/hero/pouch.webp" ? "/hero/lipstick.webp" : src;
+
   const allocate = (candidates: readonly T[], max: number) => {
     const chosen: string[] = [];
     for (const product of candidates) {
-      const image = product.images[0]?.trim();
+      const image = canonicalPhoto(product.images[0]?.trim() ?? "");
       if (usedProductIds.has(product.id) || (image && usedPrimaryImages.has(image))) continue;
 
       chosen.push(product.id);
