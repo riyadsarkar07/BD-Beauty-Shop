@@ -245,3 +245,15 @@ test("public media has explicit cache policy for repeat visits", () => {
   assert.match(nextConfig, /"\/clothes\/:path\*"/);
   assert.match(nextConfig, /stale-while-revalidate=2592000/);
 });
+
+test("footer social-style shortcuts keep visitors on the same website", () => {
+  const footer = read("components/layout/footer.tsx");
+  assert.doesNotMatch(footer, /href={`mailto:|href={`tel:|href={CONTACT_FACEBOOK}/);
+  assert.equal((footer.match(/href="\/"\s+title="Beauty Room website"/g) ?? []).length, 3);
+});
+
+test("homepage avoids a nearly empty accessories grid", () => {
+  const home = read("app/page.tsx");
+  assert.match(home, /merchandising\.accessories\.length >= 2/);
+  assert.match(home, /viewAllHref="\/shop\/accessories"/);
+});

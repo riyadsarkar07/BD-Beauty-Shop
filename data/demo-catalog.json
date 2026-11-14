@@ -1026,8 +1026,7 @@
       ],
       "stock": 47,
       "images": [
-        "/hero/mirror.webp",
-        "/hero/pouch.webp"
+        "/products/demo/compact-mirror.webp"
       ],
       "ingredients": null,
       "volume": null,

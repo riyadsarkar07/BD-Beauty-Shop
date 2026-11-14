@@ -82,6 +82,10 @@ const nextConfig: NextConfig = {
             value: "public, max-age=604800, stale-while-revalidate=2592000",
           },
           {
+            key: "X-Robots-Tag",
+            value: "noindex, noarchive",
+          },
+          {
             key: "Content-Disposition",
             value: 'inline; filename="certificate-preview.webp"',
           },

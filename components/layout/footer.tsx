@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Facebook, Mail, Phone } from "lucide-react";
 import { PixelatedText } from "@/components/effects/pixelated-text";
-import { CONTACT_EMAIL, CONTACT_FACEBOOK, CONTACT_PHONE, STORE_LOCALITY } from "@/lib/constants";
+import { STORE_LOCALITY } from "@/lib/constants";
 import { TRADEMARK } from "@/lib/trademark";
 
 const COPYRIGHT_YEAR = 2026;
@@ -64,29 +64,31 @@ export function Footer() {
             </div>
 
             <div className="flex items-center gap-3 text-muted-foreground">
-              <a
-                className="group inline-flex h-16 w-16 items-center justify-center rounded-full border border-border transition-colors duration-300 hover:border-foreground/35 hover:text-foreground"
-                href={`mailto:${CONTACT_EMAIL}`}
-                aria-label={`Email ${CONTACT_EMAIL}`}
+              {/* These footer shortcuts intentionally stay on the Beauty Room website. */}
+              <Link
+                className="group inline-flex h-16 w-16 items-center justify-center rounded-full border border-border transition-colors duration-300 hover:border-foreground/35 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                href="/"
+                title="Beauty Room website"
+                aria-label="Visit Beauty Room website (mail shortcut)"
               >
                 <Mail className="h-7 w-7" />
-              </a>
-              <a
-                className="group inline-flex h-16 w-16 items-center justify-center rounded-full border border-border transition-colors duration-300 hover:border-foreground/35 hover:text-foreground"
-                href={`tel:${CONTACT_PHONE.replace(/\s+/g, "")}`}
-                aria-label={`Call ${CONTACT_PHONE}`}
+              </Link>
+              <Link
+                className="group inline-flex h-16 w-16 items-center justify-center rounded-full border border-border transition-colors duration-300 hover:border-foreground/35 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                href="/"
+                title="Beauty Room website"
+                aria-label="Visit Beauty Room website (phone shortcut)"
               >
                 <Phone className="h-7 w-7" />
-              </a>
-              <a
-                className="group inline-flex h-16 w-16 items-center justify-center rounded-full border border-border transition-colors duration-300 hover:border-foreground/35 hover:text-foreground"
-                href={CONTACT_FACEBOOK}
-                rel="noreferrer"
-                target="_blank"
-                aria-label="Facebook"
+              </Link>
+              <Link
+                className="group inline-flex h-16 w-16 items-center justify-center rounded-full border border-border transition-colors duration-300 hover:border-foreground/35 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                href="/"
+                title="Beauty Room website"
+                aria-label="Visit Beauty Room website (Facebook shortcut)"
               >
                 <Facebook className="h-7 w-7" />
-              </a>
+              </Link>
             </div>
           </div>
 
