@@ -79,9 +79,9 @@ export const metadata: Metadata = {
     url: "/",
     images: [
       {
-        url: "/logo.jpeg",
-        width: 1200,
-        height: 630,
+        url: "/branding/beauty-room-gold-logo.webp",
+        width: 260,
+        height: 210,
         alt: "Beauty Room — Beauty, delivered across Bangladesh",
       },
     ],
@@ -91,14 +91,11 @@ export const metadata: Metadata = {
     title: "Beauty Room",
     description:
       "Premium Bangladesh beauty store for skincare, makeup, haircare, and wellness.",
-    images: ["/logo.jpeg"],
+    images: ["/branding/beauty-room-gold-logo.webp"],
   },
   icons: {
-    icon: [
-      { url: "/logo.jpeg" },
-      { url: "/logo.jpeg", sizes: "32x32", type: "image/jpeg" },
-    ],
-    apple: [{ url: "/logo.jpeg", sizes: "180x180", type: "image/jpeg" }],
+    icon: [{ url: "/branding/beauty-room-gold-logo.webp", type: "image/webp" }],
+    apple: [{ url: "/branding/beauty-room-gold-logo.webp", type: "image/webp" }],
   },
   robots: {
     index: true,
