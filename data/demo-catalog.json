@@ -20,8 +20,7 @@
       ],
       "stock": 42,
       "images": [
-        "/hero/image(11).webp",
-        "/hero/image(9).webp"
+        "/products/demo/rice-water-cleanser.webp"
       ],
       "ingredients": "Water, glycerin, rice extract",
       "volume": 150,
@@ -71,8 +70,7 @@
       ],
       "stock": 28,
       "images": [
-        "/hero/image(4).webp",
-        "/hero/body-butter.webp"
+        "/products/demo/ceramide-barrier-cream.webp"
       ],
       "ingredients": "Water, ceramides, shea butter",
       "volume": 50,
@@ -122,8 +120,7 @@
       ],
       "stock": 36,
       "images": [
-        "/hero/wellness.webp",
-        "/hero/image(6).webp"
+        "/products/demo/vitamin-c-serum.webp"
       ],
       "ingredients": "Water, ascorbic acid derivative, hyaluronic acid",
       "volume": 30,
@@ -173,8 +170,7 @@
       ],
       "stock": 40,
       "images": [
-        "/hero/image(9).webp",
-        "/hero/image.webp"
+        "/products/demo/mens-daily-face-wash.webp"
       ],
       "ingredients": "Water, glycerin, mild surfactants",
       "volume": 120,
