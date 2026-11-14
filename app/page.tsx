@@ -118,7 +118,19 @@ async function HomeMerchandisingSections() {
         hideWhenEmpty
       />
       <DirectionalMarquee />
-      <ProductGrid title="Accessories" showGenderTabs={false} fixedCategory="accessory" includeProductIds={merchandising.accessories} viewAllHref="/shop/accessories" initialProducts={products} hideWhenEmpty />
+      {/* A lone accessory leaves three empty desktop columns; keep the
+          collection in Shop until at least two distinct items are available. */}
+      {merchandising.accessories.length >= 2 && (
+        <ProductGrid
+          title="Accessories"
+          showGenderTabs={false}
+          fixedCategory="accessory"
+          includeProductIds={merchandising.accessories}
+          viewAllHref="/shop/accessories"
+          initialProducts={products}
+          hideWhenEmpty
+        />
+      )}
       <Dec2024GalleryBand items={galleryBandItems} />
       <RealReviews />
     </>
