@@ -279,11 +279,11 @@ test("certificate is presented in the first desktop content row and the footer u
   const footer = read("components/layout/footer.tsx");
   const viewer = read("components/features/certificate-viewer.tsx");
 
-  assert.match(page, /lg:grid-cols-\\[/);
-  assert.match(page, /id="trademark-certificate-title"/);
-  assert.match(page, /<CertificateViewer \\/>/);
-  assert.match(page, /beauty-room-gold-logo\\.webp/);
-  assert.match(footer, /src="\\/branding\\/beauty-room-gold-logo\\.webp"/);
+  assert.ok(page.includes("lg:grid-cols-["));
+  assert.ok(page.includes('id="trademark-certificate-title"'));
+  assert.ok(page.includes("<CertificateViewer />"));
+  assert.ok(page.includes("beauty-room-gold-logo.webp"));
+  assert.ok(footer.includes('src="/branding/beauty-room-gold-logo.webp"'));
   assert.doesNotMatch(footer, /<PixelatedText/);
-  assert.match(viewer, /z-\\[110\\]/);
+  assert.ok(viewer.includes("z-[110]"));
 });
