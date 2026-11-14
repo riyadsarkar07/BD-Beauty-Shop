@@ -80,6 +80,7 @@ export function ProductGrid({
     viewAllHref = "/shop",
     viewAllLabel = "View all products",
     initialProducts,
+    includeProductIds,
     hideWhenEmpty = false,
     maxProducts = 8,
     showGenderTabs = true,
@@ -97,6 +98,8 @@ export function ProductGrid({
     viewAllHref?: string
     viewAllLabel?: string
     initialProducts?: CatalogProduct[] | Promise<CatalogProduct[]>
+    /** When provided, only these products can appear in this section. */
+    includeProductIds?: readonly string[]
     hideWhenEmpty?: boolean
     maxProducts?: number | null
     showGenderTabs?: boolean
@@ -113,7 +116,10 @@ export function ProductGrid({
     const showTabs = showGenderTabs && !gender && !fixedCategory && layout !== "scroll"
     const products = useMemo(() => {
         const resolvedGender = gender || (!fixedCategory && showGenderTabs ? activeTab : "all")
-        return filterCatalogProducts(catalogProducts, {
+        const eligibleProducts = includeProductIds
+            ? catalogProducts.filter((product) => includeProductIds.includes(product.id))
+            : catalogProducts
+        return filterCatalogProducts(eligibleProducts, {
             gender: resolvedGender,
             fixedCategory,
             categories,
@@ -122,7 +128,7 @@ export function ProductGrid({
             isPremium,
             limit: enableInfiniteScroll ? null : maxProducts,
         })
-    }, [activeTab, catalogProducts, categories, fixedCategory, gender, isFeatured, isNew, isPremium, maxProducts, showGenderTabs, enableInfiniteScroll])
+    }, [activeTab, catalogProducts, categories, fixedCategory, gender, includeProductIds, isFeatured, isNew, isPremium, maxProducts, showGenderTabs, enableInfiniteScroll])
 
     const displayedProducts = useMemo(() => {
         if (enableInfiniteScroll) {
