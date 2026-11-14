@@ -55,7 +55,7 @@ export function planHomepageMerchandising<T extends HomepageProduct>(
       // For similarly eligible new products, keep hair treatments for the
       // dedicated New Arrivals row and favor seasonal bodycare instead.
       (a.penalty > 0
-        ? Number(b.product.category === "haircare") - Number(a.product.category === "haircare")
+        ? Number(a.product.category === "haircare") - Number(b.product.category === "haircare")
         : 0) ||
       a.index - b.index
     )
