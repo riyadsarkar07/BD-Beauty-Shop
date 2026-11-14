@@ -54,7 +54,7 @@ test("certificate preview asset is present and the page does not offer a downloa
   const form = read("components/features/brand-misuse-report.tsx")
   const config = read("next.config.ts")
 
-  assert.doesNotMatch(page, /<CertificateViewer \/>/)
+  assert.match(page, /<CertificateViewer \/>/)
   assert.doesNotMatch(page, /TRADEMARK_FACTS|TRADEMARK\.proprietorName|TRADEMARK\.proprietorAddress/)
   assert.doesNotMatch(page, /193453|ZN Tower|Riyad Sarkar|certificate-tm-/)
   assert.match(page, /TRADEMARK\.registeredMark/)
@@ -63,6 +63,7 @@ test("certificate preview asset is present and the page does not offer a downloa
   assert.match(page, /<details/)
   assert.match(page, /<BrandMisuseReport \/>/)
   assert.match(viewer, /TRADEMARK\.certificatePreviewSrc/)
+  assert.match(page, /Trademark certificate/)
   assert.doesNotMatch(page, /download/i)
   assert.doesNotMatch(viewer, /download/i)
   assert.doesNotMatch(page, /Unilever/i)
