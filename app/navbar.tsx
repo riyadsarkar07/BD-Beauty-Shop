@@ -830,8 +830,18 @@ export function Navbar() {
           </div>
 
           {/* Center: Logo */}
-          <Link href="/" className="flex-shrink-0 flex items-center justify-center">
-            <span className="whitespace-nowrap font-[family-name:var(--font-instrument-serif)] text-[1.7rem] leading-none tracking-tight text-foreground md:text-3xl lg:text-4xl">Beauty Room</span>
+          <Link href="/" aria-label="Beauty Room — Home" className="flex shrink-0 items-center justify-center gap-1.5 md:gap-2.5">
+            <Image
+              src="/branding/beauty-room-gold-logo.webp"
+              alt="Beauty Room gold emblem"
+              width={260}
+              height={210}
+              priority
+              className="h-10 w-auto shrink-0 object-contain md:h-14"
+            />
+            <span className="whitespace-nowrap font-[family-name:var(--font-instrument-serif)] text-[1.2rem] leading-none tracking-tight text-foreground sm:text-2xl lg:text-3xl">
+              Beauty Room
+            </span>
           </Link>
 
           {/* Right: Actions */}
@@ -910,8 +920,22 @@ export function Navbar() {
           }}
         >
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center" onClick={() => setShowMobileMenu(false)}>
-            <span className="whitespace-nowrap font-[family-name:var(--font-instrument-serif)] text-2xl leading-none tracking-tight text-foreground md:text-3xl">Beauty Room</span>
+            <Link
+              href="/"
+              aria-label="Beauty Room — Home"
+              className="flex items-center gap-2"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              <Image
+                src="/branding/beauty-room-gold-logo.webp"
+                alt="Beauty Room gold emblem"
+                width={260}
+                height={210}
+                className="h-12 w-auto object-contain md:h-14"
+              />
+              <span className="whitespace-nowrap font-[family-name:var(--font-instrument-serif)] text-xl leading-none tracking-tight text-foreground md:text-3xl">
+                Beauty Room
+              </span>
             </Link>
             <Button
               variant="ghost"

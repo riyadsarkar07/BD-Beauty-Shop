@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowUpRight, ShieldCheck } from "lucide-react"
 import { BrandMisuseReport } from "@/components/features/brand-misuse-report"
+import { CertificateViewer } from "@/components/features/certificate-viewer"
 import { JsonLd, breadcrumbJsonLd } from "@/components/seo/structured-data"
 import { normalizeSiteUrl } from "@/lib/seo"
 import { TRADEMARK } from "@/lib/trademark"
@@ -86,7 +87,19 @@ export default function BrandProtectionPage() {
           </Link>
         </div>
 
-        <details className="group mt-16 border-t border-border/70 pt-8">
+        <section aria-labelledby="trademark-certificate-title" className="mt-16 border-t border-border/70 pt-8">
+          <h2 id="trademark-certificate-title" className="font-display text-3xl md:text-4xl">
+            Trademark certificate
+          </h2>
+          <p className="mt-3 mb-6 max-w-xl text-sm leading-7 text-muted-foreground">
+            Original registration certificate. Select the preview to view it larger.
+          </p>
+          <div className="max-w-sm">
+            <CertificateViewer />
+          </div>
+        </section>
+
+        <details className="group mt-8 border-t border-border/70 pt-8">
           <summary className="cursor-pointer list-item text-sm font-medium text-foreground marker:text-muted-foreground">
             Report suspected brand misuse
           </summary>

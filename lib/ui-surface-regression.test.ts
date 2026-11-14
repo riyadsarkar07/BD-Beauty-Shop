@@ -257,3 +257,19 @@ test("homepage avoids a nearly empty accessories grid", () => {
   assert.match(home, /merchandising\.accessories\.length >= 2/);
   assert.match(home, /viewAllHref="\/shop\/accessories"/);
 });
+
+test("uploaded gold logo is used in the main navbar, menu and page metadata", () => {
+  const navbar = read("app/navbar.tsx");
+  const layout = read("app/layout.tsx");
+  const path = "public/branding/beauty-room-gold-logo.webp";
+  assert.equal(existsSync(path), true);
+  assert.equal((navbar.match(/\/branding\/beauty-room-gold-logo\.webp/g) ?? []).length, 2);
+  assert.match(layout, /\/branding\/beauty-room-gold-logo\.webp/);
+});
+
+test("brand protection keeps certificate accessible without restoring private facts table", () => {
+  const page = read("app/brand-protection/page.tsx");
+  assert.match(page, /<CertificateViewer \/>/);
+  assert.match(page, /trademark-certificate-title/);
+  assert.doesNotMatch(page, /TRADEMARK_FACTS|TRADEMARK\.proprietorAddress/);
+});
