@@ -87,18 +87,17 @@ export default function BrandProtectionPage() {
           </Link>
         </div>
 
-        <details className="group mt-16 border-t border-border/70 pt-8">
-          <summary className="cursor-pointer list-item text-sm font-medium text-foreground marker:text-muted-foreground">
-            View trademark certificate
-          </summary>
-          <div className="mt-6 max-w-2xl space-y-4">
-            <p className="text-sm leading-7 text-muted-foreground">
-              View the original registration certificate below. Registration details and the
-              original document are unchanged; the preview is available for inspection.
-            </p>
+        <section aria-labelledby="trademark-certificate-title" className="mt-16 border-t border-border/70 pt-8">
+          <h2 id="trademark-certificate-title" className="font-display text-3xl md:text-4xl">
+            Trademark certificate
+          </h2>
+          <p className="mt-3 mb-6 max-w-xl text-sm leading-7 text-muted-foreground">
+            Original registration certificate. Select the preview to view it larger.
+          </p>
+          <div className="max-w-sm">
             <CertificateViewer />
           </div>
-        </details>
+        </section>
 
         <details className="group mt-8 border-t border-border/70 pt-8">
           <summary className="cursor-pointer list-item text-sm font-medium text-foreground marker:text-muted-foreground">
