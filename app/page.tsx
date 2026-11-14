@@ -9,6 +9,7 @@ import { DirectionalMarquee } from "@/components/effects/directional-marquee";
 import { getActiveCombosWithProducts } from "@/lib/combos";
 import { getCatalogProducts } from "@/lib/product-catalog";
 import { WINTER_CATEGORIES } from "@/lib/product-categories";
+import { planHomepageMerchandising } from "@/lib/homepage-merchandising";
 import {
   JsonLd,
   organizationJsonLd,
@@ -83,6 +84,7 @@ async function HomeMerchandisingSections() {
     getCatalogProducts(),
     getActiveCombosWithProducts(4),
   ]);
+  const merchandising = planHomepageMerchandising(products, WINTER_CATEGORIES);
   const galleryBandItems = products.flatMap((product) =>
     product.images.map((image) => ({
       src: image,
@@ -95,24 +97,26 @@ async function HomeMerchandisingSections() {
       <ProductGrid
         title="Seasonal Care"
         categories={WINTER_CATEGORIES}
+        includeProductIds={merchandising.seasonal}
         viewAllHref="/shop/skincare"
         viewAllLabel="Shop skincare"
         initialProducts={products}
         hideWhenEmpty
       />
-      <ProductGrid title="Best Sellers" isFeatured initialProducts={products} />
+      <ProductGrid title="Best Sellers" isFeatured includeProductIds={merchandising.bestSellers} initialProducts={products} />
       <ComboSection limit={4} interactive={false} mobileLimit={3} initialCombos={combos} />
-      <ProductGrid title="New Arrivals" isNew viewAllHref="/new" viewAllLabel="Shop all new arrivals" initialProducts={products} />
+      <ProductGrid title="New Arrivals" isNew includeProductIds={merchandising.newArrivals} viewAllHref="/new" viewAllLabel="Shop all new arrivals" initialProducts={products} />
       <ProductGrid
         title="Premium"
         isPremium
+        includeProductIds={merchandising.premium}
         viewAllHref="/collections/premium"
         viewAllLabel="Explore premium collection"
         initialProducts={products}
         hideWhenEmpty
       />
       <DirectionalMarquee />
-      <ProductGrid title="Accessories" fixedCategory="accessory" viewAllHref="/shop/accessories" initialProducts={products} />
+      <ProductGrid title="Accessories" fixedCategory="accessory" includeProductIds={merchandising.accessories} viewAllHref="/shop/accessories" initialProducts={products} />
       <Dec2024GalleryBand items={galleryBandItems} />
       <RealReviews />
     </>
