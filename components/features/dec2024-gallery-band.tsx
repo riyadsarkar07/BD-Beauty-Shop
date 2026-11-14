@@ -44,8 +44,10 @@ function uniqueBySrc(items: GalleryBandItem[]) {
   const unique: GalleryBandItem[] = [];
 
   items.forEach((item) => {
-    if (seen.has(item.src)) return;
-    seen.add(item.src);
+    // Legacy filenames pouch.webp and lipstick.webp contain identical bytes.
+    const key = item.src === "/hero/pouch.webp" ? "/hero/lipstick.webp" : item.src;
+    if (seen.has(key)) return;
+    seen.add(key);
     unique.push(item);
   });
 

@@ -80,6 +80,7 @@ export function ProductGrid({
     viewAllHref = "/shop",
     viewAllLabel = "View all products",
     initialProducts,
+    includeProductIds,
     hideWhenEmpty = false,
     maxProducts = 8,
     showGenderTabs = true,
@@ -97,6 +98,8 @@ export function ProductGrid({
     viewAllHref?: string
     viewAllLabel?: string
     initialProducts?: CatalogProduct[] | Promise<CatalogProduct[]>
+    /** When provided, only these products can appear in this section. */
+    includeProductIds?: readonly string[]
     hideWhenEmpty?: boolean
     maxProducts?: number | null
     showGenderTabs?: boolean
@@ -113,7 +116,10 @@ export function ProductGrid({
     const showTabs = showGenderTabs && !gender && !fixedCategory && layout !== "scroll"
     const products = useMemo(() => {
         const resolvedGender = gender || (!fixedCategory && showGenderTabs ? activeTab : "all")
-        return filterCatalogProducts(catalogProducts, {
+        const eligibleProducts = includeProductIds
+            ? catalogProducts.filter((product) => includeProductIds.includes(product.id))
+            : catalogProducts
+        return filterCatalogProducts(eligibleProducts, {
             gender: resolvedGender,
             fixedCategory,
             categories,
@@ -122,7 +128,7 @@ export function ProductGrid({
             isPremium,
             limit: enableInfiniteScroll ? null : maxProducts,
         })
-    }, [activeTab, catalogProducts, categories, fixedCategory, gender, isFeatured, isNew, isPremium, maxProducts, showGenderTabs, enableInfiniteScroll])
+    }, [activeTab, catalogProducts, categories, fixedCategory, gender, includeProductIds, isFeatured, isNew, isPremium, maxProducts, showGenderTabs, enableInfiniteScroll])
 
     const displayedProducts = useMemo(() => {
         if (enableInfiniteScroll) {
@@ -251,7 +257,7 @@ export function ProductGrid({
                             <div key={product.id} className="flex-shrink-0 w-[200px] sm:w-[240px] snap-start">
                                 <ViewportPrefetchLink href={buildProductPath(product.slug)}>
                                     <Card className="bg-transparent border-0 rounded-none hover-lift">
-                                        <CardContent className="p-0 relative aspect-[3/4] overflow-hidden bg-muted/30">
+                                        <CardContent className="beauty-product-media p-0 relative aspect-[3/4] overflow-hidden bg-muted/30">
                                             {product.stock === 0 && (
                                                 <div className="absolute top-3 left-3 z-10 badge-sold-out">Sold Out</div>
                                             )}
@@ -291,7 +297,7 @@ export function ProductGrid({
                             <div key={product.id}>
                                 <ViewportPrefetchLink href={buildProductPath(product.slug)}>
                                     <Card className="bg-transparent border-0 rounded-none hover-lift">
-                                        <CardContent className="p-0 relative aspect-[3/4] overflow-hidden bg-muted/30">
+                                        <CardContent className="beauty-product-media p-0 relative aspect-[3/4] overflow-hidden bg-muted/30">
                                             {/* Sold Out Badge */}
                                             {product.stock === 0 && (
                                                 <div className="absolute top-3 left-3 z-10 badge-sold-out">
@@ -356,7 +362,7 @@ export function ProductGrid({
                             >
                                 <ViewportPrefetchLink href={buildProductPath(product.slug)}>
                                     <Card className="bg-transparent border-0 rounded-none hover-lift">
-                                        <CardContent className="p-0 relative aspect-[3/4] overflow-hidden bg-muted/30">
+                                        <CardContent className="beauty-product-media p-0 relative aspect-[3/4] overflow-hidden bg-muted/30">
                                             {/* Sold Out Badge */}
                                             {product.stock === 0 && (
                                                 <div className="absolute top-3 left-3 z-10 badge-sold-out">

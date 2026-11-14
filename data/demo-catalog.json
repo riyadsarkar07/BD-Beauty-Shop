@@ -20,8 +20,7 @@
       ],
       "stock": 42,
       "images": [
-        "/hero/image.webp",
-        "/hero/image(1).webp"
+        "/products/demo/rice-water-cleanser.webp"
       ],
       "ingredients": "Water, glycerin, rice extract",
       "volume": 150,
@@ -71,8 +70,7 @@
       ],
       "stock": 28,
       "images": [
-        "/hero/image(4).webp",
-        "/hero/body-butter.webp"
+        "/products/demo/ceramide-barrier-cream.webp"
       ],
       "ingredients": "Water, ceramides, shea butter",
       "volume": 50,
@@ -122,8 +120,7 @@
       ],
       "stock": 36,
       "images": [
-        "/hero/image(6).webp",
-        "/hero/image(11).webp"
+        "/products/demo/vitamin-c-serum.webp"
       ],
       "ingredients": "Water, ascorbic acid derivative, hyaluronic acid",
       "volume": 30,
@@ -173,8 +170,7 @@
       ],
       "stock": 40,
       "images": [
-        "/hero/image(9).webp",
-        "/hero/image.webp"
+        "/products/demo/mens-daily-face-wash.webp"
       ],
       "ingredients": "Water, glycerin, mild surfactants",
       "volume": 120,
@@ -290,8 +286,7 @@
       ],
       "stock": 32,
       "images": [
-        "/hero/image(3).webp",
-        "/hero/newhero1.webp"
+        "/hero/image(1).webp"
       ],
       "ingredients": "Water, pigments, squalane",
       "volume": 30,
@@ -463,8 +458,7 @@
       ],
       "stock": 26,
       "images": [
-        "/hero/hair-mist.webp",
-        "/hero/image(13).webp"
+        "/hero/wellness.webp"
       ],
       "ingredients": "Caprylic triglyceride, rosemary oil",
       "volume": 50,
@@ -667,7 +661,6 @@
       ],
       "stock": 34,
       "images": [
-        "/hero/body-butter.webp",
         "/hero/image(4).webp"
       ],
       "ingredients": "Shea butter, coconut oil, vitamin E",
@@ -927,7 +920,6 @@
       ],
       "stock": 24,
       "images": [
-        "/hero/wellness.webp",
         "/hero/image(6).webp"
       ],
       "ingredients": "Purified water, magnesium citrate",

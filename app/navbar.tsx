@@ -580,8 +580,26 @@ export function Navbar() {
   const headerRef = useRef<HTMLElement>(null);
   const announcementRef = useRef<HTMLDivElement>(null);
   const [isAnnouncementInViewport, setIsAnnouncementInViewport] = useState(true);
-  const headerHiddenRef = useRef(false);
-  const headerScrollRafRef = useRef<number | null>(null);
+
+  // Keep the document locked while the menu is open, but let the overlay
+  // itself scroll. Restore the previous styles immediately on close/unmount.
+  useEffect(() => {
+    if (!showMobileMenu) return;
+
+    const body = document.body;
+    const html = document.documentElement;
+    const previousBodyOverflow = body.style.overflow;
+    const previousHtmlOverflow = html.style.overflow;
+
+    body.style.overflow = "hidden";
+    html.style.overflow = "hidden";
+    if (menuOverlayRef.current) menuOverlayRef.current.scrollTop = 0;
+
+    return () => {
+      body.style.overflow = previousBodyOverflow;
+      html.style.overflow = previousHtmlOverflow;
+    };
+  }, [showMobileMenu]);
 
   useGSAP(() => {
     const mainContainer = document.getElementById("main-content-container");
@@ -589,19 +607,20 @@ export function Navbar() {
     const content = menuContentRef.current;
     if (!mainContainer || !overlay || !content) return;
 
+    const links = gsap.utils.toArray<HTMLElement>("[data-xilar-menu-animate]");
+
     if (shouldReduceMotion) {
-      if (showMobileMenu) {
-        document.body.style.overflow = "hidden";
-      } else {
-        document.body.style.overflow = "";
-      }
+      gsap.killTweensOf([mainContainer, overlay, content, links]);
+      gsap.set(mainContainer, { x: 0, y: 0, rotation: 0, scale: 1 });
+      gsap.set(content, { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 });
+      gsap.set(links, { y: "0%", opacity: 1 });
+      gsap.set(overlay, {
+        clipPath: showMobileMenu ? "inset(0 0 0 0)" : "inset(0 0 100% 0)",
+      });
       return;
     }
 
-    const links = gsap.utils.toArray<HTMLElement>("[data-xilar-menu-animate]");
-
     if (showMobileMenu) {
-      document.body.style.overflow = "hidden";
       gsap.killTweensOf([mainContainer, overlay, content, links]);
 
       gsap.to(mainContainer, {
@@ -665,79 +684,15 @@ export function Navbar() {
         ease: "power4.inOut",
         onComplete: () => {
           gsap.set(links, { y: "120%", opacity: 0.25 });
-          document.body.style.overflow = "";
         },
       });
     }
   }, { dependencies: [showMobileMenu, shouldReduceMotion], scope: navContainerRef });
 
-  useGSAP(() => {
-    const header = headerRef.current;
-    if (!header) return;
-
-    if (showMobileMenu || shouldReduceMotion) {
-      gsap.to(header, {
-        y: 0,
-        duration: 0.3,
-        ease: "power2.out",
-      });
-    } else {
-      const scrollY = window.scrollY;
-      const headerHeight = header.offsetHeight;
-      if (scrollY > 50) {
-        gsap.to(header, {
-          y: -headerHeight,
-          duration: 0.5,
-          ease: "power4.out",
-        });
-      } else {
-        gsap.to(header, {
-          y: 0,
-          duration: 0.5,
-          ease: "power4.out",
-        });
-      }
-    }
-  }, { dependencies: [showMobileMenu, shouldReduceMotion], scope: navContainerRef });
-
-  useEffect(() => {
-    const header = headerRef.current;
-    if (!header || showMobileMenu || shouldReduceMotion) return;
-
-    let lastScrollY = window.scrollY;
-    const setHeaderHidden = (hidden: boolean) => {
-      if (headerHiddenRef.current === hidden) return;
-      headerHiddenRef.current = hidden;
-
-      gsap.to(header, {
-        y: hidden ? -header.offsetHeight : 0,
-        duration: 0.38,
-        ease: "power4.out",
-        overwrite: "auto",
-      });
-    };
-
-    const handleScroll = () => {
-      if (headerScrollRafRef.current !== null) return;
-
-      headerScrollRafRef.current = window.requestAnimationFrame(() => {
-        headerScrollRafRef.current = null;
-        const scrollY = window.scrollY;
-        setHeaderHidden(scrollY > 50 && scrollY > lastScrollY);
-        lastScrollY = scrollY;
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (headerScrollRafRef.current !== null) {
-        window.cancelAnimationFrame(headerScrollRafRef.current);
-        headerScrollRafRef.current = null;
-      }
-    };
-  }, [showMobileMenu, shouldReduceMotion]);
+  // Keep the brand and primary navigation visible while browsing.
+  // The previous scroll-triggered GSAP translateY hid the entire header,
+  // including the Beauty Room wordmark and access to the mobile menu.
+  // A normal sticky header avoids that regression without JS scroll listeners.
 
   useEffect(() => {
     const el = announcementRef.current;
@@ -809,7 +764,7 @@ export function Navbar() {
         </div>
       </div>
 
-      <header ref={headerRef} className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl transition-colors duration-500 hover:bg-background">
+      <header ref={headerRef} className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/95 backdrop-blur-lg transition-colors duration-300 hover:bg-background">
         <div className="flex h-14 md:h-20 items-center justify-between px-4 md:px-8 lg:px-12">
           
           {/* Left: Mobile Menu Toggle / Desktop Nav */}
@@ -936,7 +891,8 @@ export function Navbar() {
         role="dialog"
         aria-modal="true"
         aria-label="Site navigation"
-        className="fixed inset-0 z-[100] overflow-hidden bg-background text-foreground"
+        aria-hidden={!showMobileMenu}
+        className="fixed inset-0 z-[100] overflow-x-hidden overflow-y-auto overscroll-contain touch-pan-y bg-background text-foreground"
         style={{
           clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
           pointerEvents: showMobileMenu ? "auto" : "none",
@@ -945,7 +901,7 @@ export function Navbar() {
       >
         <div
           ref={menuContentRef}
-          className="flex h-svh flex-col justify-between overflow-hidden px-5 py-5 md:px-10 md:py-6"
+          className="flex min-h-svh flex-col px-5 py-5 md:px-10 md:py-6"
           style={{
             transform: "translateX(-100px) translateY(-100px) scale(1.5) rotate(-15deg)",
             opacity: 0.25,
@@ -968,8 +924,8 @@ export function Navbar() {
             </Button>
           </div>
 
-          <div className="grid min-h-0 flex-1 content-center gap-5 py-3 md:grid-cols-[0.85fr_1.15fr] md:items-stretch md:gap-12 md:py-6">
-            <div className="relative hidden h-full overflow-hidden bg-muted md:block">
+          <div className="grid flex-1 items-center gap-5 py-6 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] md:gap-12 md:py-8">
+            <div className="relative hidden h-[min(58dvh,40rem)] min-h-[16rem] overflow-hidden bg-muted md:block">
               <AnimatePresence mode="popLayout">
                 <motion.div
                   key={previewImage}
@@ -1004,7 +960,7 @@ export function Navbar() {
                       ref={i === 0 ? firstMenuLinkRef : undefined}
                       href={link.href}
                       data-xilar-menu-animate
-                      className="group flex items-center justify-between py-2 font-display text-[clamp(2.65rem,13vw,5.4rem)] leading-[0.84] text-foreground transition-colors duration-500 hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:py-3 md:text-5xl lg:text-6xl"
+                      className="group flex items-center justify-between py-2 font-display text-[clamp(2.1rem,9.2vw,3.8rem)] leading-[0.95] text-foreground transition-colors duration-300 hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:text-[clamp(2.6rem,4.3vw,3.65rem)]"
                       style={{
                         transform: "translateY(120%)",
                         opacity: 0.25,

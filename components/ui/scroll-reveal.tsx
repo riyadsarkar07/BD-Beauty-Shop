@@ -20,7 +20,7 @@ export function ScrollReveal({
     className,
     delay = 0,
     direction = "up",
-    duration = 0.7,
+    duration = 0.58,
     once = true,
     amount = "some",
 }: ScrollRevealProps) {
@@ -31,10 +31,10 @@ export function ScrollReveal({
     }
 
     const directionOffset = {
-        up: { y: 48 },
-        down: { y: -48 },
-        left: { x: 48 },
-        right: { x: -48 },
+        up: { y: 24 },
+        down: { y: -24 },
+        left: { x: 24 },
+        right: { x: -24 },
         none: {},
     }
 
@@ -42,7 +42,7 @@ export function ScrollReveal({
         <motion.div
             initial={{
                 opacity: 0,
-                filter: "blur(6px)",
+                filter: "blur(3px)",
                 ...directionOffset[direction],
             }}
             whileInView={{
@@ -112,10 +112,13 @@ export function StaggerItem({
     children: ReactNode
     className?: string
 }) {
+    const shouldReduceMotion = useReducedMotion()
+    if (shouldReduceMotion) return <div className={className}>{children}</div>
+
     return (
         <motion.div
             variants={{
-                hidden: { opacity: 0, y: 32, filter: "blur(6px)" },
+                hidden: { opacity: 0, y: 20, filter: "blur(3px)" },
                 visible: {
                     opacity: 1,
                     y: 0,

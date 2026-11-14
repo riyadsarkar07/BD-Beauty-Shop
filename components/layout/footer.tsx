@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Instagram, Mail, Phone } from "lucide-react";
+import { ArrowRight, Facebook, Mail, Phone } from "lucide-react";
 import { PixelatedText } from "@/components/effects/pixelated-text";
 import { CONTACT_EMAIL, CONTACT_FACEBOOK, CONTACT_PHONE, STORE_LOCALITY } from "@/lib/constants";
 import { TRADEMARK } from "@/lib/trademark";
@@ -85,7 +85,7 @@ export function Footer() {
                 target="_blank"
                 aria-label="Facebook"
               >
-                <Instagram className="h-7 w-7" />
+                <Facebook className="h-7 w-7" />
               </a>
             </div>
           </div>

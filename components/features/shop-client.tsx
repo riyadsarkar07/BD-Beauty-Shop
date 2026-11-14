@@ -482,7 +482,7 @@ function ShopProductGrid({
                                     onClick={() => saveScrollState(product.id)}
                                 >
                                     <Card className="bg-transparent border-0 rounded-none hover-lift">
-                                        <CardContent className="p-0 relative aspect-[3/4] overflow-hidden bg-muted/30">
+                                        <CardContent className="beauty-product-media p-0 relative aspect-[3/4] overflow-hidden bg-muted/30">
                                             <Image
                                                 src={normalizeProductImage(product.images?.[0])}
                                                 alt={product.name}
