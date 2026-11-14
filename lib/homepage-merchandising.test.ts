@@ -56,3 +56,13 @@ test("empty catalog returns empty rows", () => {
   assert.deepEqual(result.premium, []);
   assert.deepEqual(result.accessories, []);
 });
+
+test("legacy photo aliases are counted as a single image", () => {
+  const products = [
+    item("lip", "makeup", "/hero/lipstick.webp", false, true),
+    item("pouch", "accessory", "/hero/pouch.webp"),
+  ];
+  const result = planHomepageMerchandising(products, ["skincare"]);
+  assert.deepEqual(result.newArrivals, ["lip"]);
+  assert.deepEqual(result.accessories, []);
+});
