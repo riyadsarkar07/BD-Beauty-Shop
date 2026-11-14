@@ -251,7 +251,7 @@ export function ProductGrid({
                             <div key={product.id} className="flex-shrink-0 w-[200px] sm:w-[240px] snap-start">
                                 <ViewportPrefetchLink href={buildProductPath(product.slug)}>
                                     <Card className="bg-transparent border-0 rounded-none hover-lift">
-                                        <CardContent className="p-0 relative aspect-[3/4] overflow-hidden bg-muted/30">
+                                        <CardContent className="beauty-product-media p-0 relative aspect-[3/4] overflow-hidden bg-muted/30">
                                             {product.stock === 0 && (
                                                 <div className="absolute top-3 left-3 z-10 badge-sold-out">Sold Out</div>
                                             )}
@@ -291,7 +291,7 @@ export function ProductGrid({
                             <div key={product.id}>
                                 <ViewportPrefetchLink href={buildProductPath(product.slug)}>
                                     <Card className="bg-transparent border-0 rounded-none hover-lift">
-                                        <CardContent className="p-0 relative aspect-[3/4] overflow-hidden bg-muted/30">
+                                        <CardContent className="beauty-product-media p-0 relative aspect-[3/4] overflow-hidden bg-muted/30">
                                             {/* Sold Out Badge */}
                                             {product.stock === 0 && (
                                                 <div className="absolute top-3 left-3 z-10 badge-sold-out">
@@ -356,7 +356,7 @@ export function ProductGrid({
                             >
                                 <ViewportPrefetchLink href={buildProductPath(product.slug)}>
                                     <Card className="bg-transparent border-0 rounded-none hover-lift">
-                                        <CardContent className="p-0 relative aspect-[3/4] overflow-hidden bg-muted/30">
+                                        <CardContent className="beauty-product-media p-0 relative aspect-[3/4] overflow-hidden bg-muted/30">
                                             {/* Sold Out Badge */}
                                             {product.stock === 0 && (
                                                 <div className="absolute top-3 left-3 z-10 badge-sold-out">
