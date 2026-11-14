@@ -1,5 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { existsSync } from "node:fs";
+import { getDemoCatalogProducts } from "./demo-catalog.ts";
 import { planHomepageMerchandising, type HomepageProduct } from "./homepage-merchandising.ts";
 
 const item = (
@@ -72,4 +74,30 @@ test("products missing images do not repeat the same fallback photo", () => {
   const missingB = item("b", "skincare", "");
   const result = planHomepageMerchandising([missingA, missingB], ["skincare"]);
   assert.deepEqual(result.seasonal, ["a"]);
+});
+
+test("actual storefront demo products have distinct featured images per homepage section", () => {
+  const catalog = getDemoCatalogProducts().products;
+  const plan = planHomepageMerchandising(catalog, ["skincare", "bodycare", "haircare"]);
+  const ids = [
+    ...plan.seasonal,
+    ...plan.bestSellers,
+    ...plan.newArrivals,
+    ...plan.premium,
+    ...plan.accessories,
+  ];
+  const images = ids.map((id) => catalog.find((product) => product.id === id)?.images[0] ?? "");
+  assert.equal(new Set(ids).size, ids.length);
+  assert.equal(new Set(images).size, images.length);
+  for (const src of images) {
+    assert.ok(src.startsWith("/") && existsSync(`public${src}`), `Missing product photo: ${src}`);
+  }
+  for (const photo of [
+    "rice-water-cleanser",
+    "vitamin-c-serum",
+    "ceramide-barrier-cream",
+    "mens-daily-face-wash",
+  ]) {
+    assert.ok(existsSync(`public/products/demo/${photo}.webp`), `Missing original demo photo: ${photo}`);
+  }
 });
