@@ -580,8 +580,6 @@ export function Navbar() {
   const headerRef = useRef<HTMLElement>(null);
   const announcementRef = useRef<HTMLDivElement>(null);
   const [isAnnouncementInViewport, setIsAnnouncementInViewport] = useState(true);
-  const headerHiddenRef = useRef(false);
-  const headerScrollRafRef = useRef<number | null>(null);
 
   // Keep the document locked while the menu is open, but let the overlay
   // itself scroll. Restore the previous styles immediately on close/unmount.
@@ -691,73 +689,10 @@ export function Navbar() {
     }
   }, { dependencies: [showMobileMenu, shouldReduceMotion], scope: navContainerRef });
 
-  useGSAP(() => {
-    const header = headerRef.current;
-    if (!header) return;
-
-    if (showMobileMenu || shouldReduceMotion) {
-      gsap.to(header, {
-        y: 0,
-        duration: 0.3,
-        ease: "power2.out",
-      });
-    } else {
-      const scrollY = window.scrollY;
-      const headerHeight = header.offsetHeight;
-      if (scrollY > 50) {
-        gsap.to(header, {
-          y: -headerHeight,
-          duration: 0.5,
-          ease: "power4.out",
-        });
-      } else {
-        gsap.to(header, {
-          y: 0,
-          duration: 0.5,
-          ease: "power4.out",
-        });
-      }
-    }
-  }, { dependencies: [showMobileMenu, shouldReduceMotion], scope: navContainerRef });
-
-  useEffect(() => {
-    const header = headerRef.current;
-    if (!header || showMobileMenu || shouldReduceMotion) return;
-
-    let lastScrollY = window.scrollY;
-    const setHeaderHidden = (hidden: boolean) => {
-      if (headerHiddenRef.current === hidden) return;
-      headerHiddenRef.current = hidden;
-
-      gsap.to(header, {
-        y: hidden ? -header.offsetHeight : 0,
-        duration: 0.38,
-        ease: "power4.out",
-        overwrite: "auto",
-      });
-    };
-
-    const handleScroll = () => {
-      if (headerScrollRafRef.current !== null) return;
-
-      headerScrollRafRef.current = window.requestAnimationFrame(() => {
-        headerScrollRafRef.current = null;
-        const scrollY = window.scrollY;
-        setHeaderHidden(scrollY > 50 && scrollY > lastScrollY);
-        lastScrollY = scrollY;
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (headerScrollRafRef.current !== null) {
-        window.cancelAnimationFrame(headerScrollRafRef.current);
-        headerScrollRafRef.current = null;
-      }
-    };
-  }, [showMobileMenu, shouldReduceMotion]);
+  // Keep the brand and primary navigation visible while browsing.
+  // The previous scroll-triggered GSAP translateY hid the entire header,
+  // including the Beauty Room wordmark and access to the mobile menu.
+  // A normal sticky header avoids that regression without JS scroll listeners.
 
   useEffect(() => {
     const el = announcementRef.current;
@@ -829,7 +764,7 @@ export function Navbar() {
         </div>
       </div>
 
-      <header ref={headerRef} className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl transition-colors duration-500 hover:bg-background">
+      <header ref={headerRef} className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/95 backdrop-blur-lg transition-colors duration-300 hover:bg-background">
         <div className="flex h-14 md:h-20 items-center justify-between px-4 md:px-8 lg:px-12">
           
           {/* Left: Mobile Menu Toggle / Desktop Nav */}
