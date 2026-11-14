@@ -286,8 +286,7 @@
       ],
       "stock": 32,
       "images": [
-        "/hero/image(3).webp",
-        "/hero/newhero1.webp"
+        "/hero/image(1).webp"
       ],
       "ingredients": "Water, pigments, squalane",
       "volume": 30,
@@ -459,8 +458,7 @@
       ],
       "stock": 26,
       "images": [
-        "/hero/hair-mist.webp",
-        "/hero/image(13).webp"
+        "/hero/wellness.webp"
       ],
       "ingredients": "Caprylic triglyceride, rosemary oil",
       "volume": 50,
@@ -663,7 +661,6 @@
       ],
       "stock": 34,
       "images": [
-        "/hero/body-butter.webp",
         "/hero/image(4).webp"
       ],
       "ingredients": "Shea butter, coconut oil, vitamin E",
@@ -923,7 +920,6 @@
       ],
       "stock": 24,
       "images": [
-        "/hero/wellness.webp",
         "/hero/image(6).webp"
       ],
       "ingredients": "Purified water, magnesium citrate",
