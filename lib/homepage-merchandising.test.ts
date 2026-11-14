@@ -79,6 +79,12 @@ test("products missing images do not repeat the same fallback photo", () => {
 test("actual storefront demo products have distinct featured images per homepage section", () => {
   const catalog = getDemoCatalogProducts().products;
   const plan = planHomepageMerchandising(catalog, ["skincare", "bodycare", "haircare"]);
+  // Preserve useful density in each distinct merchandising section.
+  assert.equal(plan.seasonal.length, 4);
+  assert.equal(plan.bestSellers.length, 4);
+  assert.ok(plan.newArrivals.length >= 3);
+  assert.ok(plan.premium.length >= 2);
+  assert.ok(plan.accessories.length >= 1);
   const ids = [
     ...plan.seasonal,
     ...plan.bestSellers,
