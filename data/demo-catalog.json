@@ -20,8 +20,8 @@
       ],
       "stock": 42,
       "images": [
-        "/hero/image.webp",
-        "/hero/image(1).webp"
+        "/hero/image(11).webp",
+        "/hero/image(9).webp"
       ],
       "ingredients": "Water, glycerin, rice extract",
       "volume": 150,
@@ -122,8 +122,8 @@
       ],
       "stock": 36,
       "images": [
-        "/hero/image(6).webp",
-        "/hero/image(11).webp"
+        "/hero/body-butter.webp",
+        "/hero/wellness.webp"
       ],
       "ingredients": "Water, ascorbic acid derivative, hyaluronic acid",
       "volume": 30,
